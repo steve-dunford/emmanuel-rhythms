@@ -17,5 +17,9 @@ class AuthModel extends ChangeNotifier with Disposer {
     }).disposedBy(disposeBag);
   }
 
+  Future<void> logout() {
+    return _authRepository.logout();
+  }
+
 
 }

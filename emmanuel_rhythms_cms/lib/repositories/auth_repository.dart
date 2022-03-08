@@ -5,6 +5,7 @@ abstract class AuthRepository {
 
   Stream<User?> currentUserChanges();
   Future<bool> login(String email, String password);
+  Future<void> logout();
 }
 
 class FirebaseAuthRepository extends AuthRepository {
@@ -30,6 +31,10 @@ class FirebaseAuthRepository extends AuthRepository {
 
     return false;
 
+  }
+
+  Future<void> logout() {
+    return FirebaseAuth.instance.signOut();
   }
 
 
