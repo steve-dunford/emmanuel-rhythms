@@ -11,7 +11,9 @@ class HeaderWidget extends StatelessWidget {
 
     return Row(
       children: [
-        Image.asset('assets/emmanuel_logo_home.jpg'),
+        SizedBox(
+          height: 40,
+            child: Image.asset('assets/emmanuel_logo_home.jpg')),
         if (authModel.currentUser != null)
           Expanded(
               child: Align(

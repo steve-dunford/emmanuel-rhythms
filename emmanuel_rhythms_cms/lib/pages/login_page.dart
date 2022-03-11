@@ -1,6 +1,10 @@
+import 'dart:js';
+
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/header_widget.dart';
+import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
+import 'package:emmanuel_rhythms_cms/routes.dart';
 import 'package:emmanuel_rhythms_cms/view_models/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -15,36 +19,55 @@ class LoginPage extends StatelessWidget {
 
         final model = context.watch<LoginViewModel>();
 
-        return Column(
-        children: [
-          HeaderWidget(),
-          Expanded(
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                        'Log In',
-                        style: AppTextStyle
-                            .theme(context)
-                            .subtitle1
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+          children: [
+            HeaderWidget(),
+            Expanded(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        children: [
+                          Text(
+                              'Log In',
+                              style: AppTextStyle
+                                  .theme(context)
+                                  .subtitle1
+                          ),
+                          const SizedBox(height: 30),
+                          _ValidatedField(
+                              onChanged: (value) => model.email = value,
+                              hint: 'Email',
+                              error: model.emailError,
+                          ),
+                          const SizedBox(height: 30),
+                          _ValidatedField(
+                            onChanged: (value) => model.password = value,
+                            hint: 'Password',
+                            error: model.passwordError,
+                            isPassword: true,
+                          ),
+                          const SizedBox(height: 30),
+                          ThemedButton(onTap: () async {
+                            if(await model.login()) {
+                              Navigator.of(context).pushReplacementNamed(Routes.home);
+                            }
+                          },
+                              isRunningOperation: model.isLoggingIn,
+                              text: 'Log in')
+                        ],
+                      ),
                     ),
-                    _ValidatedField(
-                        onChanged: (value) => model.email = value,
-                        hint: 'Email',
-                        error: model.emailError,
-                    ),
-                    _ValidatedField(
-                      onChanged: (value) => model.password = value,
-                      hint: 'Password',
-                      error: model.passwordError,
-                      isPassword: true,
-                    ),
-                  ],
-                ),
-              )
-          )
-        ],
-      );
+                  ),
+                )
+            )
+          ],
+      ),
+        );
     });
   }
 }
@@ -74,17 +97,25 @@ class _ValidatedField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: error == null ?
-              const BorderSide() :
+              const BorderSide(color: Colors.black, width: 1.0) :
               const BorderSide(color: AppColours.emmanuelBlue, width: 3.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:
+              const BorderSide(color: Colors.black, width: 1.0)
             ),
           ),
         ),
         if(error != null)
-          Text(
-              error!,
-              style: AppTextStyle
-                  .theme(context)
-                  .bodyText1
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Text(
+                error!,
+                style: AppTextStyle
+                    .theme(context)
+                    .bodyText1
+            ),
           )
 
       ],

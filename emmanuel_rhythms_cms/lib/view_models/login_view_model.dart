@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class LoginViewModel extends ChangeNotifier {
 
+  static final emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final AuthRepository _authRepository;
 
   LoginViewModel(this._authRepository);
@@ -24,6 +25,9 @@ class LoginViewModel extends ChangeNotifier {
       if (_validate()) {
         if(await _authRepository.login(email!, password!)) {
           return true;
+        } else {
+          emailError = 'Details not recognised';
+
         }
       }
 
@@ -36,12 +40,21 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   bool _validate() {
+    emailError = null;
+    passwordError = null;
+
     if (email?.isNotEmpty != true) {
       emailError = 'Please enter your email';
       return false;
     }
+
+    if(!emailRegex.hasMatch(email!)) {
+      emailError = 'Please enter a valid email address';
+      return false;
+    }
+
     if(password?.isNotEmpty != true) {
-      password = 'Please enter your password';
+      passwordError = 'Please enter your password';
       return false;
     }
 
