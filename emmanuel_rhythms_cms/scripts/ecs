@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+# Export Flutter path to be used by internal scripts.
+export PATH="`pwd`/flutter/bin:$PATH"
+
+# Commands are dividend in it's own bash script inside the scripts folder.
+# Execute commands based on their input name and pass all input arguments expect the command name.
+source $PWD/scripts/$1 "${@:2}"

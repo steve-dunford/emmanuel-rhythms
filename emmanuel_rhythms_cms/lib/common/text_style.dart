@@ -1,7 +1,6 @@
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
 import 'package:flutter/material.dart';
 
-@immutable
 
 class AppTextStyle {
   static TextStyle avenirNext(BuildContext context) {

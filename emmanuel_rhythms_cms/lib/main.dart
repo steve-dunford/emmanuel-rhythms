@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   Route? _onGenerateRoute(RouteSettings settings, AuthModel model) {
     Widget? page;
 
-    if(settings.name == Routes.login || model.currentUser == null) {
+    if(settings.name == Routes.login && model.currentUser == null) {
       page = LoginPage();
     } else {
       switch(settings.name) {
