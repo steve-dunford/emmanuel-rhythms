@@ -14,8 +14,6 @@ class FirebaseItemRepository extends ItemRepository {
   Stream<List<Item>> itemsForDates(DateTime startDate, DateTime endDate) {
     return FirebaseFirestore.instance
         .collection(FirebaseCollections.items)
-        .where('startDate', isLessThanOrEqualTo: startDate)
-        .where('endDate', isGreaterThanOrEqualTo: endDate)
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Item.fromJson(doc.data())).toList());
@@ -28,7 +26,7 @@ class FirebaseItemRepository extends ItemRepository {
     return FirebaseFirestore.instance
         .collection(FirebaseCollections.itemInstances)
         .where('date', isGreaterThanOrEqualTo: startDate)
-        .where('endDate', isLessThanOrEqualTo: endDate)
+        .where('date', isLessThanOrEqualTo: endDate)
         .snapshots()
         .map((snapshot) =>
         snapshot.docs.map((doc) => ItemInstance.fromJson(doc.data())).toList());
