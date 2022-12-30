@@ -23,6 +23,7 @@ mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   ItemType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
+      String? description,
       String? backgroundImage,
       String? url,
       List<Tag> tags,
@@ -66,6 +68,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? id = freezed,
     Object? type = freezed,
     Object? title = freezed,
+    Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? tags = freezed,
@@ -86,6 +89,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       backgroundImage: backgroundImage == freezed
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
@@ -123,6 +130,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
+      String? description,
       String? backgroundImage,
       String? url,
       List<Tag> tags,
@@ -145,6 +153,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? id = freezed,
     Object? type = freezed,
     Object? title = freezed,
+    Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? tags = freezed,
@@ -165,6 +174,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       backgroundImage: backgroundImage == freezed
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
@@ -200,6 +213,7 @@ class _$_Item implements _Item {
       {required this.id,
       required this.type,
       required this.title,
+      this.description,
       this.backgroundImage,
       this.url,
       required final List<Tag> tags,
@@ -217,6 +231,8 @@ class _$_Item implements _Item {
   final ItemType type;
   @override
   final String title;
+  @override
+  final String? description;
   @override
   final String? backgroundImage;
   @override
@@ -245,7 +261,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, backgroundImage: $backgroundImage, url: $url, tags: $tags, startDate: $startDate, endDate: $endDate, daysOfWeek: $daysOfWeek)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, tags: $tags, startDate: $startDate, endDate: $endDate, daysOfWeek: $daysOfWeek)';
   }
 
   @override
@@ -256,6 +272,8 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
             const DeepCollectionEquality()
                 .equals(other.backgroundImage, backgroundImage) &&
             const DeepCollectionEquality().equals(other.url, url) &&
@@ -273,6 +291,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(backgroundImage),
       const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(_tags),
@@ -296,6 +315,7 @@ abstract class _Item implements Item {
       {required final String id,
       required final ItemType type,
       required final String title,
+      final String? description,
       final String? backgroundImage,
       final String? url,
       required final List<Tag> tags,
@@ -311,6 +331,8 @@ abstract class _Item implements Item {
   ItemType get type;
   @override
   String get title;
+  @override
+  String? get description;
   @override
   String? get backgroundImage;
   @override

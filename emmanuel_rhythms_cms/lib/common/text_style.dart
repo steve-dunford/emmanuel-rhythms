@@ -28,7 +28,7 @@ class AppTextStyle {
       headline2: avenirNextBold.copyWith(fontSize: 60, color: AppColours.emmanuelBlue),
       headline3: avenirNextBold.copyWith(fontSize: 50, color: AppColours.emmanuelBlue),
       headline4: avenirNextBold.copyWith(fontSize: 45, color: AppColours.emmanuelBlue),
-      headline5: avenirNextBold.copyWith(fontSize: 38, color: AppColours.emmanuelBlue),
+      headline5: avenirNextBold.copyWith(fontSize: 38, color: AppColours.emmanuelBlue, fontWeight: FontWeight.bold),
       headline6: avenirNextBold.copyWith(fontSize: 24, color: AppColours.emmanuelBlue),
       subtitle1: avenirNextBold.copyWith(fontSize: 22),
       subtitle2: avenirNextBold.copyWith(fontSize: 18),

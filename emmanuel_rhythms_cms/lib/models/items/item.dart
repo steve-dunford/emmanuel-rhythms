@@ -17,6 +17,7 @@ class Item with _$Item {
       {required String id,
       required ItemType type,
       required String title,
+      String? description,
       String? backgroundImage,
       String? url,
       required List<Tag> tags,
