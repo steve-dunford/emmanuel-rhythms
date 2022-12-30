@@ -40,15 +40,18 @@ class Item with _$Item {
 extension ItemExtensions on Item {
   List<ItemInstance> generateInstances() {
     var currentDate = startDate;
-    final instances = List<ItemInstance>.empty();
+    var instances = List<ItemInstance>.empty();
 
     while (currentDate.isBefore(endDate) ||
         currentDate.isAtSameMomentAs(endDate)) {
       if (daysOfWeek == null ||
           daysOfWeek!.isEmpty ||
           daysOfWeek!.contains(currentDate.weekday)) {
-        instances.add(ItemInstance(
-            itemInstanceId: const Uuid().v4(), itemId: id, date: currentDate));
+
+        final instance = ItemInstance(
+            itemInstanceId: const Uuid().v4(), itemId: id, date: currentDate);
+
+        instances = [...instances, instance];
       }
 
       currentDate = currentDate.add(const Duration(days: 1));

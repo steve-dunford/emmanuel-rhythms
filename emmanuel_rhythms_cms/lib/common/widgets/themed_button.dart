@@ -7,10 +7,12 @@ class ThemedButton extends StatelessWidget {
   final VoidCallback onTap;
   final bool isRunningOperation;
   final String text;
+  final double height;
 
   const ThemedButton({
     required this.onTap,
     required this.text,
+    this.height = 60.0,
     this.isRunningOperation = false,
   });
 
@@ -21,19 +23,22 @@ class ThemedButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 60,
+          height: height,
           decoration: BoxDecoration(
               color: AppColours.emmanuelBlue,
               borderRadius: BorderRadius.circular(5)
           ),
-          child: Center(
-            child:
-              isRunningOperation ?
-              const CircularProgressIndicator(color: Colors.white) :
-            Text(text, style: AppTextStyle
-                .theme(context)
-                .bodyText1!
-                .copyWith(color: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child:
+                isRunningOperation ?
+                const CircularProgressIndicator(color: Colors.white) :
+              Text(text, style: AppTextStyle
+                  .theme(context)
+                  .bodyText1!
+                  .copyWith(color: Colors.white),
+              ),
             ),
           ),
         ),

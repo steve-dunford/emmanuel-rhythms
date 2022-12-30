@@ -2,6 +2,7 @@ import 'package:cell_calendar/cell_calendar.dart';
 import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/header_widget.dart';
 import 'package:emmanuel_rhythms_cms/models/header_command.dart';
+import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/view_models/calendar_view_model.dart';
 import 'package:emmanuel_rhythms_cms/widgets/item_details_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class CalendarPage extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (ctx) => Dialog(
-                                child: ItemDetailsWidget(),
+                                child: ItemDetailsWidget(
+                                    initialItem: Item.defaultItem,
+                                dismiss: () => Navigator.pop(context)),
                                 backgroundColor: Colors.white,
                               ));
                         })
