@@ -31,20 +31,23 @@ class HeaderWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColours.emmanuelBlue, width: 3)
                         ),
-                        child: GestureDetector(
-                            onTap: command.onTap,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (command.assetName != null)
-                                    Image.asset(command.assetName!, height: 30,),
-                                  Text(command.caption,
-                                      style: AppTextStyle.theme(context).headline6)
-                                ],
-                              ),
-                            )),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                              onTap: command.onTap,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (command.assetName != null)
+                                      Image.asset(command.assetName!, height: 30,),
+                                    Text(command.caption,
+                                        style: AppTextStyle.theme(context).headline6)
+                                  ],
+                                ),
+                              )),
+                        ),
                       )),
                       if (authModel.currentUser != null)
                         MouseRegion(
@@ -55,8 +58,19 @@ class HeaderWidget extends StatelessWidget {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   Routes.login, (route) => false);
                             },
-                            child: Text('Logout',
-                                style: AppTextStyle.theme(context).headline6),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColours.emmanuelBlue, width: 3)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                  child: Text('Logout',
+                                      style: AppTextStyle.theme(context).headline6),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                     ],

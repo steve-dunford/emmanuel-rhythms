@@ -1,15 +1,22 @@
+import 'dart:typed_data';
+
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
+import 'package:emmanuel_rhythms_cms/repositories/file_repository.dart';
 import 'package:emmanuel_rhythms_cms/repositories/item_repository.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailsViewModel extends ChangeNotifier {
   final ItemRepository _itemRepository;
+  final FileRepository _fileRepository;
 
   Item item;
   ScheduleType _scheduleType = ScheduleType.oneDay;
+  bool isSettingImage = false;
+  bool isSaving = false;
 
-  ItemDetailsViewModel(this._itemRepository, this.item);
+  ItemDetailsViewModel(this._itemRepository, this._fileRepository, this.item);
 
   List<ItemTypeOption> itemTypeOptions =
       ItemType.values.map((it) => ItemTypeOption(it, it.displayName)).toList();
@@ -91,8 +98,44 @@ class ItemDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> save() {
-    return _itemRepository.upsertItem(item);
+  _updateSettingImage(bool setting) {
+    isSettingImage = setting;
+    notifyListeners();
+  }
+  Future<void> setImage(PlatformFile image) async {
+    try {
+      _updateSettingImage(true);
+
+      if(image.bytes == null) {
+        return;
+      }
+
+      final url = await _fileRepository.uploadFile(
+        image.name,
+          image.bytes!,
+          'item_images');
+
+      if (url != null) {
+        item = item.copyWith(backgroundImage: url);
+        notifyListeners();
+      }
+    } finally {
+      _updateSettingImage(false);
+    }
+  }
+
+  Future<void> save() async {
+    try {
+      _updateIsSaving(true );
+      await _itemRepository.upsertItem(item);
+    } finally {
+      _updateIsSaving(false);
+    }
+  }
+
+  _updateIsSaving(bool saving) {
+    isSaving = saving;
+    notifyListeners();
   }
 }
 

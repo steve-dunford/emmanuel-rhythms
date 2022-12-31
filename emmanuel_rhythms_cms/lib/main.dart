@@ -1,3 +1,5 @@
+import 'dart:html';
+import 'dart:ui' as ui;
 import 'package:emmanuel_rhythms_cms/dependencies.dart';
 import 'package:emmanuel_rhythms_cms/firebase_options.dart';
 import 'package:emmanuel_rhythms_cms/pages/calendar_page.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AuthModel(GetIt.I.get()),
+      create: (_) => GetIt.I.get<AuthModel>(),
       builder: (BuildContext context, _) {
 
         final authModel = context.watch<AuthModel>();
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
   Route? _onGenerateRoute(RouteSettings settings, AuthModel model) {
     Widget? page;
 
-    if(settings.name == Routes.login && model.currentUser == null) {
+    if(settings.name == Routes.login || model.currentUser == null) {
       page = LoginPage();
     } else {
       switch(settings.name) {

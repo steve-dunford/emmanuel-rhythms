@@ -36,17 +36,16 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
   }
   
   List<CalendarEvent> get events {
-    return (_items ?? [])
-      .map((i) {
-        final itemStartDate = i.startDate.isAfter(startDate) ? i.startDate : startDate;
-        final itemEndDate  = i.endDate == null || i.endDate!.isAfter(endDate) ? endDate : i.endDate!;
+    final events = (_instances ?? [])
+      .map((instance) {
 
-        final appliesOn = datesBetween(itemStartDate, itemEndDate);
+        final item = (_items ?? []).firstWhere((item) => item.id == instance.itemId);
 
-        return appliesOn.map((d) => CalendarEvent(eventName: i.title, eventDate: d));
+        return CalendarEvent(eventName: item.title, eventDate: instance.date);
       })
-      .expand((element) => element)
       .toList();
+
+    return events;
   }
 
 }

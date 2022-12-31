@@ -14,6 +14,7 @@ class FirebaseAuthRepository extends AuthRepository {
 
   FirebaseAuthRepository(this._logService);
 
+
   @override
   Stream<User?> currentUserChanges() {
     return FirebaseAuth.instance.userChanges();

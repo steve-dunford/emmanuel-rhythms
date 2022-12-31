@@ -3,6 +3,7 @@ import 'package:emmanuel_rhythms_cms/common/widgets/date_field.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,8 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => ItemDetailsViewModel(GetIt.I.get(), widget.initialItem),
+        create: (_) => ItemDetailsViewModel(
+            GetIt.I.get(), GetIt.I.get(), widget.initialItem),
         builder: (context, child) {
           final viewModel = context.watch<ItemDetailsViewModel>();
 
@@ -133,6 +135,50 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      Text('Image:',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final result = await FilePicker
+                                              .platform
+                                              .pickFiles(allowMultiple: false);
+
+                                          if (result?.count == 1) {
+                                            viewModel
+                                                .setImage(result!.files.first);
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color:
+                                                      AppColours.emmanuelBlue)),
+                                          width: 300,
+                                          height: 120,
+                                          child: viewModel.isSettingImage
+                                              ? const Center(
+
+                                                child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                              )
+                                              : viewModel.item
+                                                          .backgroundImage !=
+                                                      null
+                                                  ? Image.network(viewModel
+                                                      .item.backgroundImage!)
+                                                  : null,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
                                       Text('Item Type:',
                                           style: Theme.of(context)
                                               .textTheme
@@ -161,24 +207,26 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ConstrainedBox(
-                          constraints: const BoxConstraints(
-                              minWidth: 140
+                          constraints: const BoxConstraints(minWidth: 140),
+                          child: ThemedButton(
+                            onTap: () {
+                              widget.dismiss();
+                            },
+                            text: 'Cancel',
+                            height: 30,
                           ),
-                          child: ThemedButton(onTap: () {
-                            widget.dismiss();
-                          }, text: 'Cancel', height: 30,),
                         ),
                         const SizedBox(width: 20),
                         ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            minWidth: 140
-                          ),
+                          constraints: const BoxConstraints(minWidth: 140),
                           child: ThemedButton(
-                              onTap: () async {
-                                await viewModel.save();
-                                widget.dismiss();
-                              },
-                              text: 'Save', height: 30,),
+                            onTap: () async {
+                              await viewModel.save();
+                              widget.dismiss();
+                            },
+                            text: 'Save',
+                            height: 30,
+                          ),
                         ),
                       ],
                     )
@@ -235,8 +283,8 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         ),
         if (viewModel.scheduleType.scheduleType == ScheduleType.daysOfWeek)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            runAlignment: WrapAlignment.center,
             children: [
               Text(
                 'Days:',
