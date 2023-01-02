@@ -4,6 +4,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:disposebag/disposebag.dart';
 import 'package:emmanuel_rhythms_cms/common/disposer.dart';
 import 'package:emmanuel_rhythms_cms/common/extensions/datetime_extensions.dart';
+import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item_instance.dart';
 import 'package:emmanuel_rhythms_cms/repositories/item_repository.dart';
@@ -18,7 +19,6 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
   List<Item>? _items;
   List<ItemInstance>? _instances;
 
-
   DateTime startDate = DateTime.now().startOfMonth.atMidnight;
   DateTime endDate = DateTime.now().endOfMonth.atMidnight;
   DateTime selectedDate = DateTime.now().atMidnight;
@@ -29,7 +29,8 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
 
   _updateListeners() async {
     await _itemSubscription?.cancel();
-    _itemSubscription = _itemRepository.itemsForDates(startDate, endDate).listen((items) {
+    _itemSubscription =
+        _itemRepository.itemsForDates(startDate, endDate).listen((items) {
       _items = items;
       notifyListeners();
     });
@@ -55,7 +56,10 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
           (_items ?? []).firstWhere((item) => item.id == instance.itemId);
 
       return CalendarEventData<Item>(
-          title: item.title, date: instance.date, event: item);
+          title: item.title,
+          date: instance.date,
+          event: item,
+          color: item.type.color);
     }).toList();
 
     return events;
