@@ -1,5 +1,6 @@
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
+import 'package:emmanuel_rhythms_cms/common/utils.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/date_field.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
@@ -12,10 +13,11 @@ import 'package:provider/provider.dart';
 
 class ItemDetailsWidget extends StatefulWidget {
   final Item initialItem;
+  final bool isNewItem;
   final VoidCallback dismiss;
 
   const ItemDetailsWidget(
-      {Key? key, required this.initialItem, required this.dismiss})
+      {Key? key, required this.initialItem, this.isNewItem = false, required this.dismiss})
       : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (_) => ItemDetailsViewModel(
-            GetIt.I.get(), GetIt.I.get(), widget.initialItem),
+            GetIt.I.get(), GetIt.I.get(), widget.initialItem, widget.isNewItem),
         builder: (context, child) {
           final viewModel = context.watch<ItemDetailsViewModel>();
 
@@ -273,8 +275,25 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(minWidth: 140),
+                          child: ThemedButton(
+                            onTap: () async {
+
+                              bool confirm = await showConfirmationDialog(context, 'Delete Item', 'Are you sure you want to delete the current item?');
+
+                              if(confirm) {
+                                viewModel.delete();
+                                widget.dismiss();
+                              }
+                            },
+                            text: 'Delete',
+                            height: 30,
+                            isEnabled: viewModel.canDelete,
+                          ),
+                        ),
+                        const Spacer(),
                         ConstrainedBox(
                           constraints: const BoxConstraints(minWidth: 140),
                           child: ThemedButton(

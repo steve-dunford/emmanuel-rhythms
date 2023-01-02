@@ -7,6 +7,7 @@ abstract class ItemRepository {
   Stream<List<Item>> itemsForDates(DateTime startDate, DateTime endDate);
   Stream<List<ItemInstance>> itemInstancesForDates(DateTime startDate, DateTime endDate);
   Future<void> upsertItem(Item item);
+  Future<void> deleteItem(Item item);
 }
 
 class FirebaseItemRepository extends ItemRepository {
@@ -32,6 +33,29 @@ class FirebaseItemRepository extends ItemRepository {
         snapshot.docs.map((doc) {
           return ItemInstance.fromJson(doc.data());
         }).toList());
+  }
+
+  Future<void> deleteItem(Item item) async {
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+
+      //Get a reference to the items
+      final itemRef = FirebaseFirestore.instance
+          .collection(FirebaseCollections.items)
+          .doc(item.id);
+
+      final instanceRefs = await FirebaseFirestore.instance
+          .collection(FirebaseCollections.itemInstances)
+          .where('itemId', isEqualTo: item.id)
+          .get();
+
+      //Delete instances
+      for (var doc in instanceRefs.docs) {
+        transaction.delete(doc.reference);
+      }
+
+      //Delete the item document
+      transaction.delete(itemRef);
+    });
   }
 
   @override

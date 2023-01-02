@@ -11,12 +11,14 @@ import 'package:flutter/material.dart';
 class ItemDetailsViewModel extends ChangeNotifier {
   final ItemRepository _itemRepository;
   final FileRepository _fileRepository;
+  final bool _isNewItem;
 
   Item item;
   bool isSettingImage = false;
   bool isSaving = false;
+  bool isDeleting = false;
 
-  ItemDetailsViewModel(this._itemRepository, this._fileRepository, this.item);
+  ItemDetailsViewModel(this._itemRepository, this._fileRepository, this.item, this._isNewItem);
 
   List<ItemTypeOption> itemTypeOptions =
       ItemType.values.map((it) => ItemTypeOption(it, it.displayName)).toList();
@@ -135,8 +137,24 @@ class ItemDetailsViewModel extends ChangeNotifier {
     }
   }
 
+  bool get canDelete => !_isNewItem;
+
+  Future<void> delete() async {
+    try {
+      _updateIsDeleting(true );
+      await _itemRepository.deleteItem(item);
+    } finally {
+      _updateIsDeleting(false);
+    }
+  }
+
   _updateIsSaving(bool saving) {
     isSaving = saving;
+    notifyListeners();
+  }
+
+  _updateIsDeleting(bool deleting) {
+    isDeleting = deleting;
     notifyListeners();
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ThemedButton extends StatelessWidget {
 
   final VoidCallback onTap;
+  final bool isEnabled;
   final bool isRunningOperation;
   final String text;
   final double height;
@@ -12,6 +13,7 @@ class ThemedButton extends StatelessWidget {
   const ThemedButton({
     required this.onTap,
     required this.text,
+    this.isEnabled = true,
     this.height = 60.0,
     this.isRunningOperation = false,
   });
@@ -21,23 +23,26 @@ class ThemedButton extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: height,
-          decoration: BoxDecoration(
-              color: AppColours.emmanuelBlue,
-              borderRadius: BorderRadius.circular(5)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Center(
-              child:
-                isRunningOperation ?
-                const CircularProgressIndicator(color: Colors.white) :
-              Text(text, style: AppTextStyle
-                  .theme(context)
-                  .bodyText1!
-                  .copyWith(color: Colors.white),
+        onTap: isEnabled ? onTap : null,
+        child: Opacity(
+          opacity: isEnabled ? 1.0 : 0.5,
+          child: Container(
+            height: height,
+            decoration: BoxDecoration(
+                color: AppColours.emmanuelBlue,
+                borderRadius: BorderRadius.circular(5)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Center(
+                child:
+                  isRunningOperation ?
+                  const CircularProgressIndicator(color: Colors.white) :
+                Text(text, style: AppTextStyle
+                    .theme(context)
+                    .bodyText1!
+                    .copyWith(color: Colors.white),
+                ),
               ),
             ),
           ),
