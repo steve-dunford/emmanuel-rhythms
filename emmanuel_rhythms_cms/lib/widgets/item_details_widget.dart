@@ -3,6 +3,7 @@ import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/date_field.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
+import 'package:emmanuel_rhythms_cms/models/items/schedule_type.dart';
 import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';

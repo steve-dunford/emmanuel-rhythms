@@ -10,6 +10,7 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       id: json['id'] as String,
       type: $enumDecode(_$ItemTypeEnumMap, json['type']),
       title: json['title'] as String,
+      scheduleType: $enumDecode(_$ScheduleTypeEnumMap, json['scheduleType']),
       description: json['description'] as String?,
       backgroundImage: json['backgroundImage'] as String?,
       url: json['url'] as String?,
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'id': instance.id,
       'type': _$ItemTypeEnumMap[instance.type]!,
       'title': instance.title,
+      'scheduleType': _$ScheduleTypeEnumMap[instance.scheduleType]!,
       'description': instance.description,
       'backgroundImage': instance.backgroundImage,
       'url': instance.url,
@@ -41,6 +43,12 @@ const _$ItemTypeEnumMap = {
   ItemType.video: 'video',
   ItemType.scripture: 'scripture',
   ItemType.podcast: 'podcast',
+};
+
+const _$ScheduleTypeEnumMap = {
+  ScheduleType.oneDay: 'oneDay',
+  ScheduleType.everyDay: 'everyDay',
+  ScheduleType.daysOfWeek: 'daysOfWeek',
 };
 
 const _$TagEnumMap = {

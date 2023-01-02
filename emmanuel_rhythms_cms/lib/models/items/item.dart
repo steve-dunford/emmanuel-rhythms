@@ -3,7 +3,9 @@ import 'package:emmanuel_rhythms_cms/common/converters/timestamp_converter.dart'
 import 'package:emmanuel_rhythms_cms/common/extensions/datetime_extensions.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item_instance.dart';
+import 'package:emmanuel_rhythms_cms/models/items/schedule_type.dart';
 import 'package:emmanuel_rhythms_cms/models/tag.dart';
+import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,6 +19,7 @@ class Item with _$Item {
       {required String id,
       required ItemType type,
       required String title,
+      required ScheduleType scheduleType,
       String? description,
       String? backgroundImage,
       String? url,
@@ -31,6 +34,7 @@ class Item with _$Item {
     id: const Uuid().v4(),
     startDate: DateTime.now().atMidnight,
     endDate: DateTime.now().atMidnight,
+    scheduleType: ScheduleType.oneDay,
     tags: [],
     title: '',
     type: ItemType.video,

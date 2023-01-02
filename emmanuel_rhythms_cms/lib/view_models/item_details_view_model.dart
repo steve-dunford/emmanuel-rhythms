@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
+import 'package:emmanuel_rhythms_cms/models/items/schedule_type.dart';
 import 'package:emmanuel_rhythms_cms/repositories/file_repository.dart';
 import 'package:emmanuel_rhythms_cms/repositories/item_repository.dart';
 import 'package:file_picker/file_picker.dart';
@@ -12,7 +13,6 @@ class ItemDetailsViewModel extends ChangeNotifier {
   final FileRepository _fileRepository;
 
   Item item;
-  ScheduleType _scheduleType = ScheduleType.oneDay;
   bool isSettingImage = false;
   bool isSaving = false;
 
@@ -36,15 +36,17 @@ class ItemDetailsViewModel extends ChangeNotifier {
   ];
 
   ScheduleTypeOption get scheduleType =>
-      scheduleTypeOptions.firstWhere((e) => e.scheduleType == _scheduleType);
+      scheduleTypeOptions.firstWhere((e) => e.scheduleType == item.scheduleType);
 
   setScheduleType(ScheduleTypeOption? option) {
-    _scheduleType = option?.scheduleType ?? ScheduleType.oneDay;
+    item = item.copyWith(
+      scheduleType: option?.scheduleType ?? ScheduleType.oneDay
+    );
 
-    if (_scheduleType == ScheduleType.oneDay) {
+    if (item.scheduleType == ScheduleType.oneDay) {
       item = item.copyWith(endDate: item.startDate);
     }
-    if (_scheduleType != ScheduleType.daysOfWeek) {
+    if (item.scheduleType != ScheduleType.daysOfWeek) {
       item = item.copyWith(daysOfWeek: null);
     }
     notifyListeners();
@@ -53,7 +55,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
   setStartDate(DateTime date) {
     item = item.copyWith(
         startDate: date,
-        endDate: _scheduleType == ScheduleType.oneDay ? date : item.endDate);
+        endDate: item.scheduleType == ScheduleType.oneDay ? date : item.endDate);
     notifyListeners();
   }
 
@@ -146,7 +148,7 @@ class ItemTypeOption {
   ItemTypeOption(this.itemType, this.displayName);
 }
 
-enum ScheduleType { oneDay, everyDay, daysOfWeek }
+
 
 class ScheduleTypeOption {
   final ScheduleType scheduleType;
