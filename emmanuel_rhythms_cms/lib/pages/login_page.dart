@@ -92,20 +92,7 @@ class _ValidatedField extends StatelessWidget {
         TextField(
           onChanged: onChanged,
           obscureText: isPassword,
-          decoration: InputDecoration(
-            hintText: hint,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: error == null ?
-              const BorderSide(color: Colors.black, width: 1.0) :
-              const BorderSide(color: AppColours.emmanuelBlue, width: 3.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide:
-              const BorderSide(color: Colors.black, width: 1.0)
-            ),
-          ),
+          decoration: AppTextStyle.textInputDecoration(hint, error != null)
         ),
         if(error != null)
           Padding(

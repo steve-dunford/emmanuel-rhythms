@@ -28,12 +28,19 @@ class DateField extends StatelessWidget {
         onValueChanged(newValue ?? value);
       },
       child: Container(
+        height: 48,
         decoration: BoxDecoration(
           border: Border.all(color: AppColours.emmanuelBlue),
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Text(
-          DateFormat('dd/MM/yyyy').format(value),
-          style: Theme.of(context).textTheme.bodyText1,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+            child: Text(
+              DateFormat('dd/MM/yyyy').format(value),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
         ),
       ),
     );

@@ -38,4 +38,19 @@ class AppTextStyle {
       button: avenirNextBold.copyWith(fontSize: 18),
     );
   }
+
+  static InputDecoration textInputDecoration(String hint, bool error) => InputDecoration(
+    hintText: hint,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5.0),
+      borderSide: error ?
+      const BorderSide(color: AppColours.emmanuelBlue, width: 3.0) :
+      const BorderSide(color: AppColours.emmanuelBlue, width: 1.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5.0),
+        borderSide:
+        const BorderSide(color: Colors.black, width: 1.0)
+    ),
+  );
 }
