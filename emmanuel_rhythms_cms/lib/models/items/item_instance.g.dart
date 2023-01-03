@@ -9,13 +9,13 @@ part of 'item_instance.dart';
 _$_ItemInstance _$$_ItemInstanceFromJson(Map<String, dynamic> json) =>
     _$_ItemInstance(
       itemInstanceId: json['itemInstanceId'] as String,
-      itemId: json['itemId'] as String,
+      item: Item.fromJson(json['item'] as Map<String, dynamic>),
       date: const TimestampConverter().fromJson(json['date'] as Timestamp),
     );
 
 Map<String, dynamic> _$$_ItemInstanceToJson(_$_ItemInstance instance) =>
     <String, dynamic>{
       'itemInstanceId': instance.itemInstanceId,
-      'itemId': instance.itemId,
+      'item': instance.item.toJson(),
       'date': const TimestampConverter().toJson(instance.date),
     };

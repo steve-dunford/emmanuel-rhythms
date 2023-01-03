@@ -21,7 +21,7 @@ ItemInstance _$ItemInstanceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ItemInstance {
   String get itemInstanceId => throw _privateConstructorUsedError;
-  String get itemId => throw _privateConstructorUsedError;
+  Item get item => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
 
@@ -37,9 +37,9 @@ abstract class $ItemInstanceCopyWith<$Res> {
           ItemInstance value, $Res Function(ItemInstance) then) =
       _$ItemInstanceCopyWithImpl<$Res>;
   $Res call(
-      {String itemInstanceId,
-      String itemId,
-      @TimestampConverter() DateTime date});
+      {String itemInstanceId, Item item, @TimestampConverter() DateTime date});
+
+  $ItemCopyWith<$Res> get item;
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$ItemInstanceCopyWithImpl<$Res> implements $ItemInstanceCopyWith<$Res> {
   @override
   $Res call({
     Object? itemInstanceId = freezed,
-    Object? itemId = freezed,
+    Object? item = freezed,
     Object? date = freezed,
   }) {
     return _then(_value.copyWith(
@@ -61,15 +61,22 @@ class _$ItemInstanceCopyWithImpl<$Res> implements $ItemInstanceCopyWith<$Res> {
           ? _value.itemInstanceId
           : itemInstanceId // ignore: cast_nullable_to_non_nullable
               as String,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
+      item: item == freezed
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as Item,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
+  }
+
+  @override
+  $ItemCopyWith<$Res> get item {
+    return $ItemCopyWith<$Res>(_value.item, (value) {
+      return _then(_value.copyWith(item: value));
+    });
   }
 }
 
@@ -81,9 +88,10 @@ abstract class _$$_ItemInstanceCopyWith<$Res>
       __$$_ItemInstanceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String itemInstanceId,
-      String itemId,
-      @TimestampConverter() DateTime date});
+      {String itemInstanceId, Item item, @TimestampConverter() DateTime date});
+
+  @override
+  $ItemCopyWith<$Res> get item;
 }
 
 /// @nodoc
@@ -100,7 +108,7 @@ class __$$_ItemInstanceCopyWithImpl<$Res>
   @override
   $Res call({
     Object? itemInstanceId = freezed,
-    Object? itemId = freezed,
+    Object? item = freezed,
     Object? date = freezed,
   }) {
     return _then(_$_ItemInstance(
@@ -108,10 +116,10 @@ class __$$_ItemInstanceCopyWithImpl<$Res>
           ? _value.itemInstanceId
           : itemInstanceId // ignore: cast_nullable_to_non_nullable
               as String,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
+      item: item == freezed
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as Item,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -125,7 +133,7 @@ class __$$_ItemInstanceCopyWithImpl<$Res>
 class _$_ItemInstance implements _ItemInstance {
   _$_ItemInstance(
       {required this.itemInstanceId,
-      required this.itemId,
+      required this.item,
       @TimestampConverter() required this.date});
 
   factory _$_ItemInstance.fromJson(Map<String, dynamic> json) =>
@@ -134,14 +142,14 @@ class _$_ItemInstance implements _ItemInstance {
   @override
   final String itemInstanceId;
   @override
-  final String itemId;
+  final Item item;
   @override
   @TimestampConverter()
   final DateTime date;
 
   @override
   String toString() {
-    return 'ItemInstance(itemInstanceId: $itemInstanceId, itemId: $itemId, date: $date)';
+    return 'ItemInstance(itemInstanceId: $itemInstanceId, item: $item, date: $date)';
   }
 
   @override
@@ -151,7 +159,7 @@ class _$_ItemInstance implements _ItemInstance {
             other is _$_ItemInstance &&
             const DeepCollectionEquality()
                 .equals(other.itemInstanceId, itemInstanceId) &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
+            const DeepCollectionEquality().equals(other.item, item) &&
             const DeepCollectionEquality().equals(other.date, date));
   }
 
@@ -160,7 +168,7 @@ class _$_ItemInstance implements _ItemInstance {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(itemInstanceId),
-      const DeepCollectionEquality().hash(itemId),
+      const DeepCollectionEquality().hash(item),
       const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
@@ -177,7 +185,7 @@ class _$_ItemInstance implements _ItemInstance {
 abstract class _ItemInstance implements ItemInstance {
   factory _ItemInstance(
       {required final String itemInstanceId,
-      required final String itemId,
+      required final Item item,
       @TimestampConverter() required final DateTime date}) = _$_ItemInstance;
 
   factory _ItemInstance.fromJson(Map<String, dynamic> json) =
@@ -186,7 +194,7 @@ abstract class _ItemInstance implements ItemInstance {
   @override
   String get itemInstanceId;
   @override
-  String get itemId;
+  Item get item;
   @override
   @TimestampConverter()
   DateTime get date;

@@ -53,7 +53,7 @@ extension ItemExtensions on Item {
           daysOfWeek!.contains(currentDate.weekday)) {
 
         final instance = ItemInstance(
-            itemInstanceId: const Uuid().v4(), itemId: id, date: currentDate);
+            itemInstanceId: const Uuid().v4(), item: copyWith(), date: currentDate);
 
         instances = [...instances, instance];
       }

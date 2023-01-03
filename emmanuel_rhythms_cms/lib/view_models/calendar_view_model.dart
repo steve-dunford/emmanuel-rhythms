@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:calendar_view/calendar_view.dart';
-import 'package:disposebag/disposebag.dart';
 import 'package:emmanuel_rhythms_cms/common/disposer.dart';
 import 'package:emmanuel_rhythms_cms/common/extensions/datetime_extensions.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
@@ -53,7 +52,7 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
   List<CalendarEventData<Item>> get events {
     final events = (_instances ?? []).map((instance) {
       final item =
-          (_items ?? []).firstWhere((item) => item.id == instance.itemId);
+          (_items ?? []).firstWhere((item) => item.id == instance.item.id);
 
       return CalendarEventData<Item>(
           title: item.title,
