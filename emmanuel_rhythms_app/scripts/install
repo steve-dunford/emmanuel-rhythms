@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+flutter_version=$(<flutter_version)
+
+# Install Flutter.
+printf "Downloading Flutter...\n"
+# This test is to not download Flutter again if it's already downloaded or cached by the CI.
+if ! test -f "$flutter_version.zip"; then
+  curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/$flutter_version.zip
+fi
+
+printf "Unzipping Flutter...\n"
+unzip -qq -o $flutter_version.zip # -o force overwrite
+
+printf "Configuring Flutter...\n"
+flutter config --no-analytics
+flutter precache
+
+printf "\nDone.\n"
