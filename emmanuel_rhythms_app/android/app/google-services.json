@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "69147677069",
+    "project_id": "emmanuel-rhythms-staging",
+    "storage_bucket": "emmanuel-rhythms-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69147677069:android:49360c624674ffad9f6dc4",
+        "android_client_info": {
+          "package_name": "com.emmanuel.rhythms.emmanuel_rhythms_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69147677069-08umi4141vhs3oknhnvrob0maq2cv875.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1fK2-HA_IxB8kjZd3FFt0mfLCFYLBkqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69147677069-08umi4141vhs3oknhnvrob0maq2cv875.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

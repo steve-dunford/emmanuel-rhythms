@@ -26,5 +26,4 @@ class Item with _$Item {
 
   factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
 
-
 }
