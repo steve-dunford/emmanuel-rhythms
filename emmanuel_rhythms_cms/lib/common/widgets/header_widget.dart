@@ -29,26 +29,29 @@ class HeaderWidget extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ...commands.map((command) => Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColours.emmanuelBlue, width: 3)
-                          ),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                                onTap: command.onTap,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      if (command.assetName != null)
-                                        Image.asset(command.assetName!, height: 30,),
-                                      Text(command.caption,
-                                          style: AppTextStyle.theme(context).headline6)
-                                    ],
-                                  ),
-                                )),
+                        ...commands.map((command) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColours.emmanuelBlue, width: 3)
+                            ),
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                  onTap: command.onTap,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        if (command.assetName != null)
+                                          Image.asset(command.assetName!, height: 30,),
+                                        Text(command.caption,
+                                            style: AppTextStyle.theme(context).headline6)
+                                      ],
+                                    ),
+                                  )),
+                            ),
                           ),
                         )),
                         if (authModel.currentUser != null)
@@ -61,7 +64,7 @@ class HeaderWidget extends StatelessWidget {
                                     Routes.login, (route) => false);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
+                                padding: const EdgeInsets.only(left: 10.0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(color: AppColours.emmanuelBlue, width: 3)

@@ -5,6 +5,7 @@ import 'package:emmanuel_rhythms_cms/dependencies.dart';
 import 'package:emmanuel_rhythms_cms/firebase_options.dart';
 import 'package:emmanuel_rhythms_cms/pages/calendar_page.dart';
 import 'package:emmanuel_rhythms_cms/pages/login_page.dart';
+import 'package:emmanuel_rhythms_cms/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_cms/routes.dart';
 import 'package:emmanuel_rhythms_cms/view_models/auth_model.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -65,6 +66,9 @@ class MyApp extends StatelessWidget {
       switch (settings.name) {
         case Routes.home:
           page = CalendarPage();
+          break;
+        case Routes.resources:
+          page = ResourcesPage();
           break;
       }
     }

@@ -2,9 +2,10 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/header_widget.dart';
 import 'package:emmanuel_rhythms_cms/models/header_command.dart';
-import 'package:emmanuel_rhythms_cms/models/items/item.dart';
+import 'package:emmanuel_rhythms_cms/models/items/daily_content.dart';
+import 'package:emmanuel_rhythms_cms/routes.dart';
 import 'package:emmanuel_rhythms_cms/view_models/calendar_view_model.dart';
-import 'package:emmanuel_rhythms_cms/widgets/item_details_widget.dart';
+import 'package:emmanuel_rhythms_cms/widgets/daily_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -34,12 +35,17 @@ class CalendarPage extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (ctx) => Dialog(
-                                child: ItemDetailsWidget(
-                                    initialItem: Item.defaultItem,
-                                    isNewItem: true,
+                                child: DailyContentWidget(
+                                    initialContent: DailyContent.defaultContent,
+                                    isNewContent: true,
                                 dismiss: () => Navigator.pop(context)),
                                 backgroundColor: Colors.white,
                               ));
+                        }),
+                    HeaderCommand(
+                        caption: 'Resources',
+                        onTap: () {
+                          Navigator.of(context).pushReplacementNamed(Routes.resources);
                         })
                   ],
                 ),
@@ -55,12 +61,12 @@ class CalendarPage extends StatelessWidget {
                       onPageChange: (date, page) =>
                         model.setMonth(date),
                       onEventTap: (event, date) {
-                        final item = event.event as Item;
+                        final content = event.event as DailyContent;
                         showDialog(
                             context: context,
                             builder: (ctx) => Dialog(
-                              child: ItemDetailsWidget(
-                                  initialItem: item,
+                              child: DailyContentWidget(
+                                  initialContent: content,
                                   dismiss: () => Navigator.pop(context)),
                               backgroundColor: Colors.white,
                             ));
@@ -74,7 +80,7 @@ class CalendarPage extends StatelessWidget {
         });
   }
 
-  void _syncEvents(BuildContext context, List<CalendarEventData<Item>> events) {
+  void _syncEvents(BuildContext context, List<CalendarEventData<DailyContent>> events) {
     final controller = CalendarControllerProvider
         .of(context)
         .controller;

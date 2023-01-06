@@ -4,19 +4,20 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:emmanuel_rhythms_cms/common/disposer.dart';
 import 'package:emmanuel_rhythms_cms/common/extensions/datetime_extensions.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
+import 'package:emmanuel_rhythms_cms/models/items/daily_content.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
-import 'package:emmanuel_rhythms_cms/models/items/item_instance.dart';
-import 'package:emmanuel_rhythms_cms/repositories/item_repository.dart';
+import 'package:emmanuel_rhythms_cms/models/items/daily_content_instance.dart';
+import 'package:emmanuel_rhythms_cms/repositories/daily_content_repository.dart';
 import 'package:flutter/material.dart';
 
 class CalendarViewModel extends ChangeNotifier with Disposer {
-  final ItemRepository _itemRepository;
+  final DailyContentRepository _itemRepository;
 
   StreamSubscription? _itemSubscription;
   StreamSubscription? _instanceSubscription;
 
-  List<Item>? _items;
-  List<ItemInstance>? _instances;
+  List<DailyContent>? _dailyContent;
+  List<DailyContentInstance>? _instances;
 
   DateTime startDate = DateTime.now().startOfMonth.atMidnight;
   DateTime endDate = DateTime.now().endOfMonth.atMidnight;
@@ -29,14 +30,14 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
   _updateListeners() async {
     await _itemSubscription?.cancel();
     _itemSubscription =
-        _itemRepository.itemsForDates(startDate, endDate).listen((items) {
-      _items = items;
+        _itemRepository.dailyContent().listen((content) {
+          _dailyContent = content;
       notifyListeners();
     });
 
     await _instanceSubscription?.cancel();
     _instanceSubscription = _itemRepository
-        .itemInstancesForDates(startDate, endDate)
+        .dailyContentInstances(startDate, endDate)
         .listen((instances) {
       _instances = instances;
       notifyListeners();
@@ -49,16 +50,17 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
     _updateListeners();
   }
 
-  List<CalendarEventData<Item>> get events {
+  List<CalendarEventData<DailyContent>> get events {
     final events = (_instances ?? []).map((instance) {
-      final item =
-          (_items ?? []).firstWhere((item) => item.id == instance.item.id);
+      final dailyContent =
+          (_dailyContent ?? []).firstWhere((content) => content.dailyContentId == instance.dailyContentId);
 
-      return CalendarEventData<Item>(
-          title: item.title,
+
+      return CalendarEventData<DailyContent>(
+          title: dailyContent.item.title,
           date: instance.date,
-          event: item,
-          color: item.type.color);
+          event: dailyContent,
+          color: dailyContent.item.type.color);
     }).toList();
 
     return events;

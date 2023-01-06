@@ -1,24 +1,16 @@
-import 'dart:typed_data';
-
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
-import 'package:emmanuel_rhythms_cms/models/items/schedule_type.dart';
 import 'package:emmanuel_rhythms_cms/repositories/file_repository.dart';
-import 'package:emmanuel_rhythms_cms/repositories/item_repository.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailsViewModel extends ChangeNotifier {
-  final ItemRepository _itemRepository;
   final FileRepository _fileRepository;
-  final bool _isNewItem;
 
   Item item;
   bool isSettingImage = false;
-  bool isSaving = false;
-  bool isDeleting = false;
 
-  ItemDetailsViewModel(this._itemRepository, this._fileRepository, this.item, this._isNewItem);
+  ItemDetailsViewModel(this._fileRepository, this.item);
 
   List<ItemTypeOption> itemTypeOptions =
       ItemType.values.map((it) => ItemTypeOption(it, it.displayName)).toList();
@@ -28,67 +20,6 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
   setItemType(ItemTypeOption? option) {
     item = item.copyWith(type: option?.itemType ?? ItemType.video);
-    notifyListeners();
-  }
-
-  List<ScheduleTypeOption> scheduleTypeOptions = [
-    ScheduleTypeOption(ScheduleType.oneDay, 'Single Day'),
-    ScheduleTypeOption(ScheduleType.everyDay, 'Every Day'),
-    ScheduleTypeOption(ScheduleType.daysOfWeek, 'Days of Week'),
-  ];
-
-  ScheduleTypeOption get scheduleType =>
-      scheduleTypeOptions.firstWhere((e) => e.scheduleType == item.scheduleType);
-
-  setScheduleType(ScheduleTypeOption? option) {
-    item = item.copyWith(
-      scheduleType: option?.scheduleType ?? ScheduleType.oneDay
-    );
-
-    if (item.scheduleType == ScheduleType.oneDay) {
-      item = item.copyWith(endDate: item.startDate);
-    }
-    if (item.scheduleType != ScheduleType.daysOfWeek) {
-      item = item.copyWith(daysOfWeek: null);
-    }
-    notifyListeners();
-  }
-
-  setStartDate(DateTime date) {
-    item = item.copyWith(
-        startDate: date,
-        endDate: item.scheduleType == ScheduleType.oneDay ? date : item.endDate);
-    notifyListeners();
-  }
-
-  setEndDate(DateTime date) {
-    item = item.copyWith(endDate: date);
-    notifyListeners();
-  }
-
-  List<DayOfWeekOption> dayOfWeekOptions = [
-    DayOfWeekOption(DateTime.monday, 'Monday'),
-    DayOfWeekOption(DateTime.tuesday, 'Tuesday'),
-    DayOfWeekOption(DateTime.wednesday, 'Wednesday'),
-    DayOfWeekOption(DateTime.thursday, 'Thursday'),
-    DayOfWeekOption(DateTime.friday, 'Friday'),
-    DayOfWeekOption(DateTime.saturday, 'Saturday'),
-    DayOfWeekOption(DateTime.sunday, 'Sunday'),
-  ];
-
-  bool isDayOfWeekSelected(int day) => item.daysOfWeek?.contains(day) ?? false;
-
-  setDaySelected(int day, bool selected) {
-    var daysOfWeek =
-        item.daysOfWeek == null ? List<int>.empty() : List.of(item.daysOfWeek!);
-    if (selected && !daysOfWeek.contains(day)) {
-      daysOfWeek = [...daysOfWeek, day];
-    }
-    if (!selected && daysOfWeek.contains(day)) {
-      daysOfWeek = daysOfWeek.where((d) => d != day).toList();
-    }
-
-    item = item.copyWith(daysOfWeek: daysOfWeek);
     notifyListeners();
   }
 
@@ -127,36 +58,6 @@ class ItemDetailsViewModel extends ChangeNotifier {
       _updateSettingImage(false);
     }
   }
-
-  Future<void> save() async {
-    try {
-      _updateIsSaving(true );
-      await _itemRepository.upsertItem(item);
-    } finally {
-      _updateIsSaving(false);
-    }
-  }
-
-  bool get canDelete => !_isNewItem;
-
-  Future<void> delete() async {
-    try {
-      _updateIsDeleting(true );
-      await _itemRepository.deleteItem(item);
-    } finally {
-      _updateIsDeleting(false);
-    }
-  }
-
-  _updateIsSaving(bool saving) {
-    isSaving = saving;
-    notifyListeners();
-  }
-
-  _updateIsDeleting(bool deleting) {
-    isDeleting = deleting;
-    notifyListeners();
-  }
 }
 
 class ItemTypeOption {
@@ -164,20 +65,4 @@ class ItemTypeOption {
   final String displayName;
 
   ItemTypeOption(this.itemType, this.displayName);
-}
-
-
-
-class ScheduleTypeOption {
-  final ScheduleType scheduleType;
-  final String displayName;
-
-  ScheduleTypeOption(this.scheduleType, this.displayName);
-}
-
-class DayOfWeekOption {
-  final int day;
-  final String displayName;
-
-  DayOfWeekOption(this.day, this.displayName);
 }

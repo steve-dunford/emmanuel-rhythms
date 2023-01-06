@@ -1,4 +1,5 @@
 class FirebaseCollections {
-  static const items = 'items';
-  static const itemInstances = 'item_instances';
+  static const dailyContent = 'daily_content';
+  static const dailyContentInstances = 'daily_content_instances';
+  static const resources = 'resources';
 }
