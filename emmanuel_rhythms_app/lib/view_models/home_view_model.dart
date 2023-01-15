@@ -1,23 +1,23 @@
 import 'package:emmanuel_rhythms_app/common/extensions/datetime_extensions.dart';
+import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
-import 'package:emmanuel_rhythms_app/models/items/item_instance.dart';
-import 'package:emmanuel_rhythms_app/repositories/item_repository.dart';
+import 'package:emmanuel_rhythms_app/repositories/daily_content_repository.dart';
 import 'package:emmanuel_rhythms_app/common/disposer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeViewModel extends ChangeNotifier with Disposer {
-  final ItemRepository _itemRepository;
+  final DailyContentRepository _dailyContentRepository;
 
   static const initialPageIndex = 1000;
 
   DateTime currentDate = DateTime.now().atMidnight;
 
   bool isLoading = true;
-  List<ItemInstance>? instances;
+  List<DailyContentInstance>? instances;
 
-  HomeViewModel(this._itemRepository) {
-    _itemRepository.allItemInstances().listen((instances) {
+  HomeViewModel(this._dailyContentRepository) {
+    _dailyContentRepository.allInstances().listen((instances) {
       this.instances = instances;
       isLoading = false;
       notifyListeners();

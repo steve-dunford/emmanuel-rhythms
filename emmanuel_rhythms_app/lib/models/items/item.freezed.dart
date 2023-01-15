@@ -23,16 +23,10 @@ mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   ItemType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  ScheduleType get scheduleType => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get startDate => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get endDate => throw _privateConstructorUsedError;
-  List<int>? get daysOfWeek => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,14 +42,10 @@ abstract class $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
-      ScheduleType scheduleType,
       String? description,
       String? backgroundImage,
       String? url,
-      List<Tag> tags,
-      @TimestampConverter() DateTime startDate,
-      @TimestampConverter() DateTime endDate,
-      List<int>? daysOfWeek});
+      List<Tag> tags});
 }
 
 /// @nodoc
@@ -74,14 +64,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? id = null,
     Object? type = null,
     Object? title = null,
-    Object? scheduleType = null,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? tags = null,
-    Object? startDate = null,
-    Object? endDate = null,
-    Object? daysOfWeek = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -96,10 +82,6 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      scheduleType: null == scheduleType
-          ? _value.scheduleType
-          : scheduleType // ignore: cast_nullable_to_non_nullable
-              as ScheduleType,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -116,18 +98,6 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      daysOfWeek: freezed == daysOfWeek
-          ? _value.daysOfWeek
-          : daysOfWeek // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
     ) as $Val);
   }
 }
@@ -142,14 +112,10 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
-      ScheduleType scheduleType,
       String? description,
       String? backgroundImage,
       String? url,
-      List<Tag> tags,
-      @TimestampConverter() DateTime startDate,
-      @TimestampConverter() DateTime endDate,
-      List<int>? daysOfWeek});
+      List<Tag> tags});
 }
 
 /// @nodoc
@@ -164,14 +130,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     Object? id = null,
     Object? type = null,
     Object? title = null,
-    Object? scheduleType = null,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? tags = null,
-    Object? startDate = null,
-    Object? endDate = null,
-    Object? daysOfWeek = freezed,
   }) {
     return _then(_$_Item(
       id: null == id
@@ -186,10 +148,6 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      scheduleType: null == scheduleType
-          ? _value.scheduleType
-          : scheduleType // ignore: cast_nullable_to_non_nullable
-              as ScheduleType,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -206,18 +164,6 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      daysOfWeek: freezed == daysOfWeek
-          ? _value._daysOfWeek
-          : daysOfWeek // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
     ));
   }
 }
@@ -229,16 +175,11 @@ class _$_Item implements _Item {
       {required this.id,
       required this.type,
       required this.title,
-      required this.scheduleType,
       this.description,
       this.backgroundImage,
       this.url,
-      required final List<Tag> tags,
-      @TimestampConverter() required this.startDate,
-      @TimestampConverter() required this.endDate,
-      final List<int>? daysOfWeek})
-      : _tags = tags,
-        _daysOfWeek = daysOfWeek;
+      required final List<Tag> tags})
+      : _tags = tags;
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -248,8 +189,6 @@ class _$_Item implements _Item {
   final ItemType type;
   @override
   final String title;
-  @override
-  final ScheduleType scheduleType;
   @override
   final String? description;
   @override
@@ -265,24 +204,8 @@ class _$_Item implements _Item {
   }
 
   @override
-  @TimestampConverter()
-  final DateTime startDate;
-  @override
-  @TimestampConverter()
-  final DateTime endDate;
-  final List<int>? _daysOfWeek;
-  @override
-  List<int>? get daysOfWeek {
-    final value = _daysOfWeek;
-    if (value == null) return null;
-    if (_daysOfWeek is EqualUnmodifiableListView) return _daysOfWeek;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, scheduleType: $scheduleType, description: $description, backgroundImage: $backgroundImage, url: $url, tags: $tags, startDate: $startDate, endDate: $endDate, daysOfWeek: $daysOfWeek)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, tags: $tags)';
   }
 
   @override
@@ -293,36 +216,18 @@ class _$_Item implements _Item {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.scheduleType, scheduleType) ||
-                other.scheduleType == scheduleType) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.backgroundImage, backgroundImage) ||
                 other.backgroundImage == backgroundImage) &&
             (identical(other.url, url) || other.url == url) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            const DeepCollectionEquality()
-                .equals(other._daysOfWeek, _daysOfWeek));
+            const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      type,
-      title,
-      scheduleType,
-      description,
-      backgroundImage,
-      url,
-      const DeepCollectionEquality().hash(_tags),
-      startDate,
-      endDate,
-      const DeepCollectionEquality().hash(_daysOfWeek));
+  int get hashCode => Object.hash(runtimeType, id, type, title, description,
+      backgroundImage, url, const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
@@ -343,14 +248,10 @@ abstract class _Item implements Item {
       {required final String id,
       required final ItemType type,
       required final String title,
-      required final ScheduleType scheduleType,
       final String? description,
       final String? backgroundImage,
       final String? url,
-      required final List<Tag> tags,
-      @TimestampConverter() required final DateTime startDate,
-      @TimestampConverter() required final DateTime endDate,
-      final List<int>? daysOfWeek}) = _$_Item;
+      required final List<Tag> tags}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -361,8 +262,6 @@ abstract class _Item implements Item {
   @override
   String get title;
   @override
-  ScheduleType get scheduleType;
-  @override
   String? get description;
   @override
   String? get backgroundImage;
@@ -370,14 +269,6 @@ abstract class _Item implements Item {
   String? get url;
   @override
   List<Tag> get tags;
-  @override
-  @TimestampConverter()
-  DateTime get startDate;
-  @override
-  @TimestampConverter()
-  DateTime get endDate;
-  @override
-  List<int>? get daysOfWeek;
   @override
   @JsonKey(ignore: true)
   _$$_ItemCopyWith<_$_Item> get copyWith => throw _privateConstructorUsedError;

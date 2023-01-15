@@ -16,41 +16,44 @@ class ItemListWidget extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: items.map((item) => AspectRatio(
-            aspectRatio: 1.778,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(18.0),
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Positioned.fill(child: _itemBackground(item)),
-                  Container(
-                    height: MediaQuery.of(context).size.width * 0.15,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColours.semiTransparentBlack,
-                          Colors.transparent
+          children: items.map((item) => Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: AspectRatio(
+              aspectRatio: 1.778,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18.0),
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Positioned.fill(child: _itemBackground(item)),
+                    Container(
+                      height: MediaQuery.of(context).size.width * 0.15,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black,
+                            Colors.transparent
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter
+                        )
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(20,0,20,10),
+                            child: Text(item.title,
+                            style: AppTextStyle.itemCaption(context),),
+                          ),
                         ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter
                       )
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20,0,20,20),
-                          child: Text(item.title,
-                          style: AppTextStyle.itemCaption(context),),
-                        ),
-                      ],
                     )
-                  )
-                ],
-              ),
-              ),
+                  ],
+                ),
+                ),
+            ),
           ),
           ).toList()
         ),

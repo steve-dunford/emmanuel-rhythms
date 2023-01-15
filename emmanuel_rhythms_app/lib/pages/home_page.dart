@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
+import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
@@ -29,6 +30,24 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.white,
               title: Text('Daily Content',
                   style: Theme.of(context).textTheme.headline3),
+              leading:
+                PopupMenuButton(
+                  // add icon, by default "3 dot" icon
+                  icon: Image.asset(Assets.menuIcon),
+                    itemBuilder: (context){
+                      return [
+                        const PopupMenuItem<int>(
+                          value: 0,
+                          child: Text("Resources"),
+                        ),
+                      ];
+                    },
+                    onSelected:(value){
+                      if(value == 0){
+                        Navigator.of(context).pushNamed(ResourcesPage.route);
+                      }
+                    }
+                ),
             ),
             body: Column(
               children: [

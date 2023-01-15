@@ -2,6 +2,7 @@ import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/dependencies.dart';
 import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
+import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
     switch (settings.name) {
       case HomePage.route:
         page = HomePage();
+        break;
+      case ResourcesPage.route:
+        page = ResourcesPage();
         break;
     }
 

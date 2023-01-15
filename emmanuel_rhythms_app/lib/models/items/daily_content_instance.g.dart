@@ -1,21 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_instance.dart';
+part of 'daily_content_instance.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ItemInstance _$$_ItemInstanceFromJson(Map<String, dynamic> json) =>
-    _$_ItemInstance(
-      itemInstanceId: json['itemInstanceId'] as String,
+_$_DailyContentInstance _$$_DailyContentInstanceFromJson(
+        Map<String, dynamic> json) =>
+    _$_DailyContentInstance(
+      dailyContentInstanceId: json['dailyContentInstanceId'] as String,
+      dailyContentId: json['dailyContentId'] as String,
       item: Item.fromJson(json['item'] as Map<String, dynamic>),
       date: const TimestampConverter().fromJson(json['date'] as Timestamp),
     );
 
-Map<String, dynamic> _$$_ItemInstanceToJson(_$_ItemInstance instance) =>
+Map<String, dynamic> _$$_DailyContentInstanceToJson(
+        _$_DailyContentInstance instance) =>
     <String, dynamic>{
-      'itemInstanceId': instance.itemInstanceId,
+      'dailyContentInstanceId': instance.dailyContentInstanceId,
+      'dailyContentId': instance.dailyContentId,
       'item': instance.item.toJson(),
       'date': const TimestampConverter().toJson(instance.date),
     };
