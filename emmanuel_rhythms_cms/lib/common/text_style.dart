@@ -39,8 +39,10 @@ class AppTextStyle {
     );
   }
 
-  static InputDecoration textInputDecoration(String hint, bool error) => InputDecoration(
+  static InputDecoration textInputDecoration(String hint, bool error, {EdgeInsetsGeometry? contentPadding}) => InputDecoration(
     hintText: hint,
+    contentPadding: contentPadding,
+
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5.0),
       borderSide: error ?

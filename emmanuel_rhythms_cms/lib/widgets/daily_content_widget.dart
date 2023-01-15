@@ -53,6 +53,7 @@ class DailyContentWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
+                        primary: false,
                         child: Column(
                           children: [
                             Text('Schedule',

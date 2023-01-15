@@ -1,0 +1,207 @@
+enum BibleBook {
+  genesis,
+  exodus,
+  leviticus,
+  numbers,
+  deuteronomy,
+  joshua,
+  judges,
+  ruth,
+  samuel1,
+  samuel2,
+  kings1,
+  kings2,
+  chronicles1,
+  chronicles2,
+  ezra,
+  nehemiah,
+  esther,
+  job,
+  psalms,
+  proverbs,
+  ecclesiastes,
+  songOfSongs,
+  isaiah,
+  jeremiah,
+  lamentations,
+  ezekiel,
+  daniel,
+  hosea,
+  joel,
+  amos,
+  obadiah,
+  jonah,
+  micah,
+  nahum,
+  habakkuk,
+  zephaniah,
+  haggai,
+  zechariah,
+  malachi,
+  matthew,
+  mark,
+  luke,
+  john,
+  acts,
+  romans,
+  corinthians1,
+  corinthians2,
+  galatians,
+  ephesians,
+  philippians,
+  colossians,
+  thessalonians1,
+  thessalonians2,
+  timothy1,
+  timothy2,
+  titus,
+  philemon,
+  hebrews,
+  james,
+  peter1,
+  peter2,
+  john1,
+  john2,
+  john3,
+  jude,
+  revelation
+}
+
+extension BibleBookExtensions on BibleBook {
+  String get name {
+    switch (this) {
+      case BibleBook.genesis:
+        return 'Gensis';
+      case BibleBook.exodus:
+        return 'Exodus';
+      case BibleBook.leviticus:
+        return 'Leviticus';
+      case BibleBook.numbers:
+        return 'Numbers';
+      case BibleBook.deuteronomy:
+        return 'Deuteronomy';
+      case BibleBook.joshua:
+        return 'Joshua';
+      case BibleBook.judges:
+        return 'Judges';
+      case BibleBook.ruth:
+        return 'Ruth';
+      case BibleBook.samuel1:
+        return '1 Samuel';
+      case BibleBook.samuel2:
+        return '2 Samuel';
+      case BibleBook.kings1:
+        return '1 Kings';
+      case BibleBook.kings2:
+        return '2 Kings';
+      case BibleBook.chronicles1:
+        return '1 Chronicles';
+      case BibleBook.chronicles2:
+        return '2 Chronicles';
+      case BibleBook.ezra:
+        return 'Ezra';
+      case BibleBook.nehemiah:
+        return 'Nehemiah';
+      case BibleBook.esther:
+        return 'Esther';
+      case BibleBook.job:
+        return 'Job';
+      case BibleBook.psalms:
+        return 'Psalms';
+      case BibleBook.proverbs:
+        return 'Proverbs';
+      case BibleBook.ecclesiastes:
+        return 'Ecclesiastes';
+      case BibleBook.songOfSongs:
+        return 'Song of Songs';
+      case BibleBook.isaiah:
+        return 'Isaiah';
+      case BibleBook.jeremiah:
+        return 'Jeremiah';
+      case BibleBook.lamentations:
+        return 'Lamentations';
+      case BibleBook.ezekiel:
+        return 'Ezehiel';
+      case BibleBook.daniel:
+        return 'Daniel';
+      case BibleBook.hosea:
+        return 'Hosea';
+      case BibleBook.joel:
+        return 'Joel';
+      case BibleBook.amos:
+        return 'Amos';
+      case BibleBook.obadiah:
+        return 'Obadiah';
+      case BibleBook.jonah:
+        return 'Jonah';
+      case BibleBook.micah:
+        return 'Micah';
+      case BibleBook.nahum:
+        return 'Nahum';
+      case BibleBook.habakkuk:
+        return 'Habakkuk';
+      case BibleBook.zephaniah:
+        return 'Zephaniah';
+      case BibleBook.haggai:
+        return 'Haggai';
+      case BibleBook.zechariah:
+        return 'Zechariah';
+      case BibleBook.malachi:
+        return 'Malachi';
+      case BibleBook.matthew:
+        return 'Matthew';
+      case BibleBook.mark:
+        return 'Mark';
+      case BibleBook.luke:
+        return 'Luke';
+      case BibleBook.john:
+        return 'John';
+      case BibleBook.acts:
+        return 'Acts';
+      case BibleBook.romans:
+        return 'Romans';
+      case BibleBook.corinthians1:
+        return '1 Corinthians';
+      case BibleBook.corinthians2:
+        return '2 Corinthians';
+      case BibleBook.galatians:
+        return 'Galatians';
+      case BibleBook.ephesians:
+        return 'Ephesians';
+      case BibleBook.philippians:
+        return 'Philippians';
+      case BibleBook.colossians:
+        return 'Colossians';
+      case BibleBook.thessalonians1:
+        return '1 Thessalonians';
+      case BibleBook.thessalonians2:
+        return '2 Thessalonians';
+      case BibleBook.timothy1:
+        return '1 Timothy';
+      case BibleBook.timothy2:
+        return '2 Timothy';
+      case BibleBook.titus:
+        return 'Titus';
+      case BibleBook.philemon:
+        return 'Philemon';
+      case BibleBook.hebrews:
+        return 'Hebrews';
+      case BibleBook.james:
+        return 'James';
+      case BibleBook.peter1:
+        return '1 Peter';
+      case BibleBook.peter2:
+        return '2 Peter';
+      case BibleBook.john1:
+        return '1 John';
+      case BibleBook.john2:
+        return '2 John';
+      case BibleBook.john3:
+        return '3 John';
+      case BibleBook.jude:
+        return 'Jude';
+      case BibleBook.revelation:
+        return 'Revelation';
+    }
+  }
+}
