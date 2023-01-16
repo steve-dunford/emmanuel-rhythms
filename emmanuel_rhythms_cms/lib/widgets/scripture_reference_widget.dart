@@ -58,10 +58,7 @@ class _ScriptureReferenceWidgetState extends State<ScriptureReferenceWidget> {
                     value: e, child: Text(e.name));
               }).toList()),
           const SizedBox(width: 5),
-          Text(
-            'Ch(s)',
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
+
           SizedBox(
             width: 40,
             child: TextField(
@@ -79,28 +76,7 @@ class _ScriptureReferenceWidgetState extends State<ScriptureReferenceWidget> {
           ),
           const SizedBox(width: 2),
           Text(
-            '-',
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-          const SizedBox(width: 2),
-          SizedBox(
-            width: 40,
-            child: TextField(
-                controller: chapterToController,
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  reference = reference.copyWith(
-                      toChapter: text.isEmpty ? null : int.tryParse(text));
-                  widget.onChanged(reference);
-                },
-                style: Theme.of(context).textTheme.bodyText2,
-                textAlign: TextAlign.center,
-                decoration: AppTextStyle.textInputDecoration('', false,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 4))),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'vv(s)',
+            ':',
             style: Theme.of(context).textTheme.bodyText2,
           ),
           const SizedBox(width: 2),
@@ -119,9 +95,30 @@ class _ScriptureReferenceWidgetState extends State<ScriptureReferenceWidget> {
                 decoration: AppTextStyle.textInputDecoration('', false,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 4))),
           ),
+          const SizedBox(width: 10),
+          Text(
+            ' - ',
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          const SizedBox(width: 2),
+          SizedBox(
+            width: 40,
+            child: TextField(
+                controller: chapterToController,
+                keyboardType: TextInputType.number,
+                onChanged: (text) {
+                  reference = reference.copyWith(
+                      toChapter: text.isEmpty ? null : int.tryParse(text));
+                  widget.onChanged(reference);
+                },
+                style: Theme.of(context).textTheme.bodyText2,
+                textAlign: TextAlign.center,
+                decoration: AppTextStyle.textInputDecoration('', false,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 4))),
+          ),
           const SizedBox(width: 2),
           Text(
-            '-',
+            ':',
             style: Theme.of(context).textTheme.bodyText2,
           ),
           const SizedBox(width: 2),
