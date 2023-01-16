@@ -1,6 +1,7 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
+import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:flutter/material.dart';
 
@@ -18,41 +19,45 @@ class ItemListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: items.map((item) => Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: AspectRatio(
-              aspectRatio: 1.778,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(18.0),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Positioned.fill(child: _itemBackground(item)),
-                    Container(
-                      height: MediaQuery.of(context).size.width * 0.15,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black,
-                            Colors.transparent
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(ItemDetailsPage.route,
+              arguments: ItemDetailsArguments(item)),
+              child: AspectRatio(
+                aspectRatio: 1.778,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18.0),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Positioned.fill(child: _itemBackground(item)),
+                      Container(
+                        height: MediaQuery.of(context).size.width * 0.15,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.transparent
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter
+                          )
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20,0,20,10),
+                              child: Text(item.title,
+                              style: AppTextStyle.itemCaption(context),),
+                            ),
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter
                         )
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20,0,20,10),
-                            child: Text(item.title,
-                            style: AppTextStyle.itemCaption(context),),
-                          ),
-                        ],
                       )
-                    )
-                  ],
-                ),
-                ),
+                    ],
+                  ),
+                  ),
+              ),
             ),
           ),
           ).toList()

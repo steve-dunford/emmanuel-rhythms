@@ -26,6 +26,8 @@ mixin _$Item {
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
+  List<ScriptureReference>? get scriptureReferences =>
+      throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,6 +47,7 @@ abstract class $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      List<ScriptureReference>? scriptureReferences,
       List<Tag> tags});
 }
 
@@ -67,6 +70,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? scriptureReferences = freezed,
     Object? tags = null,
   }) {
     return _then(_value.copyWith(
@@ -94,6 +98,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      scriptureReferences: freezed == scriptureReferences
+          ? _value.scriptureReferences
+          : scriptureReferences // ignore: cast_nullable_to_non_nullable
+              as List<ScriptureReference>?,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -115,6 +123,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      List<ScriptureReference>? scriptureReferences,
       List<Tag> tags});
 }
 
@@ -133,6 +142,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? scriptureReferences = freezed,
     Object? tags = null,
   }) {
     return _then(_$_Item(
@@ -160,6 +170,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      scriptureReferences: freezed == scriptureReferences
+          ? _value._scriptureReferences
+          : scriptureReferences // ignore: cast_nullable_to_non_nullable
+              as List<ScriptureReference>?,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -178,8 +192,10 @@ class _$_Item implements _Item {
       this.description,
       this.backgroundImage,
       this.url,
+      final List<ScriptureReference>? scriptureReferences,
       required final List<Tag> tags})
-      : _tags = tags;
+      : _scriptureReferences = scriptureReferences,
+        _tags = tags;
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -195,6 +211,17 @@ class _$_Item implements _Item {
   final String? backgroundImage;
   @override
   final String? url;
+  final List<ScriptureReference>? _scriptureReferences;
+  @override
+  List<ScriptureReference>? get scriptureReferences {
+    final value = _scriptureReferences;
+    if (value == null) return null;
+    if (_scriptureReferences is EqualUnmodifiableListView)
+      return _scriptureReferences;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<Tag> _tags;
   @override
   List<Tag> get tags {
@@ -205,7 +232,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, scriptureReferences: $scriptureReferences, tags: $tags)';
   }
 
   @override
@@ -221,13 +248,23 @@ class _$_Item implements _Item {
             (identical(other.backgroundImage, backgroundImage) ||
                 other.backgroundImage == backgroundImage) &&
             (identical(other.url, url) || other.url == url) &&
+            const DeepCollectionEquality()
+                .equals(other._scriptureReferences, _scriptureReferences) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, type, title, description,
-      backgroundImage, url, const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      type,
+      title,
+      description,
+      backgroundImage,
+      url,
+      const DeepCollectionEquality().hash(_scriptureReferences),
+      const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
@@ -251,6 +288,7 @@ abstract class _Item implements Item {
       final String? description,
       final String? backgroundImage,
       final String? url,
+      final List<ScriptureReference>? scriptureReferences,
       required final List<Tag> tags}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
@@ -267,6 +305,8 @@ abstract class _Item implements Item {
   String? get backgroundImage;
   @override
   String? get url;
+  @override
+  List<ScriptureReference>? get scriptureReferences;
   @override
   List<Tag> get tags;
   @override
