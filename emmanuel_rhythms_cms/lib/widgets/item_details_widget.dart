@@ -1,6 +1,7 @@
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
+import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
@@ -168,6 +169,44 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                             : null,
                                   ),
                                 ),
+                              ),
+                            )
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            TableCell(
+                              verticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                              child: Text('Churches',
+                                  style: Theme.of(context).textTheme.bodyText1),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Wrap(
+                                    runAlignment: WrapAlignment.center,
+                                    children: Church.values
+                                        .map((church) => Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(church.displayName,
+                                              style:
+                                              Theme.of(context).textTheme.bodyText2),
+                                          Checkbox(
+                                              value: viewModel
+                                                  .isChurchSelected(church),
+                                              onChanged: (selected) =>
+                                                  viewModel.setChurchSelected(
+                                                      church, selected ?? false))
+                                        ],
+                                      ),
+                                    ))
+                                        .toList()),
                               ),
                             )
                           ],

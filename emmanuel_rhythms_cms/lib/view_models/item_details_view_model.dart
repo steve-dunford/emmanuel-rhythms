@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_cms/models/bible_book.dart';
+import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/scripture_reference.dart';
@@ -59,6 +60,24 @@ class ItemDetailsViewModel extends ChangeNotifier {
     } finally {
       _updateSettingImage(false);
     }
+  }
+
+  isChurchSelected(Church church) =>
+    item.churches.contains(church);
+
+  setChurchSelected(Church church, bool selected) {
+    if (selected) {
+      if (!item.churches.contains(church)) {
+        item = item.copyWith(churches: [...item.churches, church]);
+      }
+    } else {
+      if (item.churches.contains(church)) {
+        item = item.copyWith(
+            churches: item.churches.where((c) => c != church).toList());
+      }
+    }
+
+    notifyListeners();
   }
 
   addScriptureReference() {

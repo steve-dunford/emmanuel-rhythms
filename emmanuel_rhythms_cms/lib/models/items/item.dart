@@ -1,3 +1,4 @@
+import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/scripture_reference.dart';
 import 'package:emmanuel_rhythms_cms/models/tag.dart';
@@ -18,6 +19,7 @@ class Item with _$Item {
       String? backgroundImage,
       String? url,
       List<ScriptureReference>? scriptureReferences,
+      required List<Church> churches,
       required List<Tag> tags}) = _Item;
 
   factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
@@ -25,6 +27,7 @@ class Item with _$Item {
   static Item get defaultItem => Item(
     id: const Uuid().v4(),
     tags: [],
+    churches: [Church.emmanuelLurgan, Church.emmanuelPortadown],
     title: '',
     type: ItemType.video,
   );
