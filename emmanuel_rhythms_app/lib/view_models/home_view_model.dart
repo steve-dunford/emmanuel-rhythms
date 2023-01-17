@@ -3,11 +3,13 @@ import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/repositories/daily_content_repository.dart';
 import 'package:emmanuel_rhythms_app/common/disposer.dart';
+import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeViewModel extends ChangeNotifier with Disposer {
   final DailyContentRepository _dailyContentRepository;
+  final LocalStorageRepository _localStorageRepository;
 
   static const initialPageIndex = 1000;
 
@@ -16,7 +18,7 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   bool isLoading = true;
   List<DailyContentInstance>? instances;
 
-  HomeViewModel(this._dailyContentRepository) {
+  HomeViewModel(this._dailyContentRepository, this._localStorageRepository) {
     _dailyContentRepository.allInstances().listen((instances) {
       this.instances = instances;
       isLoading = false;
@@ -29,8 +31,12 @@ class HomeViewModel extends ChangeNotifier with Disposer {
     notifyListeners();
   }
 
+  onSelectedChurchChanged()  {
+    notifyListeners();
+  }
+
   List<Item> itemsForIndex(int index) => instances
-      ?.where((instance) => instance.date.isAtSameMomentAs(_dateForIndex(index)))
+      ?.where((instance) => instance.item.churches.contains(_localStorageRepository.selectedChurch) && instance.date.isAtSameMomentAs(_dateForIndex(index)))
         .map((instance) => instance.item)
         .toList() ?? [];
 

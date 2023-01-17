@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
+import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
@@ -40,11 +41,20 @@ class _HomePageState extends State<HomePage> {
                           value: 0,
                           child: Text("Resources"),
                         ),
+                        const PopupMenuItem<int>(
+                          value: 1,
+                          child: Text("Select Church"),
+                        ),
                       ];
                     },
-                    onSelected:(value){
+                    onSelected:(value) async {
                       if(value == 0){
                         Navigator.of(context).pushNamed(ResourcesPage.route);
+                      }
+                      if(value == 1){
+                        await Navigator.of(context).pushNamed(ChurchSelectionPage.route,
+                        arguments: ChurchSelectionPageArgs(false));
+                        viewModel.onSelectedChurchChanged();
                       }
                     }
                 ),

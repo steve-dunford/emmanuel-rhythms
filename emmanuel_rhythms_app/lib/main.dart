@@ -1,11 +1,14 @@
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/dependencies.dart';
 import 'package:emmanuel_rhythms_app/firebase_options.dart';
+import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
+import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  Dependencies.register();
+  await Dependencies.register();
 
   runApp(const MyApp());
 }
@@ -41,7 +44,28 @@ class MyApp extends StatelessWidget {
         textTheme: AppTextStyle.theme(context),
       ),
       onGenerateRoute: _onGenerateRoute,
-      initialRoute: HomePage.route,
+      initialRoute: '/',
+      onGenerateInitialRoutes: (String initialRouteName) {
+        final localStorageRepo = GetIt.I.get<LocalStorageRepository>();
+
+        return [
+          localStorageRepo.hasSelectedChurch
+              ? MaterialPageRoute<dynamic>(
+                  builder: (context) {
+                    return HomePage();
+                  },
+                )
+              : MaterialPageRoute<dynamic>(
+                  builder: (context) {
+                    return ChurchSelectionPage();
+                  },
+                  settings: RouteSettings(
+                      arguments: ChurchSelectionPageArgs(
+                          true,
+                          )),
+                )
+        ];
+      },
     );
   }
 
@@ -54,6 +78,9 @@ class MyApp extends StatelessWidget {
         break;
       case ResourcesPage.route:
         page = ResourcesPage();
+        break;
+      case ChurchSelectionPage.route:
+        page = ChurchSelectionPage();
         break;
       case ItemDetailsPage.route:
         page = ItemDetailsPage();

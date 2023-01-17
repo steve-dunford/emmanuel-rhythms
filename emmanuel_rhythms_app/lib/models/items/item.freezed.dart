@@ -28,6 +28,7 @@ mixin _$Item {
   String? get url => throw _privateConstructorUsedError;
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
+  List<Church> get churches => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $ItemCopyWith<$Res> {
       String? backgroundImage,
       String? url,
       List<ScriptureReference>? scriptureReferences,
+      List<Church> churches,
       List<Tag> tags});
 }
 
@@ -71,6 +73,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? scriptureReferences = freezed,
+    Object? churches = null,
     Object? tags = null,
   }) {
     return _then(_value.copyWith(
@@ -102,6 +105,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
+      churches: null == churches
+          ? _value.churches
+          : churches // ignore: cast_nullable_to_non_nullable
+              as List<Church>,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -124,6 +131,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? backgroundImage,
       String? url,
       List<ScriptureReference>? scriptureReferences,
+      List<Church> churches,
       List<Tag> tags});
 }
 
@@ -143,6 +151,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     Object? backgroundImage = freezed,
     Object? url = freezed,
     Object? scriptureReferences = freezed,
+    Object? churches = null,
     Object? tags = null,
   }) {
     return _then(_$_Item(
@@ -174,6 +183,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value._scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
+      churches: null == churches
+          ? _value._churches
+          : churches // ignore: cast_nullable_to_non_nullable
+              as List<Church>,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -193,8 +206,10 @@ class _$_Item implements _Item {
       this.backgroundImage,
       this.url,
       final List<ScriptureReference>? scriptureReferences,
+      required final List<Church> churches,
       required final List<Tag> tags})
       : _scriptureReferences = scriptureReferences,
+        _churches = churches,
         _tags = tags;
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
@@ -222,6 +237,14 @@ class _$_Item implements _Item {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Church> _churches;
+  @override
+  List<Church> get churches {
+    if (_churches is EqualUnmodifiableListView) return _churches;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_churches);
+  }
+
   final List<Tag> _tags;
   @override
   List<Tag> get tags {
@@ -232,7 +255,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, scriptureReferences: $scriptureReferences, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -250,6 +273,7 @@ class _$_Item implements _Item {
             (identical(other.url, url) || other.url == url) &&
             const DeepCollectionEquality()
                 .equals(other._scriptureReferences, _scriptureReferences) &&
+            const DeepCollectionEquality().equals(other._churches, _churches) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
@@ -264,6 +288,7 @@ class _$_Item implements _Item {
       backgroundImage,
       url,
       const DeepCollectionEquality().hash(_scriptureReferences),
+      const DeepCollectionEquality().hash(_churches),
       const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
@@ -289,6 +314,7 @@ abstract class _Item implements Item {
       final String? backgroundImage,
       final String? url,
       final List<ScriptureReference>? scriptureReferences,
+      required final List<Church> churches,
       required final List<Tag> tags}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
@@ -307,6 +333,8 @@ abstract class _Item implements Item {
   String? get url;
   @override
   List<ScriptureReference>? get scriptureReferences;
+  @override
+  List<Church> get churches;
   @override
   List<Tag> get tags;
   @override
