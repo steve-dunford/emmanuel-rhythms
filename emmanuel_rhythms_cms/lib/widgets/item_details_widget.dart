@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
+import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/church.dart';
@@ -10,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
+import 'dart:html' as html;
 
 class ItemDetailsWidget extends StatefulWidget {
   final Item initialItem;
@@ -23,11 +25,15 @@ class ItemDetailsWidget extends StatefulWidget {
 
 class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   final titleController = TextEditingController();
+  final urlController = TextEditingController();
   final descriptionController = HtmlEditorController();
 
   @override
   void initState() {
     titleController.text = widget.initialItem.title;
+    if (widget.initialItem.url != null) {
+      urlController.text = widget.initialItem.url!;
+    }
 
     super.initState();
   }
@@ -177,35 +183,41 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                           children: [
                             TableCell(
                               verticalAlignment:
-                              TableCellVerticalAlignment.middle,
+                                  TableCellVerticalAlignment.middle,
                               child: Text('Churches',
                                   style: Theme.of(context).textTheme.bodyText1),
                             ),
                             TableCell(
                               child: Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Wrap(
                                     runAlignment: WrapAlignment.center,
                                     children: Church.values
                                         .map((church) => Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(church.displayName,
-                                              style:
-                                              Theme.of(context).textTheme.bodyText2),
-                                          Checkbox(
-                                              value: viewModel
-                                                  .isChurchSelected(church),
-                                              onChanged: (selected) =>
-                                                  viewModel.setChurchSelected(
-                                                      church, selected ?? false))
-                                        ],
-                                      ),
-                                    ))
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(church.displayName,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText2),
+                                                  Checkbox(
+                                                      value: viewModel
+                                                          .isChurchSelected(
+                                                              church),
+                                                      onChanged: (selected) =>
+                                                          viewModel
+                                                              .setChurchSelected(
+                                                                  church,
+                                                                  selected ??
+                                                                      false))
+                                                ],
+                                              ),
+                                            ))
                                         .toList()),
                               ),
                             )
@@ -267,16 +279,16 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           TableCell(
               child: Column(
             children: [
-              ...(viewModel.item.scriptureReferences ?? []).map((ref) =>
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ScriptureReferenceWidget(
-                        initialReference: ref,
-                        onChanged: (updatedRef) =>
-                            viewModel.updateScriptureReference(updatedRef),
-                        onDelete: (deletedRef) =>
-                            viewModel.deleteScriptureReference(deletedRef)),
-                  )),
+              ...(viewModel.item.scriptureReferences ?? [])
+                  .map((ref) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ScriptureReferenceWidget(
+                            initialReference: ref,
+                            onChanged: (updatedRef) =>
+                                viewModel.updateScriptureReference(updatedRef),
+                            onDelete: (deletedRef) =>
+                                viewModel.deleteScriptureReference(deletedRef)),
+                      )),
               SizedBox(
                 width: 140,
                 child: ThemedButton(
@@ -290,6 +302,104 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
             ],
           ))
         ])
+      ];
+    } else if (viewModel.selectedItemType.itemType == ItemType.vimeoVideo) {
+      return [
+        TableRow(
+          children: [
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
+              child: Text('Vimeo URL:',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: SizedBox(
+                  height: 48,
+                  width: 200,
+                  child: TextField(
+                    controller: urlController,
+                    onChanged: viewModel.setUrl,
+                    decoration: AppTextStyle.textInputDecoration('URL', false),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ];
+    } else if (viewModel.selectedItemType.itemType == ItemType.download) {
+      return [
+        TableRow(
+          children: [
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
+              child:
+                  Text('File:', style: Theme.of(context).textTheme.bodyText1),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    final result = await FilePicker.platform
+                        .pickFiles(allowMultiple: false);
+
+                    if (result?.count == 1) {
+                      viewModel.setUpload(result!.files.first);
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppColours.emmanuelBlue),
+                            borderRadius: BorderRadius.circular(8.0)),
+                        width: 200,
+                        height: 48,
+                        child: viewModel.isUploadingFile
+                            ? const Center(
+                                child: SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: CircularProgressIndicator()),
+                              )
+                            : Center(
+                                child: Text(
+                                  viewModel.item.downloadFilename ?? '',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ),
+                      ),
+                      const SizedBox(width: 10),
+                      if (viewModel.item.url != null)
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (viewModel.item.url != null) {
+                                html.AnchorElement anchorElement =
+                                    html.AnchorElement(
+                                        href: viewModel.item.url);
+                                anchorElement.download = viewModel.item.url;
+                                anchorElement.click();
+                              }
+                            },
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: Image.asset(Assets.downloadIcon),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
       ];
     }
     return [];

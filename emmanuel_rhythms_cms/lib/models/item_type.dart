@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 enum ItemType {
   text,
-  video,
+  vimeoVideo,
+  download,
   scripture,
   podcast
 }
@@ -13,8 +14,10 @@ extension ItemTypeExtensions on ItemType {
     switch(this) {
       case ItemType.text:
         return 'Text';
-      case ItemType.video:
-        return 'Video';
+      case ItemType.vimeoVideo:
+        return 'Vimeo Video';
+      case ItemType.download:
+        return 'Download';
       case ItemType.scripture:
         return 'Scripture Reading';
       case ItemType.podcast:
@@ -26,8 +29,10 @@ extension ItemTypeExtensions on ItemType {
     switch(this) {
       case ItemType.text:
         return Colors.blue;
-      case ItemType.video:
+      case ItemType.vimeoVideo:
         return Colors.orange;
+      case ItemType.download:
+        return Colors.purple;
       case ItemType.scripture:
         return Colors.red;
       case ItemType.podcast:

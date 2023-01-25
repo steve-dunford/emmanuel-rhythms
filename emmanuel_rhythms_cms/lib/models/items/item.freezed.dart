@@ -26,6 +26,7 @@ mixin _$Item {
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
+  String? get downloadFilename => throw _privateConstructorUsedError;
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
   List<Church> get churches => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      String? downloadFilename,
       List<ScriptureReference>? scriptureReferences,
       List<Church> churches,
       List<Tag> tags});
@@ -68,6 +70,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? downloadFilename = freezed,
     Object? scriptureReferences = freezed,
     Object? churches = freezed,
     Object? tags = freezed,
@@ -97,6 +100,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      downloadFilename: downloadFilename == freezed
+          ? _value.downloadFilename
+          : downloadFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
       scriptureReferences: scriptureReferences == freezed
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
@@ -125,6 +132,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      String? downloadFilename,
       List<ScriptureReference>? scriptureReferences,
       List<Church> churches,
       List<Tag> tags});
@@ -147,6 +155,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? downloadFilename = freezed,
     Object? scriptureReferences = freezed,
     Object? churches = freezed,
     Object? tags = freezed,
@@ -176,6 +185,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
+      downloadFilename: downloadFilename == freezed
+          ? _value.downloadFilename
+          : downloadFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
       scriptureReferences: scriptureReferences == freezed
           ? _value._scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
@@ -202,6 +215,7 @@ class _$_Item implements _Item {
       this.description,
       this.backgroundImage,
       this.url,
+      this.downloadFilename,
       final List<ScriptureReference>? scriptureReferences,
       required final List<Church> churches,
       required final List<Tag> tags})
@@ -223,6 +237,8 @@ class _$_Item implements _Item {
   final String? backgroundImage;
   @override
   final String? url;
+  @override
+  final String? downloadFilename;
   final List<ScriptureReference>? _scriptureReferences;
   @override
   List<ScriptureReference>? get scriptureReferences {
@@ -248,7 +264,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -265,6 +281,8 @@ class _$_Item implements _Item {
                 .equals(other.backgroundImage, backgroundImage) &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality()
+                .equals(other.downloadFilename, downloadFilename) &&
+            const DeepCollectionEquality()
                 .equals(other._scriptureReferences, _scriptureReferences) &&
             const DeepCollectionEquality().equals(other._churches, _churches) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
@@ -280,6 +298,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(backgroundImage),
       const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(downloadFilename),
       const DeepCollectionEquality().hash(_scriptureReferences),
       const DeepCollectionEquality().hash(_churches),
       const DeepCollectionEquality().hash(_tags));
@@ -303,6 +322,7 @@ abstract class _Item implements Item {
       final String? description,
       final String? backgroundImage,
       final String? url,
+      final String? downloadFilename,
       final List<ScriptureReference>? scriptureReferences,
       required final List<Church> churches,
       required final List<Tag> tags}) = _$_Item;
@@ -321,6 +341,8 @@ abstract class _Item implements Item {
   String? get backgroundImage;
   @override
   String? get url;
+  @override
+  String? get downloadFilename;
   @override
   List<ScriptureReference>? get scriptureReferences;
   @override

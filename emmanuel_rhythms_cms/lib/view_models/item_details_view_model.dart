@@ -13,6 +13,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
   Item item;
   bool isSettingImage = false;
+  bool isUploadingFile = false;
 
   ItemDetailsViewModel(this._fileRepository, this.item);
 
@@ -23,7 +24,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
       itemTypeOptions.firstWhere((it) => it.itemType == item.type);
 
   setItemType(ItemTypeOption? option) {
-    item = item.copyWith(type: option?.itemType ?? ItemType.video);
+    item = item.copyWith(type: option?.itemType ?? ItemType.text);
     notifyListeners();
   }
 
@@ -103,6 +104,41 @@ class ItemDetailsViewModel extends ChangeNotifier {
             .toList());
     notifyListeners();
   }
+
+  setUrl(String? url) {
+    item = item.copyWith(
+      url: url
+    );
+    notifyListeners();
+  }
+
+  _updateUploadingFile(bool uploading) {
+    isUploadingFile = uploading;
+    notifyListeners();
+  }
+
+  Future<void> setUpload(PlatformFile file) async {
+    try {
+      _updateUploadingFile(true);
+
+      if (file.bytes == null) {
+        return;
+      }
+
+      final url = await _fileRepository.uploadFile(
+          file.name, file.bytes!, 'item_uploads');
+
+      if (url != null) {
+        item = item.copyWith(
+            url: url,
+            downloadFilename: file.name);
+        notifyListeners();
+      }
+    } finally {
+      _updateUploadingFile(false);
+    }
+  }
+
 }
 
 class ItemTypeOption {

@@ -18,6 +18,7 @@ class Item with _$Item {
       String? description,
       String? backgroundImage,
       String? url,
+      String? downloadFilename,
       List<ScriptureReference>? scriptureReferences,
       required List<Church> churches,
       required List<Tag> tags}) = _Item;
@@ -29,6 +30,6 @@ class Item with _$Item {
     tags: [],
     churches: [Church.emmanuelLurgan, Church.emmanuelPortadown],
     title: '',
-    type: ItemType.video,
+    type: ItemType.text,
   );
 }
