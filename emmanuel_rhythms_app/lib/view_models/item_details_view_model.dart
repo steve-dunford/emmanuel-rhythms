@@ -43,9 +43,29 @@ class ItemDetailsViewModel extends ChangeNotifier {
     return null;
   }
 
+  String? get vimeoVideoId {
+    if(item.url == null) {
+      return null;
+  }
+   return item.url!.substring(item.url!.lastIndexOf('/') + 1);
+ }
+
   Future<void> readScriptureRef() async {
     final url =
         Uri.parse('https://bible.com/bible/1/${item.scriptureReferences?.first.youVersionString}');
+
+    if(await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  }
+
+  Future<void> openUrl() async {
+    if(item.url == null) {
+      return;
+    }
+
+    final url =
+    Uri.parse(item.url!);
 
     if(await canLaunchUrl(url)) {
       await launchUrl(url);

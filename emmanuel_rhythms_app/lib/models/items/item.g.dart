@@ -13,6 +13,7 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       description: json['description'] as String?,
       backgroundImage: json['backgroundImage'] as String?,
       url: json['url'] as String?,
+      downloadFilename: json['downloadFilename'] as String?,
       scriptureReferences: (json['scriptureReferences'] as List<dynamic>?)
           ?.map((e) => ScriptureReference.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'description': instance.description,
       'backgroundImage': instance.backgroundImage,
       'url': instance.url,
+      'downloadFilename': instance.downloadFilename,
       'scriptureReferences':
           instance.scriptureReferences?.map((e) => e.toJson()).toList(),
       'churches': instance.churches.map((e) => _$ChurchEnumMap[e]!).toList(),
@@ -39,7 +41,8 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
 
 const _$ItemTypeEnumMap = {
   ItemType.text: 'text',
-  ItemType.video: 'video',
+  ItemType.vimeoVideo: 'vimeoVideo',
+  ItemType.download: 'download',
   ItemType.scripture: 'scripture',
   ItemType.podcast: 'podcast',
 };

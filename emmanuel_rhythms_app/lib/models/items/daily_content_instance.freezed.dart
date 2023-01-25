@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'daily_content_instance.dart';
 
@@ -12,11 +12,36 @@ part of 'daily_content_instance.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 DailyContentInstance _$DailyContentInstanceFromJson(Map<String, dynamic> json) {
   return _DailyContentInstance.fromJson(json);
 }
+
+/// @nodoc
+class _$DailyContentInstanceTearOff {
+  const _$DailyContentInstanceTearOff();
+
+  _DailyContentInstance call(
+      {required String dailyContentInstanceId,
+      required String dailyContentId,
+      required Item item,
+      @TimestampConverter() required DateTime date}) {
+    return _DailyContentInstance(
+      dailyContentInstanceId: dailyContentInstanceId,
+      dailyContentId: dailyContentId,
+      item: item,
+      date: date,
+    );
+  }
+
+  DailyContentInstance fromJson(Map<String, Object?> json) {
+    return DailyContentInstance.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DailyContentInstance = _$DailyContentInstanceTearOff();
 
 /// @nodoc
 mixin _$DailyContentInstance {
@@ -36,8 +61,7 @@ mixin _$DailyContentInstance {
 abstract class $DailyContentInstanceCopyWith<$Res> {
   factory $DailyContentInstanceCopyWith(DailyContentInstance value,
           $Res Function(DailyContentInstance) then) =
-      _$DailyContentInstanceCopyWithImpl<$Res, DailyContentInstance>;
-  @useResult
+      _$DailyContentInstanceCopyWithImpl<$Res>;
   $Res call(
       {String dailyContentInstanceId,
       String dailyContentId,
@@ -48,61 +72,56 @@ abstract class $DailyContentInstanceCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DailyContentInstanceCopyWithImpl<$Res,
-        $Val extends DailyContentInstance>
+class _$DailyContentInstanceCopyWithImpl<$Res>
     implements $DailyContentInstanceCopyWith<$Res> {
   _$DailyContentInstanceCopyWithImpl(this._value, this._then);
 
+  final DailyContentInstance _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(DailyContentInstance) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dailyContentInstanceId = null,
-    Object? dailyContentId = null,
-    Object? item = null,
-    Object? date = null,
+    Object? dailyContentInstanceId = freezed,
+    Object? dailyContentId = freezed,
+    Object? item = freezed,
+    Object? date = freezed,
   }) {
     return _then(_value.copyWith(
-      dailyContentInstanceId: null == dailyContentInstanceId
+      dailyContentInstanceId: dailyContentInstanceId == freezed
           ? _value.dailyContentInstanceId
           : dailyContentInstanceId // ignore: cast_nullable_to_non_nullable
               as String,
-      dailyContentId: null == dailyContentId
+      dailyContentId: dailyContentId == freezed
           ? _value.dailyContentId
           : dailyContentId // ignore: cast_nullable_to_non_nullable
               as String,
-      item: null == item
+      item: item == freezed
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as Item,
-      date: null == date
+      date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ) as $Val);
+    ));
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $ItemCopyWith<$Res> get item {
     return $ItemCopyWith<$Res>(_value.item, (value) {
-      return _then(_value.copyWith(item: value) as $Val);
+      return _then(_value.copyWith(item: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_DailyContentInstanceCopyWith<$Res>
+abstract class _$DailyContentInstanceCopyWith<$Res>
     implements $DailyContentInstanceCopyWith<$Res> {
-  factory _$$_DailyContentInstanceCopyWith(_$_DailyContentInstance value,
-          $Res Function(_$_DailyContentInstance) then) =
-      __$$_DailyContentInstanceCopyWithImpl<$Res>;
+  factory _$DailyContentInstanceCopyWith(_DailyContentInstance value,
+          $Res Function(_DailyContentInstance) then) =
+      __$DailyContentInstanceCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {String dailyContentInstanceId,
       String dailyContentId,
@@ -114,35 +133,37 @@ abstract class _$$_DailyContentInstanceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DailyContentInstanceCopyWithImpl<$Res>
-    extends _$DailyContentInstanceCopyWithImpl<$Res, _$_DailyContentInstance>
-    implements _$$_DailyContentInstanceCopyWith<$Res> {
-  __$$_DailyContentInstanceCopyWithImpl(_$_DailyContentInstance _value,
-      $Res Function(_$_DailyContentInstance) _then)
-      : super(_value, _then);
+class __$DailyContentInstanceCopyWithImpl<$Res>
+    extends _$DailyContentInstanceCopyWithImpl<$Res>
+    implements _$DailyContentInstanceCopyWith<$Res> {
+  __$DailyContentInstanceCopyWithImpl(
+      _DailyContentInstance _value, $Res Function(_DailyContentInstance) _then)
+      : super(_value, (v) => _then(v as _DailyContentInstance));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _DailyContentInstance get _value => super._value as _DailyContentInstance;
+
   @override
   $Res call({
-    Object? dailyContentInstanceId = null,
-    Object? dailyContentId = null,
-    Object? item = null,
-    Object? date = null,
+    Object? dailyContentInstanceId = freezed,
+    Object? dailyContentId = freezed,
+    Object? item = freezed,
+    Object? date = freezed,
   }) {
-    return _then(_$_DailyContentInstance(
-      dailyContentInstanceId: null == dailyContentInstanceId
+    return _then(_DailyContentInstance(
+      dailyContentInstanceId: dailyContentInstanceId == freezed
           ? _value.dailyContentInstanceId
           : dailyContentInstanceId // ignore: cast_nullable_to_non_nullable
               as String,
-      dailyContentId: null == dailyContentId
+      dailyContentId: dailyContentId == freezed
           ? _value.dailyContentId
           : dailyContentId // ignore: cast_nullable_to_non_nullable
               as String,
-      item: null == item
+      item: item == freezed
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as Item,
-      date: null == date
+      date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -181,42 +202,41 @@ class _$_DailyContentInstance implements _DailyContentInstance {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DailyContentInstance &&
-            (identical(other.dailyContentInstanceId, dailyContentInstanceId) ||
-                other.dailyContentInstanceId == dailyContentInstanceId) &&
-            (identical(other.dailyContentId, dailyContentId) ||
-                other.dailyContentId == dailyContentId) &&
-            (identical(other.item, item) || other.item == item) &&
-            (identical(other.date, date) || other.date == date));
+            other is _DailyContentInstance &&
+            const DeepCollectionEquality()
+                .equals(other.dailyContentInstanceId, dailyContentInstanceId) &&
+            const DeepCollectionEquality()
+                .equals(other.dailyContentId, dailyContentId) &&
+            const DeepCollectionEquality().equals(other.item, item) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, dailyContentInstanceId, dailyContentId, item, date);
+      runtimeType,
+      const DeepCollectionEquality().hash(dailyContentInstanceId),
+      const DeepCollectionEquality().hash(dailyContentId),
+      const DeepCollectionEquality().hash(item),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_DailyContentInstanceCopyWith<_$_DailyContentInstance> get copyWith =>
-      __$$_DailyContentInstanceCopyWithImpl<_$_DailyContentInstance>(
+  _$DailyContentInstanceCopyWith<_DailyContentInstance> get copyWith =>
+      __$DailyContentInstanceCopyWithImpl<_DailyContentInstance>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DailyContentInstanceToJson(
-      this,
-    );
+    return _$$_DailyContentInstanceToJson(this);
   }
 }
 
 abstract class _DailyContentInstance implements DailyContentInstance {
   factory _DailyContentInstance(
-          {required final String dailyContentInstanceId,
-          required final String dailyContentId,
-          required final Item item,
-          @TimestampConverter() required final DateTime date}) =
-      _$_DailyContentInstance;
+      {required String dailyContentInstanceId,
+      required String dailyContentId,
+      required Item item,
+      @TimestampConverter() required DateTime date}) = _$_DailyContentInstance;
 
   factory _DailyContentInstance.fromJson(Map<String, dynamic> json) =
       _$_DailyContentInstance.fromJson;
@@ -232,6 +252,6 @@ abstract class _DailyContentInstance implements DailyContentInstance {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$$_DailyContentInstanceCopyWith<_$_DailyContentInstance> get copyWith =>
+  _$DailyContentInstanceCopyWith<_DailyContentInstance> get copyWith =>
       throw _privateConstructorUsedError;
 }

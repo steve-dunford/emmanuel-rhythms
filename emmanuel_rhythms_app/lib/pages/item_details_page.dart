@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
+import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -12,9 +13,11 @@ import 'package:provider/provider.dart';
 
 class ItemDetailsPage extends StatelessWidget {
   static const route = 'itemDetails';
+
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ItemDetailsArguments;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as ItemDetailsArguments;
 
     return ChangeNotifierProvider(
         create: (_) => ItemDetailsViewModel(args.item),
@@ -34,8 +37,11 @@ class ItemDetailsPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Html(data: viewModel.item.description),
-                    const SizedBox(height: 10,),
+                    if(viewModel.item.description != null)
+                      Html(data: viewModel.item.description),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     _itemSpecificUI(context, viewModel),
                   ],
                 ),
@@ -46,40 +52,82 @@ class ItemDetailsPage extends StatelessWidget {
   }
 
   Widget _itemSpecificUI(BuildContext context, ItemDetailsViewModel viewModel) {
-    switch(viewModel.item.type) {
+    switch (viewModel.item.type) {
       case ItemType.scripture:
         return _scriptureReading(context, viewModel);
+      case ItemType.vimeoVideo:
+        return _vimeoVideo(context, viewModel);
+      case ItemType.download:
+        return _download(context, viewModel);
     }
 
     return Container();
   }
 
-  Widget _scriptureReading(BuildContext context, ItemDetailsViewModel viewModel) {
-    final reading = viewModel.scriptureReading();
-    if(reading == null) {
+  Widget _download(BuildContext context, ItemDetailsViewModel viewModel) {
+    if (viewModel.item.url == null) {
       return Container();
     }
 
-    return Column(
-      children: [
-        Center(child: Text(reading, style: Theme.of(context).textTheme.headline4)),
-        const SizedBox(height: 10,),
-        GestureDetector(
-          onTap: viewModel.readScriptureRef,
+    return Center(
+      child: GestureDetector(
+          onTap: viewModel.openUrl,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(color: AppColours.emmanuelBlue),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0, vertical: 10.0),
               child: Text(
-                'Read Now',
-                 style: Theme.of(context).textTheme.headline5,
+                'View Now',
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
-          )
-        )
+          )),
+    );
+  }
+
+  Widget _vimeoVideo(BuildContext context, ItemDetailsViewModel viewModel) {
+    if (viewModel.vimeoVideoId == null) {
+      return Container();
+    }
+    return VimeoVideoWidget(
+      videoId: viewModel.vimeoVideoId!,
+    );
+  }
+
+  Widget _scriptureReading(
+      BuildContext context, ItemDetailsViewModel viewModel) {
+    final reading = viewModel.scriptureReading();
+    if (reading == null) {
+      return Container();
+    }
+
+    return Column(
+      children: [
+        Center(
+            child: Text(reading, style: Theme.of(context).textTheme.headline4)),
+        const SizedBox(
+          height: 10,
+        ),
+        GestureDetector(
+            onTap: viewModel.readScriptureRef,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(color: AppColours.emmanuelBlue),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+                child: Text(
+                  'Read Now',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ),
+            ))
       ],
     );
   }
@@ -89,5 +137,4 @@ class ItemDetailsArguments {
   final Item item;
 
   ItemDetailsArguments(this.item);
-
 }

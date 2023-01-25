@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'item.dart';
 
@@ -12,11 +12,48 @@ part of 'item.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return _Item.fromJson(json);
 }
+
+/// @nodoc
+class _$ItemTearOff {
+  const _$ItemTearOff();
+
+  _Item call(
+      {required String id,
+      required ItemType type,
+      required String title,
+      String? description,
+      String? backgroundImage,
+      String? url,
+      String? downloadFilename,
+      List<ScriptureReference>? scriptureReferences,
+      required List<Church> churches,
+      required List<Tag> tags}) {
+    return _Item(
+      id: id,
+      type: type,
+      title: title,
+      description: description,
+      backgroundImage: backgroundImage,
+      url: url,
+      downloadFilename: downloadFilename,
+      scriptureReferences: scriptureReferences,
+      churches: churches,
+      tags: tags,
+    );
+  }
+
+  Item fromJson(Map<String, Object?> json) {
+    return Item.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Item = _$ItemTearOff();
 
 /// @nodoc
 mixin _$Item {
@@ -26,6 +63,7 @@ mixin _$Item {
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
+  String? get downloadFilename => throw _privateConstructorUsedError;
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
   List<Church> get churches => throw _privateConstructorUsedError;
@@ -39,8 +77,7 @@ mixin _$Item {
 /// @nodoc
 abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
-      _$ItemCopyWithImpl<$Res, Item>;
-  @useResult
+      _$ItemCopyWithImpl<$Res>;
   $Res call(
       {String id,
       ItemType type,
@@ -48,81 +85,83 @@ abstract class $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      String? downloadFilename,
       List<ScriptureReference>? scriptureReferences,
       List<Church> churches,
       List<Tag> tags});
 }
 
 /// @nodoc
-class _$ItemCopyWithImpl<$Res, $Val extends Item>
-    implements $ItemCopyWith<$Res> {
+class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
   _$ItemCopyWithImpl(this._value, this._then);
 
+  final Item _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(Item) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? type = null,
-    Object? title = null,
+    Object? id = freezed,
+    Object? type = freezed,
+    Object? title = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? downloadFilename = freezed,
     Object? scriptureReferences = freezed,
-    Object? churches = null,
-    Object? tags = null,
+    Object? churches = freezed,
+    Object? tags = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
+      type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ItemType,
-      title: null == title
+      title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundImage: freezed == backgroundImage
+      backgroundImage: backgroundImage == freezed
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: freezed == url
+      url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      scriptureReferences: freezed == scriptureReferences
+      downloadFilename: downloadFilename == freezed
+          ? _value.downloadFilename
+          : downloadFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scriptureReferences: scriptureReferences == freezed
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
-      churches: null == churches
+      churches: churches == freezed
           ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
               as List<Church>,
-      tags: null == tags
+      tags: tags == freezed
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
-    ) as $Val);
+    ));
   }
 }
 
 /// @nodoc
-abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
-  factory _$$_ItemCopyWith(_$_Item value, $Res Function(_$_Item) then) =
-      __$$_ItemCopyWithImpl<$Res>;
+abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
+  factory _$ItemCopyWith(_Item value, $Res Function(_Item) then) =
+      __$ItemCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {String id,
       ItemType type,
@@ -130,65 +169,73 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? description,
       String? backgroundImage,
       String? url,
+      String? downloadFilename,
       List<ScriptureReference>? scriptureReferences,
       List<Church> churches,
       List<Tag> tags});
 }
 
 /// @nodoc
-class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
-    implements _$$_ItemCopyWith<$Res> {
-  __$$_ItemCopyWithImpl(_$_Item _value, $Res Function(_$_Item) _then)
-      : super(_value, _then);
+class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
+    implements _$ItemCopyWith<$Res> {
+  __$ItemCopyWithImpl(_Item _value, $Res Function(_Item) _then)
+      : super(_value, (v) => _then(v as _Item));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _Item get _value => super._value as _Item;
+
   @override
   $Res call({
-    Object? id = null,
-    Object? type = null,
-    Object? title = null,
+    Object? id = freezed,
+    Object? type = freezed,
+    Object? title = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
+    Object? downloadFilename = freezed,
     Object? scriptureReferences = freezed,
-    Object? churches = null,
-    Object? tags = null,
+    Object? churches = freezed,
+    Object? tags = freezed,
   }) {
-    return _then(_$_Item(
-      id: null == id
+    return _then(_Item(
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
+      type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ItemType,
-      title: null == title
+      title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundImage: freezed == backgroundImage
+      backgroundImage: backgroundImage == freezed
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: freezed == url
+      url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      scriptureReferences: freezed == scriptureReferences
-          ? _value._scriptureReferences
+      downloadFilename: downloadFilename == freezed
+          ? _value.downloadFilename
+          : downloadFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scriptureReferences: scriptureReferences == freezed
+          ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
-      churches: null == churches
-          ? _value._churches
+      churches: churches == freezed
+          ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
               as List<Church>,
-      tags: null == tags
-          ? _value._tags
+      tags: tags == freezed
+          ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
     ));
@@ -205,12 +252,10 @@ class _$_Item implements _Item {
       this.description,
       this.backgroundImage,
       this.url,
-      final List<ScriptureReference>? scriptureReferences,
-      required final List<Church> churches,
-      required final List<Tag> tags})
-      : _scriptureReferences = scriptureReferences,
-        _churches = churches,
-        _tags = tags;
+      this.downloadFilename,
+      this.scriptureReferences,
+      required this.churches,
+      required this.tags});
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -226,96 +271,78 @@ class _$_Item implements _Item {
   final String? backgroundImage;
   @override
   final String? url;
-  final List<ScriptureReference>? _scriptureReferences;
   @override
-  List<ScriptureReference>? get scriptureReferences {
-    final value = _scriptureReferences;
-    if (value == null) return null;
-    if (_scriptureReferences is EqualUnmodifiableListView)
-      return _scriptureReferences;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<Church> _churches;
+  final String? downloadFilename;
   @override
-  List<Church> get churches {
-    if (_churches is EqualUnmodifiableListView) return _churches;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_churches);
-  }
-
-  final List<Tag> _tags;
+  final List<ScriptureReference>? scriptureReferences;
   @override
-  List<Tag> get tags {
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_tags);
-  }
+  final List<Church> churches;
+  @override
+  final List<Tag> tags;
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Item &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.backgroundImage, backgroundImage) ||
-                other.backgroundImage == backgroundImage) &&
-            (identical(other.url, url) || other.url == url) &&
+            other is _Item &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
-                .equals(other._scriptureReferences, _scriptureReferences) &&
-            const DeepCollectionEquality().equals(other._churches, _churches) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.backgroundImage, backgroundImage) &&
+            const DeepCollectionEquality().equals(other.url, url) &&
+            const DeepCollectionEquality()
+                .equals(other.downloadFilename, downloadFilename) &&
+            const DeepCollectionEquality()
+                .equals(other.scriptureReferences, scriptureReferences) &&
+            const DeepCollectionEquality().equals(other.churches, churches) &&
+            const DeepCollectionEquality().equals(other.tags, tags));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
-      type,
-      title,
-      description,
-      backgroundImage,
-      url,
-      const DeepCollectionEquality().hash(_scriptureReferences),
-      const DeepCollectionEquality().hash(_churches),
-      const DeepCollectionEquality().hash(_tags));
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(backgroundImage),
+      const DeepCollectionEquality().hash(url),
+      const DeepCollectionEquality().hash(downloadFilename),
+      const DeepCollectionEquality().hash(scriptureReferences),
+      const DeepCollectionEquality().hash(churches),
+      const DeepCollectionEquality().hash(tags));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_ItemCopyWith<_$_Item> get copyWith =>
-      __$$_ItemCopyWithImpl<_$_Item>(this, _$identity);
+  _$ItemCopyWith<_Item> get copyWith =>
+      __$ItemCopyWithImpl<_Item>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemToJson(
-      this,
-    );
+    return _$$_ItemToJson(this);
   }
 }
 
 abstract class _Item implements Item {
   factory _Item(
-      {required final String id,
-      required final ItemType type,
-      required final String title,
-      final String? description,
-      final String? backgroundImage,
-      final String? url,
-      final List<ScriptureReference>? scriptureReferences,
-      required final List<Church> churches,
-      required final List<Tag> tags}) = _$_Item;
+      {required String id,
+      required ItemType type,
+      required String title,
+      String? description,
+      String? backgroundImage,
+      String? url,
+      String? downloadFilename,
+      List<ScriptureReference>? scriptureReferences,
+      required List<Church> churches,
+      required List<Tag> tags}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -332,6 +359,8 @@ abstract class _Item implements Item {
   @override
   String? get url;
   @override
+  String? get downloadFilename;
+  @override
   List<ScriptureReference>? get scriptureReferences;
   @override
   List<Church> get churches;
@@ -339,5 +368,5 @@ abstract class _Item implements Item {
   List<Tag> get tags;
   @override
   @JsonKey(ignore: true)
-  _$$_ItemCopyWith<_$_Item> get copyWith => throw _privateConstructorUsedError;
+  _$ItemCopyWith<_Item> get copyWith => throw _privateConstructorUsedError;
 }

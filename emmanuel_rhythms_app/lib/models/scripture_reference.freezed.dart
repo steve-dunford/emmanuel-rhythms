@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'scripture_reference.dart';
 
@@ -12,11 +12,40 @@ part of 'scripture_reference.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ScriptureReference _$ScriptureReferenceFromJson(Map<String, dynamic> json) {
   return _ScriptureReference.fromJson(json);
 }
+
+/// @nodoc
+class _$ScriptureReferenceTearOff {
+  const _$ScriptureReferenceTearOff();
+
+  _ScriptureReference call(
+      {required String id,
+      required BibleBook book,
+      int? fromChapter,
+      int? toChapter,
+      int? fromVerse,
+      int? toVerse}) {
+    return _ScriptureReference(
+      id: id,
+      book: book,
+      fromChapter: fromChapter,
+      toChapter: toChapter,
+      fromVerse: fromVerse,
+      toVerse: toVerse,
+    );
+  }
+
+  ScriptureReference fromJson(Map<String, Object?> json) {
+    return ScriptureReference.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ScriptureReference = _$ScriptureReferenceTearOff();
 
 /// @nodoc
 mixin _$ScriptureReference {
@@ -37,8 +66,7 @@ mixin _$ScriptureReference {
 abstract class $ScriptureReferenceCopyWith<$Res> {
   factory $ScriptureReferenceCopyWith(
           ScriptureReference value, $Res Function(ScriptureReference) then) =
-      _$ScriptureReferenceCopyWithImpl<$Res, ScriptureReference>;
-  @useResult
+      _$ScriptureReferenceCopyWithImpl<$Res>;
   $Res call(
       {String id,
       BibleBook book,
@@ -49,62 +77,59 @@ abstract class $ScriptureReferenceCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ScriptureReferenceCopyWithImpl<$Res, $Val extends ScriptureReference>
+class _$ScriptureReferenceCopyWithImpl<$Res>
     implements $ScriptureReferenceCopyWith<$Res> {
   _$ScriptureReferenceCopyWithImpl(this._value, this._then);
 
+  final ScriptureReference _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(ScriptureReference) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? book = null,
+    Object? id = freezed,
+    Object? book = freezed,
     Object? fromChapter = freezed,
     Object? toChapter = freezed,
     Object? fromVerse = freezed,
     Object? toVerse = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      book: null == book
+      book: book == freezed
           ? _value.book
           : book // ignore: cast_nullable_to_non_nullable
               as BibleBook,
-      fromChapter: freezed == fromChapter
+      fromChapter: fromChapter == freezed
           ? _value.fromChapter
           : fromChapter // ignore: cast_nullable_to_non_nullable
               as int?,
-      toChapter: freezed == toChapter
+      toChapter: toChapter == freezed
           ? _value.toChapter
           : toChapter // ignore: cast_nullable_to_non_nullable
               as int?,
-      fromVerse: freezed == fromVerse
+      fromVerse: fromVerse == freezed
           ? _value.fromVerse
           : fromVerse // ignore: cast_nullable_to_non_nullable
               as int?,
-      toVerse: freezed == toVerse
+      toVerse: toVerse == freezed
           ? _value.toVerse
           : toVerse // ignore: cast_nullable_to_non_nullable
               as int?,
-    ) as $Val);
+    ));
   }
 }
 
 /// @nodoc
-abstract class _$$_ScriptureReferenceCopyWith<$Res>
+abstract class _$ScriptureReferenceCopyWith<$Res>
     implements $ScriptureReferenceCopyWith<$Res> {
-  factory _$$_ScriptureReferenceCopyWith(_$_ScriptureReference value,
-          $Res Function(_$_ScriptureReference) then) =
-      __$$_ScriptureReferenceCopyWithImpl<$Res>;
+  factory _$ScriptureReferenceCopyWith(
+          _ScriptureReference value, $Res Function(_ScriptureReference) then) =
+      __$ScriptureReferenceCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {String id,
       BibleBook book,
@@ -115,45 +140,47 @@ abstract class _$$_ScriptureReferenceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ScriptureReferenceCopyWithImpl<$Res>
-    extends _$ScriptureReferenceCopyWithImpl<$Res, _$_ScriptureReference>
-    implements _$$_ScriptureReferenceCopyWith<$Res> {
-  __$$_ScriptureReferenceCopyWithImpl(
-      _$_ScriptureReference _value, $Res Function(_$_ScriptureReference) _then)
-      : super(_value, _then);
+class __$ScriptureReferenceCopyWithImpl<$Res>
+    extends _$ScriptureReferenceCopyWithImpl<$Res>
+    implements _$ScriptureReferenceCopyWith<$Res> {
+  __$ScriptureReferenceCopyWithImpl(
+      _ScriptureReference _value, $Res Function(_ScriptureReference) _then)
+      : super(_value, (v) => _then(v as _ScriptureReference));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _ScriptureReference get _value => super._value as _ScriptureReference;
+
   @override
   $Res call({
-    Object? id = null,
-    Object? book = null,
+    Object? id = freezed,
+    Object? book = freezed,
     Object? fromChapter = freezed,
     Object? toChapter = freezed,
     Object? fromVerse = freezed,
     Object? toVerse = freezed,
   }) {
-    return _then(_$_ScriptureReference(
-      id: null == id
+    return _then(_ScriptureReference(
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      book: null == book
+      book: book == freezed
           ? _value.book
           : book // ignore: cast_nullable_to_non_nullable
               as BibleBook,
-      fromChapter: freezed == fromChapter
+      fromChapter: fromChapter == freezed
           ? _value.fromChapter
           : fromChapter // ignore: cast_nullable_to_non_nullable
               as int?,
-      toChapter: freezed == toChapter
+      toChapter: toChapter == freezed
           ? _value.toChapter
           : toChapter // ignore: cast_nullable_to_non_nullable
               as int?,
-      fromVerse: freezed == fromVerse
+      fromVerse: fromVerse == freezed
           ? _value.fromVerse
           : fromVerse // ignore: cast_nullable_to_non_nullable
               as int?,
-      toVerse: freezed == toVerse
+      toVerse: toVerse == freezed
           ? _value.toVerse
           : toVerse // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -197,46 +224,45 @@ class _$_ScriptureReference implements _ScriptureReference {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ScriptureReference &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.book, book) || other.book == book) &&
-            (identical(other.fromChapter, fromChapter) ||
-                other.fromChapter == fromChapter) &&
-            (identical(other.toChapter, toChapter) ||
-                other.toChapter == toChapter) &&
-            (identical(other.fromVerse, fromVerse) ||
-                other.fromVerse == fromVerse) &&
-            (identical(other.toVerse, toVerse) || other.toVerse == toVerse));
+            other is _ScriptureReference &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.book, book) &&
+            const DeepCollectionEquality()
+                .equals(other.fromChapter, fromChapter) &&
+            const DeepCollectionEquality().equals(other.toChapter, toChapter) &&
+            const DeepCollectionEquality().equals(other.fromVerse, fromVerse) &&
+            const DeepCollectionEquality().equals(other.toVerse, toVerse));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, book, fromChapter, toChapter, fromVerse, toVerse);
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(book),
+      const DeepCollectionEquality().hash(fromChapter),
+      const DeepCollectionEquality().hash(toChapter),
+      const DeepCollectionEquality().hash(fromVerse),
+      const DeepCollectionEquality().hash(toVerse));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_ScriptureReferenceCopyWith<_$_ScriptureReference> get copyWith =>
-      __$$_ScriptureReferenceCopyWithImpl<_$_ScriptureReference>(
-          this, _$identity);
+  _$ScriptureReferenceCopyWith<_ScriptureReference> get copyWith =>
+      __$ScriptureReferenceCopyWithImpl<_ScriptureReference>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ScriptureReferenceToJson(
-      this,
-    );
+    return _$$_ScriptureReferenceToJson(this);
   }
 }
 
 abstract class _ScriptureReference implements ScriptureReference {
   factory _ScriptureReference(
-      {required final String id,
-      required final BibleBook book,
-      final int? fromChapter,
-      final int? toChapter,
-      final int? fromVerse,
-      final int? toVerse}) = _$_ScriptureReference;
+      {required String id,
+      required BibleBook book,
+      int? fromChapter,
+      int? toChapter,
+      int? fromVerse,
+      int? toVerse}) = _$_ScriptureReference;
 
   factory _ScriptureReference.fromJson(Map<String, dynamic> json) =
       _$_ScriptureReference.fromJson;
@@ -255,6 +281,6 @@ abstract class _ScriptureReference implements ScriptureReference {
   int? get toVerse;
   @override
   @JsonKey(ignore: true)
-  _$$_ScriptureReferenceCopyWith<_$_ScriptureReference> get copyWith =>
+  _$ScriptureReferenceCopyWith<_ScriptureReference> get copyWith =>
       throw _privateConstructorUsedError;
 }
