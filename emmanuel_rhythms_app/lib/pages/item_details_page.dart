@@ -2,6 +2,7 @@ import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
+import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
@@ -37,7 +38,7 @@ class ItemDetailsPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    if(viewModel.item.description != null)
+                    if (viewModel.item.description != null)
                       Html(data: viewModel.item.description),
                     const SizedBox(
                       height: 10,
@@ -78,8 +79,8 @@ class ItemDetailsPage extends StatelessWidget {
               border: Border.all(color: AppColours.emmanuelBlue),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
                 'View Now',
                 style: Theme.of(context).textTheme.headline5,
@@ -100,36 +101,40 @@ class ItemDetailsPage extends StatelessWidget {
 
   Widget _scriptureReading(
       BuildContext context, ItemDetailsViewModel viewModel) {
-    final reading = viewModel.scriptureReading();
-    if (reading == null) {
+    if (viewModel.item.scriptureReferences?.isEmpty ?? true) {
       return Container();
     }
 
     return Column(
-      children: [
-        Center(
-            child: Text(reading, style: Theme.of(context).textTheme.headline4)),
-        const SizedBox(
-          height: 10,
-        ),
-        GestureDetector(
-            onTap: viewModel.readScriptureRef,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: AppColours.emmanuelBlue),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 10.0),
-                child: Text(
-                  'Read Now',
-                  style: Theme.of(context).textTheme.headline5,
+        children: viewModel.item.scriptureReferences!.map((ref) {
+      return Column(
+        children: [
+          Center(
+              child: Text(ref.displayString ?? '',
+                  style: Theme.of(context).textTheme.headline4)),
+          const SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+              onTap: () => viewModel.readScriptureRef(ref),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(color: AppColours.emmanuelBlue),
                 ),
-              ),
-            ))
-      ],
-    );
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Text(
+                    'Read Now',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              )),
+          const SizedBox(height: 50,)
+        ],
+      );
+    }).toList());
   }
 }
 

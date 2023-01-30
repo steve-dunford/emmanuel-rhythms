@@ -50,9 +50,9 @@ class ItemDetailsViewModel extends ChangeNotifier {
    return item.url!.substring(item.url!.lastIndexOf('/') + 1);
  }
 
-  Future<void> readScriptureRef() async {
+  Future<void> readScriptureRef(ScriptureReference ref) async {
     final url =
-        Uri.parse('https://bible.com/bible/1/${item.scriptureReferences?.first.youVersionString}');
+        Uri.parse('https://bible.com/bible/1/${ref.youVersionString}');
 
     if(await canLaunchUrl(url)) {
       await launchUrl(url);

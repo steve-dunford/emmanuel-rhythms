@@ -21,7 +21,9 @@ class ScriptureReference with _$ScriptureReference {
 }
 
 extension ScriptureReferenceExtensions on ScriptureReference {
-  String? get displayString {
+  String get displayString =>
+    book.bookName + (chapterAndVerse == null ? '' : ' $chapterAndVerse');
+    String? get chapterAndVerse {
 
     if (fromChapter.isNullOrZero) {
       if (fromVerse.isNullOrZero) {
