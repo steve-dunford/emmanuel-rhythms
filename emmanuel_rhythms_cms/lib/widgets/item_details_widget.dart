@@ -329,7 +329,33 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         )
       ];
-    } else if (viewModel.selectedItemType.itemType == ItemType.download) {
+    } else if (viewModel.selectedItemType.itemType == ItemType.podcast) {
+      return [
+        TableRow(
+          children: [
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
+              child: Text('Transistor.fm URL:',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: SizedBox(
+                  height: 48,
+                  width: 200,
+                  child: TextField(
+                    controller: urlController,
+                    onChanged: viewModel.setUrl,
+                    decoration: AppTextStyle.textInputDecoration('URL', false),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ];
+    }else if (viewModel.selectedItemType.itemType == ItemType.download) {
       return [
         TableRow(
           children: [
