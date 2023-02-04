@@ -1,16 +1,15 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
-import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
-import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/audio_widget.dart';
 
 class ItemDetailsPage extends StatelessWidget {
   static const route = 'itemDetails';
@@ -21,7 +20,7 @@ class ItemDetailsPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as ItemDetailsArguments;
 
     return ChangeNotifierProvider(
-        create: (_) => ItemDetailsViewModel(args.item),
+        create: (_) => ItemDetailsViewModel(GetIt.I.get(), args.item),
         builder: (context, child) {
           final viewModel = context.watch<ItemDetailsViewModel>();
 
@@ -34,7 +33,7 @@ class ItemDetailsPage extends StatelessWidget {
               automaticallyImplyLeading: true,
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -60,6 +59,8 @@ class ItemDetailsPage extends StatelessWidget {
         return _vimeoVideo(context, viewModel);
       case ItemType.download:
         return _download(context, viewModel);
+      case ItemType.podcast:
+        return _podcastPlayer(context, viewModel);
     }
 
     return Container();
@@ -99,6 +100,35 @@ class ItemDetailsPage extends StatelessWidget {
     );
   }
 
+  Widget _podcastPlayer(BuildContext context, ItemDetailsViewModel viewModel) {
+    final details = viewModel.podcastDetails;
+
+    if (details == null) {
+      return Container();
+    }
+
+    return Column(
+      children: [
+        if(viewModel.showPodcastDetails && details.title != null)
+          ...[
+            Text(details.title!,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5),
+            const SizedBox(height: 20),
+          ],
+        if(viewModel.showPodcastDetails && details.description != null)
+          ...[
+            Text(details.description!,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText2),
+            const SizedBox(height: 20),
+          ],
+        if(details.audioFileUrl != null)
+          AudioWidget(url: details!.audioFileUrl!)
+      ],
+    );
+  }
+
   Widget _scriptureReading(
       BuildContext context, ItemDetailsViewModel viewModel) {
     if (viewModel.item.scriptureReferences?.isEmpty ?? true) {
@@ -131,7 +161,9 @@ class ItemDetailsPage extends StatelessWidget {
                   ),
                 ),
               )),
-          const SizedBox(height: 50,)
+          const SizedBox(
+            height: 50,
+          )
         ],
       );
     }).toList());

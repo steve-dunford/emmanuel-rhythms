@@ -14,6 +14,7 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       backgroundImage: json['backgroundImage'] as String?,
       url: json['url'] as String?,
       downloadFilename: json['downloadFilename'] as String?,
+      usePodcastDetails: json['usePodcastDetails'] as bool?,
       scriptureReferences: (json['scriptureReferences'] as List<dynamic>?)
           ?.map((e) => ScriptureReference.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'backgroundImage': instance.backgroundImage,
       'url': instance.url,
       'downloadFilename': instance.downloadFilename,
+      'usePodcastDetails': instance.usePodcastDetails,
       'scriptureReferences':
           instance.scriptureReferences?.map((e) => e.toJson()).toList(),
       'churches': instance.churches.map((e) => _$ChurchEnumMap[e]!).toList(),
