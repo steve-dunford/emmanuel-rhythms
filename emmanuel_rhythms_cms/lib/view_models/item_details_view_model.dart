@@ -112,6 +112,13 @@ class ItemDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  setUsePodcastDetails(bool useDetails) {
+    item = item.copyWith(
+      usePodcastDetails: useDetails
+    );
+    notifyListeners();
+  }
+
   _updateUploadingFile(bool uploading) {
     isUploadingFile = uploading;
     notifyListeners();

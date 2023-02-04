@@ -351,8 +351,30 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
+        ),
+        TableRow(
+          children: [
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
+              child: Text('Use Podcast Details:',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Checkbox(
+                    value: viewModel
+                        .item.usePodcastDetails ?? true,
+                    onChanged: (selected) =>
+                        viewModel
+                            .setUsePodcastDetails(
+                            selected ??
+                                false)),
+              ),
+            )
+          ]
         )
       ];
     }else if (viewModel.selectedItemType.itemType == ItemType.download) {
