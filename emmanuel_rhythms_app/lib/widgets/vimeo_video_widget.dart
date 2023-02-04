@@ -20,6 +20,13 @@ class _VimeoVideoWidgetState extends State<VimeoVideoWidget> {
     super.initState();
   }
 
+
+  @override
+  void deactivate() {
+    _controller.dispose();
+    super.deactivate();
+  }
+
   void loadVideo() async {
     final urls = await PodPlayerController.getVimeoUrls(widget.videoId);
     setState(() => isLoading = false);
