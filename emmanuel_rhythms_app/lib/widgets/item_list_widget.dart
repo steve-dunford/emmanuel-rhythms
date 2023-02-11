@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class ItemListWidget extends StatelessWidget {
   final List<Item> items;
@@ -16,62 +17,73 @@ class ItemListWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: items.map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(ItemDetailsPage.route,
-              arguments: ItemDetailsArguments(item)),
-              child: AspectRatio(
-                aspectRatio: 1.778,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18.0),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Positioned.fill(child: _itemBackground(item)),
-                      Container(
-                        height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black,
-                              Colors.transparent
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: items
+                .sorted((item1, item2) => item1.isPriority
+                    ? -1
+                    : item2.isPriority
+                        ? 1
+                        : 0)
+                .map(
+                  (item) => Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pushNamed(
+                          ItemDetailsPage.route,
+                          arguments: ItemDetailsArguments(item)),
+                      child: AspectRatio(
+                        aspectRatio: 1.778,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(18.0),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Positioned.fill(child: _itemBackground(item)),
+                              Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                  decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          colors: [
+                                        Colors.black,
+                                        Colors.transparent
+                                      ],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter)),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20, 0, 20, 10),
+                                        child: Text(
+                                          item.title,
+                                          style:
+                                              AppTextStyle.itemCaption(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ))
                             ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter
-                          )
+                          ),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(20,0,20,10),
-                              child: Text(item.title,
-                              style: AppTextStyle.itemCaption(context),),
-                            ),
-                          ],
-                        )
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                  ),
-              ),
-            ),
-          ),
-          ).toList()
-        ),
+                )
+                .toList()),
       ),
     );
-
   }
-  
-  Widget _itemBackground(Item item) =>
-      item.backgroundImage != null ? Image.network(item.backgroundImage!,fit: BoxFit.fitWidth,) :
-          Container(
-            color: AppColours.emmanuelBlue,
-            child: Image.asset(Assets.emmanuelLogoWhite),
-          );
 
+  Widget _itemBackground(Item item) => item.backgroundImage != null
+      ? Image.network(
+          item.backgroundImage!,
+          fit: BoxFit.fitWidth,
+        )
+      : Container(
+          color: AppColours.emmanuelBlue,
+          child: Image.asset(Assets.emmanuelLogoWhite),
+        );
 }

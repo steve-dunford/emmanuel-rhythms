@@ -38,6 +38,12 @@ class ItemDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  setIsPriority(bool isPriority) {
+    item = item.copyWith(isPriority: isPriority);
+    notifyListeners();
+  }
+
+
   _updateSettingImage(bool setting) {
     isSettingImage = setting;
     notifyListeners();

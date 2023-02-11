@@ -15,6 +15,7 @@ class Item with _$Item {
       {required String id,
       required ItemType type,
       required String title,
+      required bool isPriority,
       String? description,
       String? backgroundImage,
       String? url,
@@ -31,6 +32,7 @@ class Item with _$Item {
     tags: [],
     churches: [Church.emmanuelLurgan, Church.emmanuelPortadown],
     title: '',
+    isPriority: false,
     type: ItemType.text,
     usePodcastDetails: true,
   );

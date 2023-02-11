@@ -14,6 +14,7 @@ class Item with _$Item {
       {required String id,
         required ItemType type,
         required String title,
+        required bool isPriority,
         String? description,
         String? backgroundImage,
         String? url,

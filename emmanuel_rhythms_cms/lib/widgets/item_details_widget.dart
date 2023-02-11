@@ -232,6 +232,28 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                           ],
                         ),
                         TableRow(
+                            children: [
+                              TableCell(
+                                verticalAlignment: TableCellVerticalAlignment.middle,
+                                child: Text('Priority:',
+                                    style: Theme.of(context).textTheme.bodyText1),
+                              ),
+                              TableCell(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Checkbox(
+                                      value: viewModel
+                                          .item.isPriority,
+                                      onChanged: (selected) =>
+                                          viewModel
+                                              .setIsPriority(
+                                              selected ??
+                                                  false)),
+                                ),
+                              )
+                            ]
+                        ),
+                        TableRow(
                           children: [
                             TableCell(
                               verticalAlignment:

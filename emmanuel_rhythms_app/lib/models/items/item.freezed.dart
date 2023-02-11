@@ -26,6 +26,7 @@ class _$ItemTearOff {
       {required String id,
       required ItemType type,
       required String title,
+      required bool isPriority,
       String? description,
       String? backgroundImage,
       String? url,
@@ -38,6 +39,7 @@ class _$ItemTearOff {
       id: id,
       type: type,
       title: title,
+      isPriority: isPriority,
       description: description,
       backgroundImage: backgroundImage,
       url: url,
@@ -62,6 +64,7 @@ mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   ItemType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  bool get isPriority => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
@@ -85,6 +88,7 @@ abstract class $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
+      bool isPriority,
       String? description,
       String? backgroundImage,
       String? url,
@@ -108,6 +112,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? id = freezed,
     Object? type = freezed,
     Object? title = freezed,
+    Object? isPriority = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
@@ -130,6 +135,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      isPriority: isPriority == freezed
+          ? _value.isPriority
+          : isPriority // ignore: cast_nullable_to_non_nullable
+              as bool,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -175,6 +184,7 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {String id,
       ItemType type,
       String title,
+      bool isPriority,
       String? description,
       String? backgroundImage,
       String? url,
@@ -199,6 +209,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? id = freezed,
     Object? type = freezed,
     Object? title = freezed,
+    Object? isPriority = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
@@ -221,6 +232,10 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      isPriority: isPriority == freezed
+          ? _value.isPriority
+          : isPriority // ignore: cast_nullable_to_non_nullable
+              as bool,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -264,6 +279,7 @@ class _$_Item implements _Item {
       {required this.id,
       required this.type,
       required this.title,
+      required this.isPriority,
       this.description,
       this.backgroundImage,
       this.url,
@@ -281,6 +297,8 @@ class _$_Item implements _Item {
   final ItemType type;
   @override
   final String title;
+  @override
+  final bool isPriority;
   @override
   final String? description;
   @override
@@ -300,7 +318,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -311,6 +329,8 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality()
+                .equals(other.isPriority, isPriority) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
             const DeepCollectionEquality()
@@ -332,6 +352,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(isPriority),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(backgroundImage),
       const DeepCollectionEquality().hash(url),
@@ -357,6 +378,7 @@ abstract class _Item implements Item {
       {required String id,
       required ItemType type,
       required String title,
+      required bool isPriority,
       String? description,
       String? backgroundImage,
       String? url,
@@ -374,6 +396,8 @@ abstract class _Item implements Item {
   ItemType get type;
   @override
   String get title;
+  @override
+  bool get isPriority;
   @override
   String? get description;
   @override
