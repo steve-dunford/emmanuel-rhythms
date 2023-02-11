@@ -1,3 +1,4 @@
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
 import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
@@ -6,6 +7,7 @@ import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
+import 'package:emmanuel_rhythms_cms/widgets/item_description_widget.dart';
 import 'package:emmanuel_rhythms_cms/widgets/scripture_reference_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,6 @@ class ItemDetailsWidget extends StatefulWidget {
 class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   final titleController = TextEditingController();
   final urlController = TextEditingController();
-  final descriptionController = HtmlEditorController();
 
   @override
   void initState() {
@@ -97,36 +98,43 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                           children: [
                             TableCell(
                               verticalAlignment: TableCellVerticalAlignment.top,
-                              child: Text('Description:',
-                                  style: Theme.of(context).textTheme.bodyText1),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Text('Description:',
+                                    style: Theme.of(context).textTheme.bodyText1),
+                              ),
                             ),
                             TableCell(
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: AppColours.emmanuelBlue),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: HtmlEditor(
-                                      otherOptions: const OtherOptions(
-                                        height: 300,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) => Dialog(
+                                            child: ItemDescriptionWidget(
+                                              initialDescription: viewModel.item.description,
+                                                descriptionUpdated: viewModel.setDescription),
+                                            backgroundColor: Colors.white,
+                                          ));
+                                    },
+                                    child: Container(
+                                      width: 400,
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: AppColours.emmanuelBlue),
+                                        borderRadius: BorderRadius.circular(8.0),
                                       ),
-                                      controller: descriptionController,
-                                      htmlEditorOptions: HtmlEditorOptions(
-                                        hint: 'Description',
-                                        initialText: viewModel.item.description,
-                                      ),
-                                      htmlToolbarOptions:
-                                          const HtmlToolbarOptions(
-                                        toolbarType: ToolbarType.nativeGrid,
-                                      ),
-                                      callbacks: Callbacks(
-                                          onChangeContent: (content) =>
-                                              viewModel
-                                                  .setDescription(content)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: EasyWebView(
+                                          key: ValueKey(viewModel.item.id),
+                                          src: viewModel.item.description ?? '',
+                                          convertToWidgets: true,
+                                        ),
+                                      )
                                     ),
                                   )),
                             )
