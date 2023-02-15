@@ -12,6 +12,7 @@ class DailyContentViewModel extends ChangeNotifier {
   bool isSettingImage = false;
   bool isSaving = false;
   bool isDeleting = false;
+  bool isPublishing = false;
 
   DailyContentViewModel(this._itemRepository, this.content, this._isNewContent);
 
@@ -82,10 +83,22 @@ class DailyContentViewModel extends ChangeNotifier {
 
   Future<void> save() async {
     try {
-      _updateIsSaving(true );
+      _updateIsSaving(true);
       await _itemRepository.upsertDailyContent(content);
     } finally {
       _updateIsSaving(false);
+    }
+  }
+
+  Future<void> publish() async {
+    try {
+      _updateIsPublishing(true);
+
+      await save();
+
+      await _itemRepository.publishDailyContent(content);
+    } finally {
+      _updateIsPublishing(false);
     }
   }
 
@@ -102,6 +115,11 @@ class DailyContentViewModel extends ChangeNotifier {
 
   _updateIsSaving(bool saving) {
     isSaving = saving;
+    notifyListeners();
+  }
+
+  _updateIsPublishing(bool publishing) {
+    isPublishing = publishing;
     notifyListeners();
   }
 

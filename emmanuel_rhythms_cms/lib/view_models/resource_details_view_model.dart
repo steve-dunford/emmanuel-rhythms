@@ -9,6 +9,7 @@ class ResourceDetailsViewModel extends ChangeNotifier {
   Item resource;
   bool isSaving = false;
   bool isDeleting = false;
+  bool isPublishing = false;
 
   ResourceDetailsViewModel(this._resourcesRepository, this.resource, this._isNewResource);
 
@@ -25,6 +26,18 @@ class ResourceDetailsViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> publish() async {
+    try {
+      _updateIsPublishing(true);
+
+      await save();
+
+      await _resourcesRepository.publishResource(resource);
+    } finally {
+      _updateIsPublishing(false);
+    }
+  }
+
   bool get canDelete => !_isNewResource;
 
   Future<void> delete() async {
@@ -38,6 +51,11 @@ class ResourceDetailsViewModel extends ChangeNotifier {
 
   _updateIsSaving(bool saving) {
     isSaving = saving;
+    notifyListeners();
+  }
+
+  _updateIsPublishing(bool publishing) {
+    isPublishing = publishing;
     notifyListeners();
   }
 

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emmanuel_rhythms_cms/common/firebase_collections.dart';
 import 'package:emmanuel_rhythms_cms/models/items/daily_content.dart';
-import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/items/daily_content_instance.dart';
 
 abstract class DailyContentRepository {
@@ -9,6 +8,7 @@ abstract class DailyContentRepository {
   Stream<List<DailyContentInstance>> dailyContentInstances(DateTime startDate, DateTime endDate);
   Future<void> upsertDailyContent(DailyContent content);
   Future<void> deleteDailyContent(DailyContent content);
+  Future<void> publishDailyContent(DailyContent content);
 }
 
 class FirebaseDailyContentRepository extends DailyContentRepository {
@@ -46,6 +46,16 @@ class FirebaseDailyContentRepository extends DailyContentRepository {
           .collection(FirebaseCollections.dailyContentInstances)
           .where('dailyContentId', isEqualTo: content.dailyContentId)
           .get();
+
+      final publishedInstanceRefs = await FirebaseFirestore.instance
+          .collection(FirebaseCollections.publishedDailyContentInstances)
+          .where('dailyContentId', isEqualTo: content.dailyContentId)
+          .get();
+
+      //Delete published instances
+      for (var doc in publishedInstanceRefs.docs) {
+        transaction.delete(doc.reference);
+      }
 
       //Delete instances
       for (var doc in instanceRefs.docs) {
@@ -86,6 +96,35 @@ class FirebaseDailyContentRepository extends DailyContentRepository {
       for(var newInstance in newInstances) {
         final ref = FirebaseFirestore.instance
             .collection(FirebaseCollections.dailyContentInstances)
+            .doc(newInstance.dailyContentInstanceId);
+
+        transaction.set(ref, newInstance.toJson());
+      }
+    });
+
+  }
+
+  @override
+  Future<void> publishDailyContent(DailyContent content) async {
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+
+      final publishedInstanceRefs = await FirebaseFirestore.instance
+          .collection(FirebaseCollections.publishedDailyContentInstances)
+          .where('dailyContentId', isEqualTo: content.dailyContentId)
+          .get();
+
+      //Delete existing instances
+      for (var doc in publishedInstanceRefs.docs) {
+        transaction.delete(doc.reference);
+      }
+
+      final newInstances = content.generateInstances();
+
+      //Add new instances
+      for(var newInstance in newInstances) {
+        final ref = FirebaseFirestore.instance
+            .collection(FirebaseCollections.publishedDailyContentInstances)
             .doc(newInstance.dailyContentInstanceId);
 
         transaction.set(ref, newInstance.toJson());

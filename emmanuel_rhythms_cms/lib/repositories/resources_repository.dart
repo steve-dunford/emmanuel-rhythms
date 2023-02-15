@@ -9,6 +9,7 @@ abstract class ResourcesRepository {
   Stream<List<Item>> resources();
   Future<void> upsertResource(Item resource);
   Future<void> deleteResource(Item resource);
+  Future<void> publishResource(Item resource);
 }
 
 class FirebaseResourcesRepository extends ResourcesRepository {
@@ -30,10 +31,25 @@ class FirebaseResourcesRepository extends ResourcesRepository {
         .set(resource.toJson());
   }
 
-  Future<void> deleteResource(Item resource) {
-    return FirebaseFirestore.instance
+  Future<void> deleteResource(Item resource) async {
+    await FirebaseFirestore.instance
         .collection(FirebaseCollections.resources)
         .doc(resource.id)
         .delete();
+
+    final published = FirebaseFirestore.instance
+        .collection(FirebaseCollections.publishedResources)
+        .doc(resource.id);
+
+    if ((await published.get()).exists) {
+      await published.delete();
+    }
+  }
+
+  Future<void> publishResource(Item resource) {
+    return FirebaseFirestore.instance
+        .collection(FirebaseCollections.publishedResources)
+        .doc(resource.id)
+        .set(resource.toJson());
   }
 }

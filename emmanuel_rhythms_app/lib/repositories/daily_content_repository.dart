@@ -12,7 +12,7 @@ class FirebaseDailyContentRepository extends DailyContentRepository {
   @override
   Stream<List<DailyContentInstance>> itemInstancesForDates(DateTime startDate, DateTime endDate) {
     return FirebaseFirestore.instance
-        .collection(FirebaseCollections.dailyContentInstances)
+        .collection(FirebaseCollections.publishedDailyContentInstances)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate.toUtc()))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(endDate.toUtc()))
         .snapshots()
@@ -26,7 +26,7 @@ class FirebaseDailyContentRepository extends DailyContentRepository {
   @override
   Stream<List<DailyContentInstance>> allInstances() {
     return FirebaseFirestore.instance
-        .collection(FirebaseCollections.dailyContentInstances)
+        .collection(FirebaseCollections.publishedDailyContentInstances)
         .snapshots()
         .map((snapshot) =>
         snapshot.docs.map((doc) {

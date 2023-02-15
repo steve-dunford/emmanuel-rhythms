@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emmanuel_rhythms_app/common/firebase_collections.dart';
-import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 
 abstract class ResourceRepository {
@@ -13,7 +12,7 @@ class FirebaseResourceRepository extends ResourceRepository {
   @override
   Stream<List<Item>> allResources() {
     return FirebaseFirestore.instance
-        .collection(FirebaseCollections.resources)
+        .collection(FirebaseCollections.publishedResources)
         .snapshots()
         .map((snapshot) =>
         snapshot.docs.map((doc) {

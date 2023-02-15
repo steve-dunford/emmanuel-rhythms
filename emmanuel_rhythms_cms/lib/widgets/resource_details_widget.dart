@@ -103,6 +103,26 @@ class ResourceDetailsWidget extends StatelessWidget {
                             height: 30,
                           ),
                         ),
+                        const SizedBox(width: 20),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(minWidth: 140),
+                          child: ThemedButton(
+                            onTap: () async {
+                              bool confirm = await showConfirmationDialog(
+                                  context,
+                                  'Publish Resource',
+                                  'This will save all changes and make them visible in the app. Are you sure you want to publish the current resource?');
+
+                              if (confirm) {
+                                viewModel.setItem(itemViewModel.item);
+                                await viewModel.publish();
+                                dismiss();
+                              }
+                            },
+                            text: 'Publish',
+                            height: 30,
+                          ),
+                        ),
                       ],
                     )
                   ],
