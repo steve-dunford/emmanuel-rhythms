@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
 import 'package:emmanuel_rhythms_app/repositories/podcast_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/items/item_type.dart';
@@ -13,6 +14,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
   final Item item;
 
   PodcastDetails? podcastDetails;
+  String? description;
 
   ItemDetailsViewModel(this._podcastRepository, this.item) {
     if(item.type == ItemType.podcast && item.url != null) {
@@ -21,6 +23,20 @@ class ItemDetailsViewModel extends ChangeNotifier {
         notifyListeners();
       });
     }
+
+    ItemDetailsViewModel.htmlTemplate().then((template) {
+      if(item.description != null) {
+        description = template.replaceAll("#CONTENT#", item.description!);
+        notifyListeners();
+      }
+    });
+  }
+
+  static String? _htmlTemplate;
+  static Future<String> htmlTemplate() async {
+    _htmlTemplate ??= await rootBundle.loadString('assets/html_template.html');
+
+    return _htmlTemplate!;
   }
 
   bool get showPodcastDetails => item.usePodcastDetails ?? false;
