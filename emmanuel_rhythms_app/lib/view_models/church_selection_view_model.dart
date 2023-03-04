@@ -8,10 +8,15 @@ class ChurchSelectionViewModel extends ChangeNotifier {
   ChurchSelectionViewModel(this._localStorageRepository);
 
   bool isChurchSelected(Church church) =>
-    _localStorageRepository.selectedChurch == church;
+    _localStorageRepository.selectedChurch() == church;
+
+  bool get hasSelectedChurch =>
+  _localStorageRepository.hasSelectedChurch;
 
   setSelectedChurch(Church church) {
     _localStorageRepository.setSelectedChurch(church);
     notifyListeners();
   }
+
+
 }

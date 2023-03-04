@@ -36,7 +36,7 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   }
 
   List<Item> itemsForIndex(int index) => instances
-      ?.where((instance) => instance.item.churches.contains(_localStorageRepository.selectedChurch) && instance.date.isAtSameMomentAs(_dateForIndex(index)))
+      ?.where((instance) => instance.item.churches.contains(_localStorageRepository.selectedChurch()) && instance.date.isAtSameMomentAs(_dateForIndex(index)))
         .map((instance) => instance.item)
         .toList() ?? [];
 

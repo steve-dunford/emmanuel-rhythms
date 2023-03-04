@@ -3,7 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalStorageRepository {
   bool get hasSelectedChurch;
-  Church get selectedChurch;
+  Church? selectedChurch();
+
   setSelectedChurch(Church church);
 }
 
@@ -15,15 +16,15 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   SharedPreferencesLocalStorageRepository(this._sharedPreferences);
 
   @override
-  Church get selectedChurch => _selectedChurch() ?? Church.emmanuelLurgan;
+  Church? selectedChurch() {
+    final rawValue = _sharedPreferences.getString(_selectedChurchKey);
 
-  Church? _selectedChurch() {
-  final rawValue = _sharedPreferences.getString(_selectedChurchKey);
+    if (rawValue != null && Church.values.any((c) => c.name == rawValue)) {
+      return Church.values.firstWhere((c) => c.name == rawValue);
+    }
 
-  if(rawValue != null && Church.values.any((c) => c.name == rawValue)) {
-  return Church.values.firstWhere((c) => c.name == rawValue);
+    return null;
   }
-}
 
   @override
   setSelectedChurch(Church church) {
@@ -31,7 +32,5 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   }
 
   @override
-  // TODO: implement hasSelectedChurch
-  bool get hasSelectedChurch => _selectedChurch() != null;
-
+  bool get hasSelectedChurch => selectedChurch() != null;
 }

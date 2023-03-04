@@ -2,6 +2,7 @@ import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/models/church.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/view_models/church_selection_view_model.dart';
+import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,10 @@ class ChurchSelectionPage extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
-                title: Text('Select Church',
+                title: Text('Select Church'.toUpperCase(),
                     style: Theme.of(context).textTheme.headline3),
                 automaticallyImplyLeading: !args.isInitialSelection,
+                elevation: 2,
               ),
               body: SafeArea(
                 child: Padding(
@@ -43,44 +45,25 @@ class ChurchSelectionPage extends StatelessWidget {
                               .map((church) => Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(church.displayName,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4),
-                                        Checkbox(
-                                            value: viewModel
-                                                .isChurchSelected(church),
-                                            onChanged: (selected) => viewModel
-                                                .setSelectedChurch(church))
-                                      ],
+                                    child: GestureDetector(
+                                      onTap: () => viewModel
+                                          .setSelectedChurch(church),
+                                      child: Image.asset(
+                                          viewModel.isChurchSelected(church) ? church.selectedImageName : church.unselectedImageName
+                                      )
+
                                     ),
                                   ))
                               .toList(),
                           const Spacer(),
-                          GestureDetector(
-                              onTap: () => args.isInitialSelection
-                                  ? Navigator.of(context)
-                                      .pushReplacementNamed(HomePage.route)
-                                  : Navigator.of(context).pop(),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  border: Border.all(
-                                      color: AppColours.emmanuelBlue),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 10.0),
-                                  child: Text(
-                                    'Confirm',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                ),
-                              ))
+                          StandardButton(
+                            onTap: () => args.isInitialSelection
+                                ? Navigator.of(context)
+                                .pushReplacementNamed(HomePage.route)
+                                : Navigator.of(context).pop(),
+                            text: 'CONFIRM',
+                            isEnabled: viewModel.hasSelectedChurch,
+                          ),
                         ]),
                   ),
                 ),

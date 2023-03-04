@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
+import 'package:emmanuel_rhythms_app/widgets/menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -15,9 +16,22 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final PageController controller =
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+
+  final PageController _pageController =
       PageController(initialPage: HomeViewModel.initialPageIndex);
+  AnimationController? animationController;
+  Animation<double>? animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    animation =
+        CurveTween(curve: Curves.fastOutSlowIn).animate(animationController!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,61 +42,38 @@ class _HomePageState extends State<HomePage> {
 
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
-              title: Text('Daily Content',
-                  style: Theme.of(context).textTheme.headline3),
-              leading:
-                PopupMenuButton(
-                  // add icon, by default "3 dot" icon
+                backgroundColor: Colors.white,
+                title: Text('DAILY CONTENT',
+                    style: Theme.of(context).textTheme.headline3),
+                elevation: 0,
+                leading: IconButton(
                   icon: Image.asset(Assets.menuIcon),
-                    itemBuilder: (context){
-                      return [
-                        const PopupMenuItem<int>(
-                          value: 0,
-                          child: Text("Resources"),
-                        ),
-                        const PopupMenuItem<int>(
-                          value: 1,
-                          child: Text("Select Church"),
-                        ),
-                      ];
-                    },
-                    onSelected:(value) async {
-                      if(value == 0){
-                        Navigator.of(context).pushNamed(ResourcesPage.route);
-                      }
-                      if(value == 1){
-                        await Navigator.of(context).pushNamed(ChurchSelectionPage.route,
-                        arguments: ChurchSelectionPageArgs(false));
-                        viewModel.onSelectedChurchChanged();
-                      }
-                    }
-                ),
-            ),
+                  onPressed: () => _showMenuOverlay(viewModel),
+                )),
             body: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 5.0),
-                  child: SizedBox(
-                    height: 40,
+                Container(
+                  color: AppColours.dateSelector,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 25.0, horizontal: 5.0),
                     child: Row(
                       children: [
                         GestureDetector(
-                            onTap: () => controller.previousPage(
+                            onTap: () => _pageController.previousPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut),
                             child: Image.asset(Assets.leftIcon)),
                         Expanded(
                           child: Center(
                             child: Text(
-                              viewModel.title,
+                              viewModel.title.toUpperCase(),
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
                           ),
                         ),
                         GestureDetector(
-                            onTap: () => controller.nextPage(
+                            onTap: () => _pageController.nextPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut),
                             child: Image.asset(Assets.rightIcon)),
@@ -92,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Expanded(
                     child: PageView.builder(
-                        controller: controller,
+                        controller: _pageController,
                         onPageChanged: (index) =>
                             viewModel.setCurrentIndex(index),
                         itemBuilder: (context, index) {
@@ -111,5 +102,42 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         });
+  }
+
+  _showMenuOverlay(HomeViewModel viewModel) {
+    OverlayState? overlayState = Overlay.of(context);
+    OverlayEntry? overlayEntry;
+
+    overlayEntry = OverlayEntry(builder: (context) {
+      return FadeTransition(
+          opacity: animation!,
+          child: SafeArea(
+            child: MenuWidget(
+              onClose: () async {
+                await animationController?.reverse();
+                overlayEntry!.remove();
+              },
+              menuItems: [
+                MenuEntry('RESOURCES', () {
+                  overlayEntry!.remove();
+                  Navigator.of(context).pushNamed(ResourcesPage.route);
+                }),
+                MenuEntry('SWITCH CHURCH', () async {
+                  overlayEntry!.remove();
+                  await Navigator.of(context).pushNamed(
+                      ChurchSelectionPage.route,
+                      arguments: ChurchSelectionPageArgs(false));
+                  viewModel.onSelectedChurchChanged();
+                })
+              ],
+            ),
+          ));
+    });
+    animationController!.addListener(() {
+      overlayState!.setState(() {});
+    });
+    // inserting overlay entry
+    overlayState!.insert(overlayEntry);
+    animationController!.forward();
   }
 }

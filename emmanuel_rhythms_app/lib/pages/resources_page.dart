@@ -1,6 +1,4 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
-import 'package:emmanuel_rhythms_app/style/assets.dart';
-import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/view_models/resources_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +19,10 @@ class ResourcesPage extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.white,
               foregroundColor: AppColours.emmanuelBlue,
-              title: Text('Resources',
+              title: Text('RESOURCES',
                   style: Theme.of(context).textTheme.headline3),
               automaticallyImplyLeading: true,
+              elevation: 2,
             ),
             body: viewModel.resources == null ?
                 const Center(

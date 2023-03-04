@@ -33,40 +33,26 @@ class ItemListWidget extends StatelessWidget {
                           arguments: ItemDetailsArguments(item)),
                       child: AspectRatio(
                         aspectRatio: 1.778,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(18.0),
-                          child: Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              Positioned.fill(child: _itemBackground(item)),
-                              Container(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.15,
-                                  decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                          colors: [
-                                        Colors.black,
-                                        Colors.transparent
-                                      ],
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.topCenter)),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20, 0, 20, 10),
-                                        child: Text(
-                                          item.title,
-                                          style:
-                                              AppTextStyle.itemCaption(context),
-                                        ),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Positioned.fill(child: _itemBackground(item)),
+                            Positioned.fill(
+                              child: Container(
+                                  color: AppColours.itemOverlay,
+                                  child: Center(
+                                    child: FractionallySizedBox(
+                                      widthFactor: 0.6,
+                                      child: Text(
+                                        item.title.toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            AppTextStyle.itemCaption(context),
                                       ),
-                                    ],
-                                  ))
-                            ],
-                          ),
+                                    ),
+                                  )),
+                            )
+                          ],
                         ),
                       ),
                     ),
