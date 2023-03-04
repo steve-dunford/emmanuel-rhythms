@@ -46,3 +46,7 @@ app.*.map.json
 /android/app/release
 
 /flutter
+
+.env.default
+Runner.app.dSYM.zip
+Runner.ipa

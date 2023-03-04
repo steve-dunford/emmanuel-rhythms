@@ -1,0 +1,5 @@
+git_url("git@github.com:steve-dunford/emmanuel-rhythms-match.git")
+
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier("com.ecl.liferhythms")
