@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "EmmanuelApp_SplashScreen_1X_428x926.png",
       "idiom" : "universal",
-      "filename" : "LaunchImage.png",
       "scale" : "1x"
     },
     {
+      "filename" : "EmmanuelApp_SplashScreen_2X_856x1852.png",
       "idiom" : "universal",
-      "filename" : "LaunchImage@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "EmmanuelApp_SplashScreen_3X_1284x2778.png",
       "idiom" : "universal",
-      "filename" : "LaunchImage@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
