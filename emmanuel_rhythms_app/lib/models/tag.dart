@@ -1,16 +1,15 @@
-enum Tag {
-  emmanuelLurgan,
-  emmanuelPortadown
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-extension TagExtensions on Tag {
+part 'tag.freezed.dart';
+part 'tag.g.dart';
 
-  String get name {
-    switch(this) {
-      case Tag.emmanuelLurgan:
-        return 'Emmanuel Lurgan';
-      case Tag.emmanuelPortadown:
-        return 'Emmanuel Portadown';
-    }
-  }
+@freezed
+class Tag with _$Tag {
+  factory Tag(
+      {
+        required String id,
+        required String name,
+        String? parentId}) = _Tag;
+
+  factory Tag.fromJson(Map<String, Object?> json) => _$TagFromJson(json);
 }

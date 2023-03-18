@@ -17,7 +17,10 @@ class ItemDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)!.settings.arguments as ItemDetailsArguments;
+    ModalRoute
+        .of(context)!
+        .settings
+        .arguments as ItemDetailsArguments;
 
     return ChangeNotifierProvider(
         create: (_) => ItemDetailsViewModel(GetIt.I.get(), args.item),
@@ -29,7 +32,10 @@ class ItemDetailsPage extends StatelessWidget {
               backgroundColor: Colors.white,
               foregroundColor: AppColours.emmanuelBlue,
               title: Text(viewModel.item.title,
-                  style: Theme.of(context).textTheme.headline3),
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline3),
               automaticallyImplyLeading: true,
             ),
             body: Padding(
@@ -43,6 +49,31 @@ class ItemDetailsPage extends StatelessWidget {
                       height: 10,
                     ),
                     _itemSpecificUI(context, viewModel),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                      children: viewModel.item.tags.map((tag) =>
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                  color: AppColours.lightGrey,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    tag.name,
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(color: AppColours.emmanuelBlue),
+                                  ),
+                                )
+                            ),
+                          )).toList(),
+                    )
                   ],
                 ),
               ),
@@ -81,10 +112,13 @@ class ItemDetailsPage extends StatelessWidget {
             ),
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
                 'View Now',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline5,
               ),
             ),
           )),
@@ -113,14 +147,20 @@ class ItemDetailsPage extends StatelessWidget {
           ...[
             Text(details.title!,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline5),
             const SizedBox(height: 20),
           ],
         if(viewModel.showPodcastDetails && details.description != null)
           ...[
             Text(details.description!,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText2),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyText2),
             const SizedBox(height: 20),
           ],
         if(details.audioFileUrl != null)
@@ -129,44 +169,50 @@ class ItemDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _scriptureReading(
-      BuildContext context, ItemDetailsViewModel viewModel) {
+  Widget _scriptureReading(BuildContext context,
+      ItemDetailsViewModel viewModel) {
     if (viewModel.item.scriptureReferences?.isEmpty ?? true) {
       return Container();
     }
 
     return Column(
         children: viewModel.item.scriptureReferences!.map((ref) {
-      return Column(
-        children: [
-          Center(
-              child: Text(ref.displayString ?? '',
-                  style: Theme.of(context).textTheme.headline4)),
-          const SizedBox(
-            height: 10,
-          ),
-          GestureDetector(
-              onTap: () => viewModel.readScriptureRef(ref),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: AppColours.emmanuelBlue),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10.0),
-                  child: Text(
-                    'Read Now',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-              )),
-          const SizedBox(
-            height: 50,
-          )
-        ],
-      );
-    }).toList());
+          return Column(
+            children: [
+              Center(
+                  child: Text(ref.displayString ?? '',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline4)),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                  onTap: () => viewModel.readScriptureRef(ref),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: AppColours.emmanuelBlue),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      child: Text(
+                        'Read Now',
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline5,
+                      ),
+                    ),
+                  )),
+              const SizedBox(
+                height: 50,
+              )
+            ],
+          );
+        }).toList());
   }
 }
 
