@@ -3,6 +3,7 @@ import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/scripture_reference.dart';
+import 'package:emmanuel_rhythms_cms/models/tag.dart';
 import 'package:emmanuel_rhythms_cms/repositories/file_repository.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,12 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  setSelectedTags(List<Tag> tags) {
+    item = item.copyWith(tags: tags);
+     notifyListeners();
+  }
+
 
   addScriptureReference() {
     item = item.copyWith(scriptureReferences: [

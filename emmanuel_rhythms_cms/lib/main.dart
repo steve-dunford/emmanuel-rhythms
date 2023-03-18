@@ -8,11 +8,11 @@ import 'package:emmanuel_rhythms_cms/pages/login_page.dart';
 import 'package:emmanuel_rhythms_cms/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_cms/routes.dart';
 import 'package:emmanuel_rhythms_cms/view_models/auth_model.dart';
+import 'package:emmanuel_rhythms_cms/view_models/tags_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +32,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => GetIt.I.get<AuthModel>(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => GetIt.I.get<AuthModel>(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => GetIt.I.get<TagsViewModel>(),
+          )
+        ],
         builder: (BuildContext context, _) {
           final authModel = context.watch<AuthModel>();
           return CalendarControllerProvider(

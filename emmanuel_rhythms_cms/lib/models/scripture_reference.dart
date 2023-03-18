@@ -1,7 +1,4 @@
 import 'package:emmanuel_rhythms_cms/models/bible_book.dart';
-import 'package:emmanuel_rhythms_cms/models/item_type.dart';
-import 'package:emmanuel_rhythms_cms/models/tag.dart';
-import 'package:uuid/uuid.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'scripture_reference.freezed.dart';

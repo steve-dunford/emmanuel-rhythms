@@ -6,12 +6,15 @@ import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/church.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
+import 'package:emmanuel_rhythms_cms/models/tag.dart';
 import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
+import 'package:emmanuel_rhythms_cms/view_models/tags_view_model.dart';
 import 'package:emmanuel_rhythms_cms/widgets/item_description_widget.dart';
 import 'package:emmanuel_rhythms_cms/widgets/scripture_reference_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'dart:html' as html;
 
@@ -42,6 +45,7 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ItemDetailsViewModel>();
+    final tagsModel = context.watch<TagsViewModel>();
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
@@ -192,40 +196,66 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                             TableCell(
                               verticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              child: Text('Churches',
+                              child: Text('Tags',
                                   style: Theme.of(context).textTheme.bodyText1),
                             ),
                             TableCell(
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10.0),
+                                child: MultiSelectDialogField<Tag>(
+                                  items: tagsModel.tags.map((t) => MultiSelectItem(t, t.name)).toList(),
+                                  initialValue: viewModel.item.tags,
+                                  listType: MultiSelectListType.CHIP,
+                                  selectedColor: AppColours.emmanuelBlue,
+                                  selectedItemsTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+                                  onConfirm: (values) {
+                                    viewModel.setSelectedTags(values);
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            TableCell(
+                              verticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                              child: Text('Churches',
+                                  style: Theme.of(context).textTheme.bodyText1),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Wrap(
                                     runAlignment: WrapAlignment.center,
                                     children: Church.values
                                         .map((church) => Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(church.displayName,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText2),
-                                                  Checkbox(
-                                                      value: viewModel
-                                                          .isChurchSelected(
-                                                              church),
-                                                      onChanged: (selected) =>
-                                                          viewModel
-                                                              .setChurchSelected(
-                                                                  church,
-                                                                  selected ??
-                                                                      false))
-                                                ],
-                                              ),
-                                            ))
+                                      padding:
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(church.displayName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2),
+                                          Checkbox(
+                                              value: viewModel
+                                                  .isChurchSelected(
+                                                  church),
+                                              onChanged: (selected) =>
+                                                  viewModel
+                                                      .setChurchSelected(
+                                                      church,
+                                                      selected ??
+                                                          false))
+                                        ],
+                                      ),
+                                    ))
                                         .toList()),
                               ),
                             )
