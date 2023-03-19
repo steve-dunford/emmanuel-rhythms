@@ -32,6 +32,19 @@ class ItemDetailsViewModel extends ChangeNotifier {
     });
   }
 
+  String get pageTitle =>
+      item.type.displayName ?? '';
+
+  String? get title {
+    switch(item.type) {
+      case ItemType.podcast:
+        return podcastDetails?.title;
+      default:
+        return item.title;
+    }
+  }
+
+
   static String? _htmlTemplate;
   static Future<String> htmlTemplate() async {
     _htmlTemplate ??= await rootBundle.loadString('assets/html_template.html');

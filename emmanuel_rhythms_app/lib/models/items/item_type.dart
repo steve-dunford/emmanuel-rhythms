@@ -10,16 +10,16 @@ enum ItemType {
 
 extension ItemTypeExtensions on ItemType {
 
-  String get displayName {
+  String? get displayName {
     switch(this) {
       case ItemType.text:
-        return 'Text';
+        return null;
       case ItemType.vimeoVideo:
-        return 'Vimeo Video';
+        return 'Video';
       case ItemType.download:
         return 'Download';
       case ItemType.scripture:
-        return 'Scripture Reading';
+        return 'Reading';
       case ItemType.podcast:
         return 'Podcast';
     }

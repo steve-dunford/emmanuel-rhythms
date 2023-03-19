@@ -30,7 +30,7 @@ class ItemDetailsPage extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.white,
               foregroundColor: AppColours.emmanuelBlue,
-              title: Text(viewModel.item.title,
+              title: Text(viewModel.pageTitle.toUpperCase(),
                   style: Theme.of(context).textTheme.headline3),
               automaticallyImplyLeading: true,
             ),
@@ -39,6 +39,11 @@ class ItemDetailsPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    if (viewModel.title != null)
+                      Text(
+                        viewModel.title!,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                     if (viewModel.item.description != null)
                       Html(data: viewModel.item.description),
                     const SizedBox(
@@ -49,31 +54,31 @@ class ItemDetailsPage extends StatelessWidget {
                       height: 10,
                     ),
                     Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        const Text('TAGS: '),
-                        ...viewModel.item.tags
-                          .map((tag) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: AppColours.lightGrey,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        tag.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                color: AppColours.emmanuelBlue),
-                                      ),
-                                    )),
-                              ))
-                          .toList(),
-          ]
-                    )
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          const Text('TAGS: '),
+                          ...viewModel.item.tags
+                              .map((tag) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: AppColours.lightGrey,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            tag.name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                    color: AppColours
+                                                        .emmanuelBlue),
+                                          ),
+                                        )),
+                                  ))
+                              .toList(),
+                        ])
                   ],
                 ),
               ),
@@ -140,12 +145,7 @@ class ItemDetailsPage extends StatelessWidget {
 
     return Column(
       children: [
-        if (viewModel.showPodcastDetails && details.title != null) ...[
-          Text(details.title!,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5),
-          const SizedBox(height: 20),
-        ],
+        if (viewModel.showPodcastDetails && details.title != null) ...[],
         if (viewModel.showPodcastDetails && details.description != null) ...[
           Text(details.description!,
               textAlign: TextAlign.center,
@@ -174,8 +174,7 @@ class ItemDetailsPage extends StatelessWidget {
             Container(
               color: AppColours.emmanuelBlue,
               child: Padding(
-                padding:
-                    const EdgeInsets.fromLTRB(50,50,40,20),
+                padding: const EdgeInsets.fromLTRB(50, 50, 40, 20),
                 child: Column(
                   children: [
                     Center(
