@@ -76,6 +76,12 @@ class AppTextStyle {
           height: 0.9,
           color: Colors.white);
 
+  static TextStyle scriptureCaption(BuildContext context) =>
+      acuminProSemibold(context).copyWith(
+          fontSize: 48,
+          height: 0.9,
+          color: Colors.white);
+
   static TextStyle menuItemCaption(BuildContext context) =>
       acuminProSemibold(context).copyWith(
           color: AppColours.emmanuelBlue,
