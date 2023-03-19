@@ -1,6 +1,7 @@
 import 'package:disposebag/disposebag.dart';
 import 'package:emmanuel_rhythms_app/common/disposer.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
+import 'package:emmanuel_rhythms_app/models/resource_category.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:emmanuel_rhythms_app/repositories/resource_repository.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,15 @@ class ResourcesViewModel extends ChangeNotifier with Disposer {
 
   List<Item>? resources;
 
-  ResourcesViewModel(this._resourceRepository, this._localStorageRepository) {
-    _resourceRepository.allResources().listen((resources) {
-      final selectedChurch = _localStorageRepository.selectedChurch;
+  ResourcesViewModel(this._resourceRepository, this._localStorageRepository);
+
+  init(ResourceCategory? category) {
+    final stream = category == null
+        ? _resourceRepository.allResources()
+        : _resourceRepository.resourcesForCategory(category);
+
+    stream.listen((resources) {
+      final selectedChurch = _localStorageRepository.selectedChurch();
 
       this.resources =
           resources.where((r) => r.churches.contains(selectedChurch)).toList();

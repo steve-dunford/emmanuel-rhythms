@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
+import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
@@ -82,6 +83,9 @@ class MyApp extends StatelessWidget {
     switch (settings.name) {
       case HomePage.route:
         page = HomePage();
+        break;
+      case ResourceCategoriesPage.route:
+        page = ResourceCategoriesPage();
         break;
       case ResourcesPage.route:
         page = ResourcesPage();

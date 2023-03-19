@@ -1,5 +1,6 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
+import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage>
               menuItems: [
                 MenuEntry('RESOURCES', () {
                   overlayEntry!.remove();
-                  Navigator.of(context).pushNamed(ResourcesPage.route);
+                  Navigator.of(context).pushNamed(ResourceCategoriesPage.route);
                 }),
                 MenuEntry('SWITCH CHURCH', () async {
                   overlayEntry!.remove();
