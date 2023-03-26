@@ -1,5 +1,6 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
+import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/resource_categories_view_model.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +39,13 @@ class ResourceCategoriesPage extends StatelessWidget {
                 children: viewModel.categories!
                     .map((c) =>
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(ResourcesPage.route,
-                              arguments: ResourcesPageArgs(c)),
+                      onTap: () {
+                        GetIt.I.get<AnalyticsRepository>().track('resource_category_selected', {
+                          'category': c.caption
+                        });
+                        Navigator.of(context).pushNamed(ResourcesPage.route,
+                              arguments: ResourcesPageArgs(c));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Container(

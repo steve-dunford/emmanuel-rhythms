@@ -2,6 +2,7 @@ import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
+import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
@@ -61,9 +62,12 @@ class _HomePageState extends State<HomePage>
                     child: Row(
                       children: [
                         GestureDetector(
-                            onTap: () => _pageController.previousPage(
+                            onTap: () {
+                              GetIt.I.get<AnalyticsRepository>().track('prev_date', {});
+                              _pageController.previousPage(
                                 duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut),
+                                curve: Curves.easeInOut);
+                            },
                             child: Image.asset(Assets.leftIcon)),
                         Expanded(
                           child: Center(
@@ -74,9 +78,12 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                         GestureDetector(
-                            onTap: () => _pageController.nextPage(
+                            onTap: () {
+                              GetIt.I.get<AnalyticsRepository>().track('next_date', {});
+                              _pageController.nextPage(
                                 duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut),
+                                curve: Curves.easeInOut);
+                            },
                             child: Image.asset(Assets.rightIcon)),
                       ],
                     ),
@@ -121,10 +128,14 @@ class _HomePageState extends State<HomePage>
               menuItems: [
                 MenuEntry('RESOURCES', () {
                   overlayEntry!.remove();
+                  GetIt.I.get<AnalyticsRepository>().track('resources_tap', {});
                   Navigator.of(context).pushNamed(ResourceCategoriesPage.route);
                 }),
                 MenuEntry('SWITCH CHURCH', () async {
                   overlayEntry!.remove();
+
+                  GetIt.I.get<AnalyticsRepository>().track('switch_church_tap', {});
+
                   await Navigator.of(context).pushNamed(
                       ChurchSelectionPage.route,
                       arguments: ChurchSelectionPageArgs(false));

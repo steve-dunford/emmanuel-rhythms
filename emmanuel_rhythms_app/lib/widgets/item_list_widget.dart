@@ -2,9 +2,11 @@ import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
+import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get_it/get_it.dart';
 
 class ItemListWidget extends StatelessWidget {
   final List<Item> items;
@@ -28,9 +30,17 @@ class ItemListWidget extends StatelessWidget {
                   (item) => Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: GestureDetector(
-                      onTap: () => Navigator.of(context).pushNamed(
+                      onTap: () {
+                        GetIt.I.get<AnalyticsRepository>().track('content_viewed', {
+                          'content_name':item.title,
+                          'content_id':item.id,
+                          'content_type':item.type.name
+                        });
+
+                        Navigator.of(context).pushNamed(
                           ItemDetailsPage.route,
-                          arguments: ItemDetailsArguments(item)),
+                          arguments: ItemDetailsArguments(item));
+                      },
                       child: AspectRatio(
                         aspectRatio: 1.778,
                         child: Stack(

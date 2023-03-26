@@ -22,7 +22,8 @@ class ItemDetailsPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as ItemDetailsArguments;
 
     return ChangeNotifierProvider(
-        create: (_) => ItemDetailsViewModel(GetIt.I.get(), args.item),
+        create: (_) =>
+            ItemDetailsViewModel(GetIt.I.get(), GetIt.I.get(), args.item),
         builder: (context, child) {
           final viewModel = context.watch<ItemDetailsViewModel>();
 

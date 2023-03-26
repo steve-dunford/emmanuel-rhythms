@@ -8,6 +8,7 @@ import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -28,14 +29,20 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
       create: (_) => GetIt.I.get<TagsViewModel>(),
       builder: (context, child) {
         return MaterialApp(
           title: 'Emmanuel Rhythms',
+          navigatorObservers: [observer],
           theme: ThemeData(
             // This is the theme of your application.
             //

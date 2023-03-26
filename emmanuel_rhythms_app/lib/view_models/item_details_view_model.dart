@@ -2,6 +2,7 @@ import 'package:emmanuel_rhythms_app/models/bible_book.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
+import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/repositories/podcast_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,13 +12,14 @@ import '../models/items/item_type.dart';
 
 class ItemDetailsViewModel extends ChangeNotifier {
   final PodcastRepository _podcastRepository;
+  final AnalyticsRepository _analyticsRepository;
   final Item item;
 
   PodcastDetails? podcastDetails;
   String? description;
 
-  ItemDetailsViewModel(this._podcastRepository, this.item) {
-    if(item.type == ItemType.podcast && item.url != null) {
+  ItemDetailsViewModel(this._podcastRepository, this._analyticsRepository, this.item) {
+    if (item.type == ItemType.podcast && item.url != null) {
       _podcastRepository.getPodcastDetails(item.url!).then((details) {
         podcastDetails = details;
         notifyListeners();
@@ -25,18 +27,17 @@ class ItemDetailsViewModel extends ChangeNotifier {
     }
 
     ItemDetailsViewModel.htmlTemplate().then((template) {
-      if(item.description != null) {
+      if (item.description != null) {
         description = template.replaceAll("#CONTENT#", item.description!);
         notifyListeners();
       }
     });
   }
 
-  String get pageTitle =>
-      item.type.displayName ?? '';
+  String get pageTitle => item.type.displayName ?? '';
 
   String? get title {
-    switch(item.type) {
+    switch (item.type) {
       case ItemType.podcast:
         return podcastDetails?.title;
       default:
@@ -44,8 +45,8 @@ class ItemDetailsViewModel extends ChangeNotifier {
     }
   }
 
-
   static String? _htmlTemplate;
+
   static Future<String> htmlTemplate() async {
     _htmlTemplate ??= await rootBundle.loadString('assets/html_template.html');
 
@@ -97,15 +98,29 @@ class ItemDetailsViewModel extends ChangeNotifier {
   Future<void> readScriptureRef(ScriptureReference ref) async {
     final url = Uri.parse('https://bible.com/bible/1/${ref.youVersionString}');
 
+    _analyticsRepository.track('scripture_read', {
+      'content_name': item.title,
+      'content_id': item.id,
+      'ref': ref.displayString
+    });
+
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     }
+
+
   }
 
   Future<void> openUrl() async {
     if (item.url == null) {
       return;
     }
+
+    _analyticsRepository.track('download_viewed', {
+      'content_name': item.title,
+      'content_id': item.id,
+      'download_url': item.url ?? ''
+    });
 
     final url = Uri.parse(item.url!);
 

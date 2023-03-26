@@ -1,6 +1,7 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/models/church.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
+import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/view_models/church_selection_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:flutter/material.dart';
@@ -57,10 +58,17 @@ class ChurchSelectionPage extends StatelessWidget {
                               .toList(),
                           const Spacer(),
                           StandardButton(
-                            onTap: () => args.isInitialSelection
+                            onTap: () {
+
+                              GetIt.I<AnalyticsRepository>().track('church_selected', {
+                                'church': viewModel.selectedChurch ?? 'none'
+                              });
+
+                              args.isInitialSelection
                                 ? Navigator.of(context)
                                 .pushReplacementNamed(HomePage.route)
-                                : Navigator.of(context).pop(),
+                                : Navigator.of(context).pop();
+                            },
                             text: 'CONFIRM',
                             isEnabled: viewModel.hasSelectedChurch,
                           ),
