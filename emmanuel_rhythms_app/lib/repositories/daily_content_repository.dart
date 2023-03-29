@@ -4,7 +4,6 @@ import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 
 abstract class DailyContentRepository {
   Stream<List<DailyContentInstance>> itemInstancesForDates(DateTime startDate, DateTime endDate);
-  Stream<List<DailyContentInstance>> allInstances();
 }
 
 class FirebaseDailyContentRepository extends DailyContentRepository {
@@ -15,18 +14,6 @@ class FirebaseDailyContentRepository extends DailyContentRepository {
         .collection(FirebaseCollections.publishedDailyContentInstances)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(startDate.toUtc()))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(endDate.toUtc()))
-        .snapshots()
-        .map((snapshot) =>
-        snapshot.docs.map((doc) {
-          return DailyContentInstance.fromJson(doc.data());
-        }).toList());
-  }
-
-  //TEMPORARY - not scalable
-  @override
-  Stream<List<DailyContentInstance>> allInstances() {
-    return FirebaseFirestore.instance
-        .collection(FirebaseCollections.publishedDailyContentInstances)
         .snapshots()
         .map((snapshot) =>
         snapshot.docs.map((doc) {

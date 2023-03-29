@@ -61,7 +61,7 @@ class ChurchSelectionPage extends StatelessWidget {
                             onTap: () {
 
                               GetIt.I<AnalyticsRepository>().track('church_selected', {
-                                'church': viewModel.selectedChurch ?? 'none'
+                                'church': viewModel.selectedChurch?.name ?? 'none'
                               });
 
                               args.isInitialSelection

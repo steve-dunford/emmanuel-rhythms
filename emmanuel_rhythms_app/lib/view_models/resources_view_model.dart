@@ -15,16 +15,16 @@ class ResourcesViewModel extends ChangeNotifier with Disposer {
   ResourcesViewModel(this._resourceRepository, this._localStorageRepository);
 
   init(ResourceCategory? category) {
-    final stream = category == null
-        ? _resourceRepository.allResources()
-        : _resourceRepository.resourcesForCategory(category);
 
-    stream.listen((resources) {
-      final selectedChurch = _localStorageRepository.selectedChurch();
+    if(category != null) {
+      _resourceRepository.resourcesForCategory(category).listen((resources) {
+        final selectedChurch = _localStorageRepository.selectedChurch();
 
-      this.resources =
-          resources.where((r) => r.churches.contains(selectedChurch)).toList();
-      notifyListeners();
-    }).disposedBy(disposeBag);
+        this.resources =
+            resources.where((r) => r.churches.contains(selectedChurch))
+                .toList();
+        notifyListeners();
+      }).disposedBy(disposeBag);
+    }
   }
 }

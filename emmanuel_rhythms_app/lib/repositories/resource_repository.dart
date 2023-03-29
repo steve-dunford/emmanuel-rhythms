@@ -4,22 +4,11 @@ import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/resource_category.dart';
 
 abstract class ResourceRepository {
-  Stream<List<Item>> allResources();
 
   Stream<List<Item>> resourcesForCategory(ResourceCategory category);
 }
 
 class FirebaseResourceRepository extends ResourceRepository {
-  //TEMPORARY - not scalable
-  @override
-  Stream<List<Item>> allResources() {
-    return FirebaseFirestore.instance
-        .collection(FirebaseCollections.publishedResources)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) {
-              return Item.fromJson(doc.data());
-            }).toList());
-  }
 
   @override
   Stream<List<Item>> resourcesForCategory(ResourceCategory category) {
