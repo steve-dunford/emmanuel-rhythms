@@ -89,10 +89,6 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-                Text('current window: ${viewModel.currentIndex}'),
-                Text('Start window: ${viewModel.loadWindowStartIndex}'),
-                Text('End window: ${viewModel.loadWindowEndIndex}'),
-                Text('Instance count: ${viewModel.instances?.length ?? 'null'}'),
                 Expanded(
                     child: PageView.builder(
                         controller: _pageController,
