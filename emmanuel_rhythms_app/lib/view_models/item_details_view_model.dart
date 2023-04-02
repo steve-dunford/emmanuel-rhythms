@@ -96,7 +96,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
   }
 
   Future<void> readScriptureRef(ScriptureReference ref) async {
-    final url = Uri.parse('https://bible.com/bible/1/${ref.youVersionString}');
+    final url = Uri.parse('https://bible.com/bible/113/${ref.youVersionString}');
 
     _analyticsRepository.track('scripture_read', {
       'content_name': item.title,

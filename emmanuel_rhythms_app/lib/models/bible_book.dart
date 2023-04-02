@@ -290,7 +290,7 @@ extension BibleBookExtensions on BibleBook {
       case BibleBook.mark:
         return 'MRK';
       case BibleBook.luke:
-        return 'LKE';
+        return 'LUK';
       case BibleBook.john:
         return 'JHN';
       case BibleBook.acts:

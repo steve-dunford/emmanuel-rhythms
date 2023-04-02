@@ -7,6 +7,7 @@ import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -29,8 +30,12 @@ class ItemDetailsPage extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.white, // Status bar
+              ),
               backgroundColor: Colors.white,
               foregroundColor: AppColours.emmanuelBlue,
+              centerTitle: true,
               title: Text(viewModel.pageTitle.toUpperCase(),
                   style: Theme.of(context).textTheme.headline3),
               automaticallyImplyLeading: true,
@@ -54,32 +59,33 @@ class ItemDetailsPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          const Text('TAGS: '),
-                          ...viewModel.item.tags
-                              .map((tag) => Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: AppColours.lightGrey,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            tag.name,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                    color: AppColours
-                                                        .emmanuelBlue),
+                    if (viewModel.item.tags.isNotEmpty)
+                      Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            const Text('TAGS: '),
+                            ...viewModel.item.tags
+                                .map((tag) => Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: AppColours.lightGrey,
                                           ),
-                                        )),
-                                  ))
-                              .toList(),
-                        ])
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              tag.name,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(
+                                                      color: AppColours
+                                                          .emmanuelBlue),
+                                            ),
+                                          )),
+                                    ))
+                                .toList(),
+                          ])
                   ],
                 ),
               ),

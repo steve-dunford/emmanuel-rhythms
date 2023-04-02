@@ -7,6 +7,7 @@ import 'package:emmanuel_rhythms_app/repositories/resource_repository.dart';
 import 'package:emmanuel_rhythms_app/repositories/tags_repository.dart';
 import 'package:emmanuel_rhythms_app/view_models/church_selection_view_model.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
+import 'package:emmanuel_rhythms_app/view_models/notification_consent_view_model.dart';
 import 'package:emmanuel_rhythms_app/view_models/resource_categories_view_model.dart';
 import 'package:emmanuel_rhythms_app/view_models/resources_view_model.dart';
 import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
@@ -28,6 +29,7 @@ class Dependencies {
     GetIt.I.registerSingleton<LogService>(DebugPrintLogService());
 
 
+    GetIt.I.registerFactory<NotificationConsentViewModel>(() => NotificationConsentViewModel(GetIt.I.get()));
     GetIt.I.registerFactory<HomeViewModel>(() => HomeViewModel(GetIt.I.get(), GetIt.I.get()));
     GetIt.I.registerFactory<ResourceCategoriesViewModel>(() => ResourceCategoriesViewModel(GetIt.I.get()));
     GetIt.I.registerFactory<ResourcesViewModel>(() => ResourcesViewModel(GetIt.I.get(), GetIt.I.get()));

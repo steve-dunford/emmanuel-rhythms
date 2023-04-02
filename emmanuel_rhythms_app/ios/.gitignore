@@ -15,6 +15,7 @@ Icon?
 profile
 xcuserdata
 **/.generated/
+fastlane/report.xml
 Flutter/App.framework
 Flutter/Flutter.framework
 Flutter/Flutter.podspec

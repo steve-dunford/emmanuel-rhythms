@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class LoginViewModel extends ChangeNotifier {
 
-  static final emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  static final emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+\.[a-zA-Z]+");
   final AuthRepository _authRepository;
 
   LoginViewModel(this._authRepository);

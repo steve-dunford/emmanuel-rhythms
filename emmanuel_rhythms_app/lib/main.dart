@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
+import 'package:emmanuel_rhythms_app/pages/notification_consent_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
@@ -11,11 +12,16 @@ import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -102,6 +108,9 @@ class MyApp extends StatelessWidget {
         break;
       case ItemDetailsPage.route:
         page = ItemDetailsPage();
+        break;
+      case NotificationConsentPage.route:
+        page = NotificationConsentPage();
         break;
     }
 

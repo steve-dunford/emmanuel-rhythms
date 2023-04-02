@@ -8,6 +8,7 @@ import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
 import 'package:emmanuel_rhythms_app/widgets/menu_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,11 @@ class _HomePageState extends State<HomePage>
 
           return Scaffold(
             appBar: AppBar(
+                systemOverlayStyle: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.white, // Status bar
+                ),
                 backgroundColor: Colors.white,
+                centerTitle: true,
                 title: Text('DAILY CONTENT',
                     style: Theme.of(context).textTheme.headline3),
                 elevation: 0,
@@ -58,17 +63,21 @@ class _HomePageState extends State<HomePage>
                   color: AppColours.dateSelector,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 25.0, horizontal: 5.0),
+                        vertical: 10.0, horizontal: 5.0),
                     child: Row(
                       children: [
                         GestureDetector(
+                          behavior: HitTestBehavior.translucent,
                             onTap: () {
                               GetIt.I.get<AnalyticsRepository>().track('prev_date', {});
                               _pageController.previousPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut);
                             },
-                            child: Image.asset(Assets.leftIcon)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(Assets.leftIcon),
+                            )),
                         Expanded(
                           child: Center(
                             child: Text(
@@ -78,13 +87,17 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                         GestureDetector(
+                            behavior: HitTestBehavior.translucent,
                             onTap: () {
                               GetIt.I.get<AnalyticsRepository>().track('next_date', {});
                               _pageController.nextPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut);
                             },
-                            child: Image.asset(Assets.rightIcon)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(Assets.rightIcon),
+                            )),
                       ],
                     ),
                   ),
