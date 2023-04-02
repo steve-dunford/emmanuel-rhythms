@@ -21,6 +21,7 @@ class ResourceCategoriesPage extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
+                centerTitle: true,
                 title: Text('RESOURCES',
                     style: Theme
                         .of(context)

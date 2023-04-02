@@ -21,6 +21,7 @@ class NotificationConsentPage extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
+                centerTitle: true,
                 title: Text('Notifications'.toUpperCase(),
                     style: Theme.of(context).textTheme.headline3),
                 automaticallyImplyLeading: false,

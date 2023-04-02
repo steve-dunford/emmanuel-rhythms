@@ -27,6 +27,7 @@ class ChurchSelectionPage extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
+                centerTitle: true,
                 title: Text('Select Church'.toUpperCase(),
                     style: Theme.of(context).textTheme.headline3),
                 automaticallyImplyLeading: !args.isInitialSelection,

@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage>
           return Scaffold(
             appBar: AppBar(
                 backgroundColor: Colors.white,
+                centerTitle: true,
                 title: Text('DAILY CONTENT',
                     style: Theme.of(context).textTheme.headline3),
                 elevation: 0,
@@ -58,17 +59,21 @@ class _HomePageState extends State<HomePage>
                   color: AppColours.dateSelector,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 25.0, horizontal: 5.0),
+                        vertical: 10.0, horizontal: 5.0),
                     child: Row(
                       children: [
                         GestureDetector(
+                          behavior: HitTestBehavior.translucent,
                             onTap: () {
                               GetIt.I.get<AnalyticsRepository>().track('prev_date', {});
                               _pageController.previousPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut);
                             },
-                            child: Image.asset(Assets.leftIcon)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(Assets.leftIcon),
+                            )),
                         Expanded(
                           child: Center(
                             child: Text(
@@ -78,13 +83,17 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                         GestureDetector(
+                            behavior: HitTestBehavior.translucent,
                             onTap: () {
                               GetIt.I.get<AnalyticsRepository>().track('next_date', {});
                               _pageController.nextPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut);
                             },
-                            child: Image.asset(Assets.rightIcon)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(Assets.rightIcon),
+                            )),
                       ],
                     ),
                   ),

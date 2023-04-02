@@ -11,12 +11,16 @@ class MainActivity: FlutterActivity() {
         if(GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this)
         }
+
+        super.onCreate(savedInstanceState)
     }
 
     override fun onResume() {
         if(GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this)
         }
+
+        super.onResume()
     }
 
 }
