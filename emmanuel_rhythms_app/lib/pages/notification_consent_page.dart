@@ -3,6 +3,7 @@ import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/view_models/notification_consent_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class NotificationConsentPage extends StatelessWidget {
 
           return Scaffold(
               appBar: AppBar(
+                systemOverlayStyle: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.white, // Status bar
+                ),
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
                 centerTitle: true,

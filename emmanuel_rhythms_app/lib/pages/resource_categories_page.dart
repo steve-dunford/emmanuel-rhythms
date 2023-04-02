@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/resource_categories_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class ResourceCategoriesPage extends StatelessWidget {
 
           return Scaffold(
               appBar: AppBar(
+                systemOverlayStyle: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.white, // Status bar
+                ),
                 backgroundColor: Colors.white,
                 foregroundColor: AppColours.emmanuelBlue,
                 centerTitle: true,

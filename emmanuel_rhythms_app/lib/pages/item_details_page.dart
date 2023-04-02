@@ -7,6 +7,7 @@ import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,9 @@ class ItemDetailsPage extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.white, // Status bar
+              ),
               backgroundColor: Colors.white,
               foregroundColor: AppColours.emmanuelBlue,
               centerTitle: true,
