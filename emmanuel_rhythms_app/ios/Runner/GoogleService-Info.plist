@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33.apps.googleusercontent.com</string>
+	<string>810020278226-bnao8slcqgta3q63n1k0kq3lsu34annd.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33</string>
+	<string>com.googleusercontent.apps.810020278226-bnao8slcqgta3q63n1k0kq3lsu34annd</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDglf359oI0nI870IpTnFCE5DiaEWOhr-U</string>
+	<string>AIzaSyC3dqb9SSjZxCJAg8TYH8JCA5xWYYJVEvI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>69147677069</string>
+	<string>810020278226</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ecl.liferhythms</string>
 	<key>PROJECT_ID</key>
-	<string>emmanuel-rhythms-staging</string>
+	<string>emmanuel-rhythms-production</string>
 	<key>STORAGE_BUCKET</key>
-	<string>emmanuel-rhythms-staging.appspot.com</string>
+	<string>emmanuel-rhythms-production.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:69147677069:ios:213541700c04944d9f6dc4</string>
+	<string>1:810020278226:ios:b81811adb0b444b2a4820b</string>
 </dict>
 </plist>

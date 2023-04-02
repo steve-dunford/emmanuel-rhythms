@@ -42,13 +42,14 @@ class DefaultFirebaseOptions {
       'DefaultFirebaseOptions are not supported for this platform.',
     );
   }
-
+  
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAC_mKUD7m5mIwXTBeZQz_1pJYIh1OxA-A',
-    appId: '1:69147677069:web:afb3acac624774a79f6dc4',
-    messagingSenderId: '69147677069',
-    projectId: 'emmanuel-rhythms-staging',
-    authDomain: 'emmanuel-rhythms-staging.firebaseapp.com',
-    storageBucket: 'emmanuel-rhythms-staging.appspot.com',
+    apiKey: 'AIzaSyAXvP1ltBOTKKE2fREONHwIpD0fJIwGH9I',
+    appId: '1:810020278226:web:44ee1c3b97eb571ba4820b',
+    messagingSenderId: '810020278226',
+    projectId: 'emmanuel-rhythms-production',
+    authDomain: 'emmanuel-rhythms-production.firebaseapp.com',
+    storageBucket: 'emmanuel-rhythms-production.appspot.com',
+    measurementId: 'G-PDN34N83V4'
   );
 }
