@@ -12,11 +12,16 @@ import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
