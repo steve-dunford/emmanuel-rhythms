@@ -25,7 +25,9 @@ class DateField extends StatelessWidget {
             firstDate: value.isBefore(firstDate) ? value : firstDate,
             lastDate: lastDate);
 
-        onValueChanged(newValue ?? value);
+
+
+        onValueChanged(newValue?.treatAsUtc() ?? value);
       },
       child: Container(
         height: 48,

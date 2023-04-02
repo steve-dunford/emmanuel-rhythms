@@ -206,6 +206,7 @@ class DailyContentWidget extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           DateField(
+
             value: viewModel.content.startDate,
             onValueChanged: viewModel.setStartDate,
           )
