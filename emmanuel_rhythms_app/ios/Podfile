@@ -52,5 +52,10 @@ post_install do |installer|
              end
         end
   end
+  
+  
+  # Check out: https://github.com/flutter/flutter/issues/123852
+  # Workaround for Xcode 14.3:
+  system('sed -i \'\' \'44s/readlink/readlink -f/\' \'Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\'')
 end
 
