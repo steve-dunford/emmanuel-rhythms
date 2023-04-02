@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:69147677069:ios:69f550c747ec7d5c9f6dc4",
-  "FIREBASE_PROJECT_ID": "emmanuel-rhythms-staging",
-  "GCM_SENDER_ID": "69147677069"
+  "GOOGLE_APP_ID": "1:810020278226:android:0853e7c070b77863a4820b",
+  "FIREBASE_PROJECT_ID": "emmanuel-rhythms-production",
+  "GCM_SENDER_ID": "810020278226"
 }
