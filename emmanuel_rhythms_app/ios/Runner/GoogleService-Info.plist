@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>69147677069-f1vio7kv3k60i38l6iga8eg79le1m4cg.apps.googleusercontent.com</string>
+	<string>69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.69147677069-f1vio7kv3k60i38l6iga8eg79le1m4cg</string>
+	<string>com.googleusercontent.apps.69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDglf359oI0nI870IpTnFCE5DiaEWOhr-U</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.emmanuel.rhythms.emmanuelRhythmsApp</string>
+	<string>com.ecl.liferhythms</string>
 	<key>PROJECT_ID</key>
 	<string>emmanuel-rhythms-staging</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:69147677069:ios:69f550c747ec7d5c9f6dc4</string>
+	<string>1:69147677069:ios:213541700c04944d9f6dc4</string>
 </dict>
 </plist>
