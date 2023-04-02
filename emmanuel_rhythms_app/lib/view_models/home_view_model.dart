@@ -29,10 +29,11 @@ class HomeViewModel extends ChangeNotifier with Disposer {
 
   HomeViewModel(this._dailyContentRepository, this._localStorageRepository) {
     _updateInstanceListener();
+    
   }
 
   _updateInstanceListener() {
-    
+
     instancesSubscription?.cancel();
     loadWindowStartIndex = currentIndex - loadBehindCount;
     loadWindowEndIndex = currentIndex + loadAheadCount;

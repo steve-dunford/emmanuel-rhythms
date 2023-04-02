@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
+import 'package:emmanuel_rhythms_app/pages/notification_consent_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
@@ -102,6 +103,9 @@ class MyApp extends StatelessWidget {
         break;
       case ItemDetailsPage.route:
         page = ItemDetailsPage();
+        break;
+      case NotificationConsentPage.route:
+        page = NotificationConsentPage();
         break;
     }
 
