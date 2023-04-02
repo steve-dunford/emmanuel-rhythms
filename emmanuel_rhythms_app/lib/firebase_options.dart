@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD1fK2-HA_IxB8kjZd3FFt0mfLCFYLBkqo',
-    appId: '1:69147677069:android:49360c624674ffad9f6dc4',
-    messagingSenderId: '69147677069',
-    projectId: 'emmanuel-rhythms-staging',
-    storageBucket: 'emmanuel-rhythms-staging.appspot.com',
+    apiKey: 'AIzaSyBUXv2e1IptwVModbuVTiCLdHh0VplYkIU',
+    appId: '1:810020278226:android:0853e7c070b77863a4820b',
+    messagingSenderId: '810020278226',
+    projectId: 'emmanuel-rhythms-production',
+    storageBucket: 'emmanuel-rhythms-production.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDglf359oI0nI870IpTnFCE5DiaEWOhr-U',
-    appId: '1:69147677069:ios:69f550c747ec7d5c9f6dc4',
-    messagingSenderId: '69147677069',
-    projectId: 'emmanuel-rhythms-staging',
-    storageBucket: 'emmanuel-rhythms-staging.appspot.com',
-    iosClientId: '69147677069-f1vio7kv3k60i38l6iga8eg79le1m4cg.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC3dqb9SSjZxCJAg8TYH8JCA5xWYYJVEvI',
+    appId: '1:810020278226:ios:b81811adb0b444b2a4820b',
+    messagingSenderId: '810020278226',
+    projectId: 'emmanuel-rhythms-production',
+    storageBucket: 'emmanuel-rhythms-production.appspot.com',
+    iosClientId: '810020278226-bnao8slcqgta3q63n1k0kq3lsu34annd.apps.googleusercontent.com',
     iosBundleId: 'com.emmanuel.rhythms.emmanuelRhythmsApp',
   );
 }
