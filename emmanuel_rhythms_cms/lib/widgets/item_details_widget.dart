@@ -389,13 +389,17 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         )
       ];
-    } else if (viewModel.selectedItemType.itemType == ItemType.podcast) {
+    } else if (viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast ||
+    viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast) {
+
+      final caption = viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast ?
+          'Transistor.fm URL:' : 'Soundcloud URL:';
       return [
         TableRow(
           children: [
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Text('Transistor.fm URL:',
+              child: Text(caption,
                   style: Theme.of(context).textTheme.bodyText1),
             ),
             TableCell(

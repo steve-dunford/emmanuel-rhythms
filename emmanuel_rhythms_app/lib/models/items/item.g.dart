@@ -8,7 +8,7 @@ part of 'item.dart';
 
 _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       id: json['id'] as String,
-      type: $enumDecode(_$ItemTypeEnumMap, json['type']),
+      type: const ItemTypeConverter().fromJson(json['type'] as String),
       title: json['title'] as String,
       isPriority: json['isPriority'] as bool,
       description: json['description'] as String?,
@@ -29,7 +29,7 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
 
 Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'id': instance.id,
-      'type': _$ItemTypeEnumMap[instance.type]!,
+      'type': const ItemTypeConverter().toJson(instance.type),
       'title': instance.title,
       'isPriority': instance.isPriority,
       'description': instance.description,
@@ -42,14 +42,6 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'churches': instance.churches.map((e) => _$ChurchEnumMap[e]!).toList(),
       'tags': instance.tags.map((e) => e.toJson()).toList(),
     };
-
-const _$ItemTypeEnumMap = {
-  ItemType.text: 'text',
-  ItemType.vimeoVideo: 'vimeoVideo',
-  ItemType.download: 'download',
-  ItemType.scripture: 'scripture',
-  ItemType.podcast: 'podcast',
-};
 
 const _$ChurchEnumMap = {
   Church.emmanuelLurgan: 'emmanuelLurgan',

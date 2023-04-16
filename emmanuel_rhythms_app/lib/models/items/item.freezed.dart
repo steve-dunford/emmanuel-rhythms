@@ -24,7 +24,7 @@ class _$ItemTearOff {
 
   _Item call(
       {required String id,
-      required ItemType type,
+      @ItemTypeConverter() required ItemType type,
       required String title,
       required bool isPriority,
       String? description,
@@ -62,6 +62,7 @@ const $Item = _$ItemTearOff();
 /// @nodoc
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
+  @ItemTypeConverter()
   ItemType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isPriority => throw _privateConstructorUsedError;
@@ -86,7 +87,7 @@ abstract class $ItemCopyWith<$Res> {
       _$ItemCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      ItemType type,
+      @ItemTypeConverter() ItemType type,
       String title,
       bool isPriority,
       String? description,
@@ -182,7 +183,7 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   @override
   $Res call(
       {String id,
-      ItemType type,
+      @ItemTypeConverter() ItemType type,
       String title,
       bool isPriority,
       String? description,
@@ -277,7 +278,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 class _$_Item implements _Item {
   _$_Item(
       {required this.id,
-      required this.type,
+      @ItemTypeConverter() required this.type,
       required this.title,
       required this.isPriority,
       this.description,
@@ -294,6 +295,7 @@ class _$_Item implements _Item {
   @override
   final String id;
   @override
+  @ItemTypeConverter()
   final ItemType type;
   @override
   final String title;
@@ -376,7 +378,7 @@ class _$_Item implements _Item {
 abstract class _Item implements Item {
   factory _Item(
       {required String id,
-      required ItemType type,
+      @ItemTypeConverter() required ItemType type,
       required String title,
       required bool isPriority,
       String? description,
@@ -393,6 +395,7 @@ abstract class _Item implements Item {
   @override
   String get id;
   @override
+  @ItemTypeConverter()
   ItemType get type;
   @override
   String get title;
