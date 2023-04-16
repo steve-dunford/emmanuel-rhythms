@@ -11,7 +11,7 @@ abstract class PodcastRepository {
 
 class TransistorFMPodcastRepository extends PodcastRepository {
   static const transistorRssFeedUrl = 'https://feeds.transistor.fm/emmanuel-church-lurgan';
-  static const soundcloudRssFeedUrl = 'https://feeds.soundcloud.com/users/soundcloud:users:297901712/';
+  static const soundcloudRssFeedUrl = 'https://feeds.soundcloud.com/users/soundcloud:users:383486789/sounds.rss';
 
   @override
   Future<PodcastDetails?> getTransistorFMPodcastDetails(String itemUrl) async {
