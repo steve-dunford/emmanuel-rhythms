@@ -19,8 +19,15 @@ class ItemDetailsViewModel extends ChangeNotifier {
   String? description;
 
   ItemDetailsViewModel(this._podcastRepository, this._analyticsRepository, this.item) {
-    if (item.type == ItemType.podcast && item.url != null) {
-      _podcastRepository.getPodcastDetails(item.url!).then((details) {
+    if (item.type == ItemType.transistorFMPodcast && item.url != null) {
+      _podcastRepository.getTransistorFMPodcastDetails(item.url!).then((details) {
+        podcastDetails = details;
+        notifyListeners();
+      });
+    }
+
+    if (item.type == ItemType.soundcloudPodcast && item.url != null) {
+      _podcastRepository.getSoundcloudPodcastDetails(item.url!).then((details) {
         podcastDetails = details;
         notifyListeners();
       });
@@ -38,7 +45,8 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
   String? get title {
     switch (item.type) {
-      case ItemType.podcast:
+      case ItemType.transistorFMPodcast:
+      case ItemType.soundcloudPodcast:
         return podcastDetails?.title;
       default:
         return item.title;

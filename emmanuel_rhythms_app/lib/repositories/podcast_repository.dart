@@ -5,21 +5,33 @@ import 'package:webfeed/domain/rss_feed.dart';
 import '../models/podcast_details.dart';
 
 abstract class PodcastRepository {
-  Future<PodcastDetails?> getPodcastDetails(String itemUrl);
+  Future<PodcastDetails?> getTransistorFMPodcastDetails(String itemUrl);
+  Future<PodcastDetails?> getSoundcloudPodcastDetails(String itemUrl);
 }
 
 class TransistorFMPodcastRepository extends PodcastRepository {
-  static const rssFeedUrl = 'https://feeds.transistor.fm/emmanuel-church-lurgan';
+  static const transistorRssFeedUrl = 'https://feeds.transistor.fm/emmanuel-church-lurgan';
+  static const soundcloudRssFeedUrl = 'https://feeds.soundcloud.com/users/soundcloud:users:383486789/sounds.rss';
 
   @override
-  Future<PodcastDetails?> getPodcastDetails(String itemUrl) async {
+  Future<PodcastDetails?> getTransistorFMPodcastDetails(String itemUrl) async {
+    return _getPodcastDetails(itemUrl, transistorRssFeedUrl);
+  }
+
+  @override
+  Future<PodcastDetails?> getSoundcloudPodcastDetails(String itemUrl) async {
+    return _getPodcastDetails(itemUrl, soundcloudRssFeedUrl);
+  }
+
+  @override
+  Future<PodcastDetails?> _getPodcastDetails(String itemUrl, String feedUrl) async {
     final client = IOClient(HttpClient()
       ..badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true));
 
     // RSS feed
     var response = await client.get(
-        Uri.parse(rssFeedUrl));
+        Uri.parse(feedUrl));
     var channel = RssFeed.parse(response.body);
     final items = channel.items?.where((item) => item.link?.toLowerCase() == itemUrl.toLowerCase()) ?? [];
 

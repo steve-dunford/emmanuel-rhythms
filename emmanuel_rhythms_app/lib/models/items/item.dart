@@ -1,3 +1,4 @@
+import 'package:emmanuel_rhythms_app/common/converters/item_type_converter.dart';
 import 'package:emmanuel_rhythms_app/models/church.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
@@ -12,7 +13,7 @@ part 'item.g.dart';
 class Item with _$Item {
   factory Item(
       {required String id,
-        required ItemType type,
+        @ItemTypeConverter() required ItemType type,
         required String title,
         required bool isPriority,
         String? description,

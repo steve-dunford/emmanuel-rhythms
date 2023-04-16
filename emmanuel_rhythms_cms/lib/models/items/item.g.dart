@@ -48,7 +48,8 @@ const _$ItemTypeEnumMap = {
   ItemType.vimeoVideo: 'vimeoVideo',
   ItemType.download: 'download',
   ItemType.scripture: 'scripture',
-  ItemType.podcast: 'podcast',
+  ItemType.transistorFMPodcast: 'transistorFMPodcast',
+  ItemType.soundcloudPodcast: 'soundcloudPodcast',
 };
 
 const _$ChurchEnumMap = {
