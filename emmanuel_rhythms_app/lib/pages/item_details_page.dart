@@ -102,7 +102,8 @@ class ItemDetailsPage extends StatelessWidget {
         return _vimeoVideo(context, viewModel);
       case ItemType.download:
         return _download(context, viewModel);
-      case ItemType.podcast:
+      case ItemType.transistorFMPodcast:
+      case ItemType.soundcloudPodcast:
         return _podcastPlayer(context, viewModel);
     }
 

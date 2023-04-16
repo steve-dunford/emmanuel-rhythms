@@ -5,7 +5,9 @@ enum ItemType {
   vimeoVideo,
   download,
   scripture,
-  podcast
+  transistorFMPodcast,
+  soundcloudPodcast,
+  unknown
 }
 
 extension ItemTypeExtensions on ItemType {
@@ -20,7 +22,8 @@ extension ItemTypeExtensions on ItemType {
         return 'Download';
       case ItemType.scripture:
         return 'Reading';
-      case ItemType.podcast:
+      case ItemType.transistorFMPodcast:
+      case ItemType.soundcloudPodcast:
         return 'Podcast';
     }
   }

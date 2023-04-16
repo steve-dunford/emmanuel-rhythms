@@ -5,7 +5,8 @@ enum ItemType {
   vimeoVideo,
   download,
   scripture,
-  podcast
+  transistorFMPodcast,
+  soundcloudPodcast
 }
 
 extension ItemTypeExtensions on ItemType {
@@ -20,8 +21,10 @@ extension ItemTypeExtensions on ItemType {
         return 'Download';
       case ItemType.scripture:
         return 'Scripture Reading';
-      case ItemType.podcast:
-        return 'Podcast';
+      case ItemType.transistorFMPodcast:
+        return 'Transistor.fm Podcast';
+      case ItemType.soundcloudPodcast:
+        return 'Soundcloud Podcast';
     }
   }
 
@@ -35,7 +38,8 @@ extension ItemTypeExtensions on ItemType {
         return Colors.purple;
       case ItemType.scripture:
         return Colors.red;
-      case ItemType.podcast:
+      case ItemType.transistorFMPodcast:
+      case ItemType.soundcloudPodcast:
         return Colors.green;
     }
   }
