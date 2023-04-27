@@ -51,10 +51,12 @@ class ItemDetailsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     if (viewModel.item.description != null)
-                      Html(data: viewModel.item.description,
-                      onLinkTap: (link, context, map, element) {
-                        viewModel.openLink(link);
-                      },),
+                      Html(
+                        data: viewModel.item.description,
+                        onLinkTap: (link, context, map, element) {
+                          viewModel.openLink(link);
+                        },
+                      ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -207,7 +209,8 @@ class ItemDetailsPage extends StatelessWidget {
           ),
         );
       }).toList(),
-      if(viewModel.item.url != null)
+      if (viewModel.item.url != null) ...[
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -234,6 +237,7 @@ class ItemDetailsPage extends StatelessWidget {
             ),
           ],
         ),
+      ]
     ]);
   }
 }
