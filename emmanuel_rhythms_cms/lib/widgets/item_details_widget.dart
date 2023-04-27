@@ -361,7 +361,30 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
               ),
             ],
           ))
-        ])
+        ]),
+        TableRow(
+          children: [
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.middle,
+              child: Text('Devotion Video URL:',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: SizedBox(
+                  height: 48,
+                  width: 200,
+                  child: TextField(
+                    controller: urlController,
+                    onChanged: viewModel.setUrl,
+                    decoration: AppTextStyle.textInputDecoration('URL', false),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
       ];
     } else if (viewModel.selectedItemType.itemType == ItemType.vimeoVideo) {
       return [

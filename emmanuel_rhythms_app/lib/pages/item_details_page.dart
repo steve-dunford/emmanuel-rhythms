@@ -51,7 +51,10 @@ class ItemDetailsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     if (viewModel.item.description != null)
-                      Html(data: viewModel.item.description),
+                      Html(data: viewModel.item.description,
+                      onLinkTap: (link, context, map, element) {
+                        viewModel.openLink(link);
+                      },),
                     const SizedBox(
                       height: 10,
                     ),
@@ -172,11 +175,40 @@ class ItemDetailsPage extends StatelessWidget {
       return Container();
     }
 
-    return Column(
-        children: viewModel.item.scriptureReferences!.map((ref) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
+    return Column(children: [
+      ...viewModel.item.scriptureReferences!.map((ref) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                color: AppColours.emmanuelBlue,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(50, 50, 40, 20),
+                  child: Column(
+                    children: [
+                      Center(
+                          child: Text(ref.displayString.toUpperCase() ?? '',
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.scriptureCaption(context))),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      StandardButton(
+                          onTap: () => viewModel.readScriptureRef(ref),
+                          isEnabled: true,
+                          text: 'READ'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+      if(viewModel.item.url != null)
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -186,24 +218,23 @@ class ItemDetailsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Center(
-                        child: Text(ref.displayString.toUpperCase() ?? '',
+                        child: Text('DEVOTIONAL\nVIDEO',
                             textAlign: TextAlign.center,
                             style: AppTextStyle.scriptureCaption(context))),
                     const SizedBox(
                       height: 10,
                     ),
                     StandardButton(
-                        onTap: () => viewModel.readScriptureRef(ref),
+                        onTap: () => viewModel.openUrl(),
                         isEnabled: true,
-                        text: 'READ'),
+                        text: 'WATCH'),
                   ],
                 ),
               ),
             ),
           ],
         ),
-      );
-    }).toList());
+    ]);
   }
 }
 
