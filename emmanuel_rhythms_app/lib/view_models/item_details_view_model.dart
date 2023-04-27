@@ -119,6 +119,16 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
   }
 
+  Future<void> openLink(String? link) async {
+    if(link != null) {
+      final url = Uri.parse(link);
+
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      }
+    }
+  }
+
   Future<void> openUrl() async {
     if (item.url == null) {
       return;
