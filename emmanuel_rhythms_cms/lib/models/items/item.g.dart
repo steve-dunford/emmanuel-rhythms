@@ -46,6 +46,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
 const _$ItemTypeEnumMap = {
   ItemType.text: 'text',
   ItemType.vimeoVideo: 'vimeoVideo',
+  ItemType.youtubeVideo: 'youtubeVideo',
   ItemType.download: 'download',
   ItemType.scripture: 'scripture',
   ItemType.transistorFMPodcast: 'transistorFMPodcast',

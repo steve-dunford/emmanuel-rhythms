@@ -1,16 +1,19 @@
+import 'package:emmanuel_rhythms_app/models/video_type.dart';
 import 'package:flutter/material.dart';
 import 'package:pod_player/pod_player.dart';
 
-class VimeoVideoWidget extends StatefulWidget {
+class VideoWidget extends StatefulWidget {
   final String videoId;
+  final VideoType videoType;
 
-  const VimeoVideoWidget({Key? key, required this.videoId}) : super(key: key);
+  const VideoWidget({Key? key, required this.videoId, required this.videoType})
+      : super(key: key);
 
   @override
-  State<VimeoVideoWidget> createState() => _VimeoVideoWidgetState();
+  State<VideoWidget> createState() => _VideoWidgetState();
 }
 
-class _VimeoVideoWidgetState extends State<VimeoVideoWidget> {
+class _VideoWidgetState extends State<VideoWidget> {
   late final PodPlayerController _controller;
   bool isLoading = true;
 
@@ -28,14 +31,18 @@ class _VimeoVideoWidgetState extends State<VimeoVideoWidget> {
   }
 
   void loadVideo() async {
-    final urls = await PodPlayerController.getVimeoUrls(widget.videoId);
+    final urls = widget.videoType == VideoType.vimeo ? await PodPlayerController
+        .getVimeoUrls(widget.videoId) :
+    await PodPlayerController.getYoutubeUrls(widget.videoId);
+
     setState(() => isLoading = false);
     _controller = PodPlayerController(
       playVideoFrom: PlayVideoFrom.networkQualityUrls(videoUrls: urls!),
       podPlayerConfig: const PodPlayerConfig(
         videoQualityPriority: [360],
       ),
-    )..initialise();
+    )
+      ..initialise();
   }
 
   @override

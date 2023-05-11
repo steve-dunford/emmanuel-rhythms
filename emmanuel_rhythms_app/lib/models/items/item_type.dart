@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum ItemType {
   text,
   vimeoVideo,
+  youtubeVideo,
   download,
   scripture,
   transistorFMPodcast,
@@ -17,6 +18,7 @@ extension ItemTypeExtensions on ItemType {
       case ItemType.text:
         return null;
       case ItemType.vimeoVideo:
+      case ItemType.youtubeVideo:
         return 'Video';
       case ItemType.download:
         return 'Download';
