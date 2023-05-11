@@ -1,0 +1,4 @@
+enum VideoType {
+  vimeo,
+  youTube
+}

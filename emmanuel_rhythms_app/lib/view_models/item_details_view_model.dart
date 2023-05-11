@@ -103,6 +103,8 @@ class ItemDetailsViewModel extends ChangeNotifier {
     return item.url!.substring(item.url!.lastIndexOf('/') + 1);
   }
 
+  String? get youtubeVideoUrl => item.url;
+
   Future<void> readScriptureRef(ScriptureReference ref) async {
     final url = Uri.parse('https://bible.com/bible/113/${ref.youVersionString}');
 

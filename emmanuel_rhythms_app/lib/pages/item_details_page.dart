@@ -3,9 +3,10 @@ import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
+import 'package:emmanuel_rhythms_app/models/video_type.dart';
 import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
-import 'package:emmanuel_rhythms_app/widgets/vimeo_video_widget.dart';
+import 'package:emmanuel_rhythms_app/widgets/video_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -105,6 +106,8 @@ class ItemDetailsPage extends StatelessWidget {
         return _scriptureReading(context, viewModel);
       case ItemType.vimeoVideo:
         return _vimeoVideo(context, viewModel);
+      case ItemType.youtubeVideo:
+        return _youtubeVideo(context, viewModel);
       case ItemType.download:
         return _download(context, viewModel);
       case ItemType.transistorFMPodcast:
@@ -144,8 +147,19 @@ class ItemDetailsPage extends StatelessWidget {
     if (viewModel.vimeoVideoId == null) {
       return Container();
     }
-    return VimeoVideoWidget(
+    return VideoWidget(
       videoId: viewModel.vimeoVideoId!,
+      videoType: VideoType.vimeo,
+    );
+  }
+
+  Widget _youtubeVideo(BuildContext context, ItemDetailsViewModel viewModel) {
+    if (viewModel.youtubeVideoUrl == null) {
+      return Container();
+    }
+    return VideoWidget(
+      videoId: viewModel.youtubeVideoUrl!,
+      videoType: VideoType.youTube,
     );
   }
 
