@@ -1,6 +1,7 @@
 import 'package:emmanuel_rhythms_app/models/video_type.dart';
 import 'package:flutter/material.dart';
 import 'package:pod_player/pod_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 class VideoWidget extends StatefulWidget {
   final String videoId;
@@ -20,6 +21,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     loadVideo();
+    Wakelock.enable();
     super.initState();
   }
 
@@ -27,6 +29,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void deactivate() {
     _controller.dispose();
+    Wakelock.disable();
     super.deactivate();
   }
 
