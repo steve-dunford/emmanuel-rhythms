@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:emmanuel_rhythms_app/models/bible_book.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
@@ -145,7 +147,9 @@ class ItemDetailsViewModel extends ChangeNotifier {
     final url = Uri.parse(item.url!);
 
     if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+
+      final launchMode = Platform.isAndroid ? LaunchMode.externalApplication : LaunchMode.platformDefault;
+      await launchUrl(url, mode: launchMode);
     }
   }
 }
