@@ -1,6 +1,7 @@
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/dependencies.dart';
 import 'package:emmanuel_rhythms_app/firebase_options.dart';
+import 'package:emmanuel_rhythms_app/models/notification.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
@@ -11,10 +12,12 @@ import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart'
 import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,11 @@ void main() async {
   );
 
   await Dependencies.register();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingHandler);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    _firebaseMessagingHandler(message);
+  });
 
   runApp(const MyApp());
 }
@@ -125,4 +133,24 @@ class MyApp extends StatelessWidget {
 
     return null;
   }
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingHandler(RemoteMessage message) async {
+  final repo = SharedPreferencesLocalStorageRepository(await SharedPreferences.getInstance());
+
+  if(message.notification?.body != null)
+  {
+    final notification = ELRNotification(
+        id: message.messageId ?? 'unknown',
+        text: message.notification!.body!,
+        timestamp: DateTime.now(),
+        title: message.notification?.title
+    );
+
+    repo.addNotification(notification);
+  }
+
+
+  print("Handling a background message: ${message.messageId}");
 }

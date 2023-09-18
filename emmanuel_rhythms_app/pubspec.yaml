@@ -40,7 +40,7 @@ dependencies:
   get_it: ^7.2.0
   intl: ^0.17.0
   json_serializable: ^6.0.0
-  json_annotation: ^4.3.0
+  json_annotation: ^4.6.0
   just_audio: ^0.9.31
   permission_handler: ^10.2.0
   pod_player: ^0.1.0

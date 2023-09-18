@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:emmanuel_rhythms_app/common/extensions/datetime_extensions.dart';
 import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
+import 'package:emmanuel_rhythms_app/models/notification.dart';
 import 'package:emmanuel_rhythms_app/repositories/daily_content_repository.dart';
 import 'package:emmanuel_rhythms_app/common/disposer.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
@@ -100,4 +101,9 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   }
 
   String get title => DateFormat('d MMM yyyy').format(currentDate);
+
+  bool get hasNotifications => notifications.isNotEmpty;
+
+  List<ELRNotification> get notifications =>
+      _localStorageRepository.getNotifications();
 }
