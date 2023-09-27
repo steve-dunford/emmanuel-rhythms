@@ -9,6 +9,7 @@ import 'package:emmanuel_rhythms_app/common/disposer.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
 class HomeViewModel extends ChangeNotifier with Disposer {
@@ -30,11 +31,9 @@ class HomeViewModel extends ChangeNotifier with Disposer {
 
   HomeViewModel(this._dailyContentRepository, this._localStorageRepository) {
     _updateInstanceListener();
-    
   }
 
   _updateInstanceListener() {
-
     instancesSubscription?.cancel();
     loadWindowStartIndex = currentIndex - loadBehindCount;
     loadWindowEndIndex = currentIndex + loadAheadCount;
@@ -42,7 +41,7 @@ class HomeViewModel extends ChangeNotifier with Disposer {
     _isLoading = true;
     instancesSubscription = _dailyContentRepository
         .itemInstancesForDates(_dateForIndex(loadWindowStartIndex),
-        _dateForIndex(loadWindowEndIndex))
+            _dateForIndex(loadWindowEndIndex))
         .listen((instances) {
       this.instances = instances;
       _isLoading = false;
@@ -53,8 +52,9 @@ class HomeViewModel extends ChangeNotifier with Disposer {
 
   bool get shouldShowLoadingIndicator =>
       _isLoading &&
-          (!_hasDoneFirstLoad || currentIndex < loadWindowStartIndex ||
-              currentIndex > loadWindowEndIndex);
+      (!_hasDoneFirstLoad ||
+          currentIndex < loadWindowStartIndex ||
+          currentIndex > loadWindowEndIndex);
 
   DateTime get currentDate => _dateForIndex(currentIndex);
 
@@ -77,24 +77,20 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   List<Item> itemsForIndex(int index) =>
       instances
           ?.where((instance) =>
-      instance.item.churches
-          .contains(_localStorageRepository.selectedChurch()) &&
-          instance.date.toUtc().isAtSameMomentAs(_dateForIndex(index)))
+              instance.item.churches
+                  .contains(_localStorageRepository.selectedChurch()) &&
+              instance.date.toUtc().isAtSameMomentAs(_dateForIndex(index)))
           .map((instance) => instance.item)
           .toList() ??
-          [];
+      [];
 
   DateTime _dateForIndex(int index) {
     final adjustedIndex = index - initialPageIndex;
 
     if (adjustedIndex >= 0) {
-      return DateTime
-          .now()
-          .atMidnight
-          .add(Duration(days: adjustedIndex));
+      return DateTime.now().atMidnight.add(Duration(days: adjustedIndex));
     } else {
-      return DateTime
-          .now()
+      return DateTime.now()
           .atMidnight
           .subtract(Duration(days: adjustedIndex.abs()));
     }
@@ -104,6 +100,7 @@ class HomeViewModel extends ChangeNotifier with Disposer {
 
   bool get hasNotifications => notifications.isNotEmpty;
 
-  List<ELRNotification> get notifications =>
-      _localStorageRepository.getNotifications();
+  List<ELRNotification> get notifications => _localStorageRepository
+      .getNotifications()
+      .sorted((x, y) => y.timestamp.compareTo(x.timestamp));
 }
