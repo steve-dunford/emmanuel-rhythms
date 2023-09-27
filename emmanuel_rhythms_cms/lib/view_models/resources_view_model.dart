@@ -12,6 +12,7 @@ class ResourcesViewModel extends ChangeNotifier with Disposer {
 
   ResourcesViewModel(this._resourcesRepository) {
     _resourcesRepository.resources().listen((resources) {
+      resources.sort((a, b) => a.resolvedSortOrder.compareTo(b.resolvedSortOrder));
       this.resources = resources;
       notifyListeners();
     }).disposedBy(disposeBag);

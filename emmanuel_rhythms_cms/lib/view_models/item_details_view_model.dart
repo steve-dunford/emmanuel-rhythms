@@ -44,6 +44,11 @@ class ItemDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  setSortOrder(String sortOrder) {
+    item = item.copyWith(sortOrder: int.tryParse(sortOrder));
+    notifyListeners();
+  }
+
 
   _updateSettingImage(bool setting) {
     isSettingImage = setting;

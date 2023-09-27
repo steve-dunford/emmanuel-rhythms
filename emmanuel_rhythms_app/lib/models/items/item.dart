@@ -13,17 +13,28 @@ part 'item.g.dart';
 class Item with _$Item {
   factory Item(
       {required String id,
-        @ItemTypeConverter() required ItemType type,
-        required String title,
-        required bool isPriority,
-        String? description,
-        String? backgroundImage,
-        String? url,
-        String? downloadFilename,
-        bool? usePodcastDetails,
-        List<ScriptureReference>? scriptureReferences,
-        required List<Church> churches,
-        required List<Tag> tags}) = _Item;
+      @ItemTypeConverter() required ItemType type,
+      required String title,
+      required bool isPriority,
+      int? sortOrder,
+      String? description,
+      String? backgroundImage,
+      String? url,
+      String? downloadFilename,
+      bool? usePodcastDetails,
+      List<ScriptureReference>? scriptureReferences,
+      required List<Church> churches,
+      required List<Tag> tags}) = _Item;
 
   factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
+}
+
+const int maxInteger = 0x7FFFFFFFFFFFFFFF;
+
+extension ItemExtensions on Item {
+  int get resolvedSortOrder => isPriority
+      ? -1
+      : sortOrder != null
+          ? sortOrder!
+          : maxInteger;
 }
