@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:wakelock/wakelock.dart';
 
 class AudioWidget extends StatefulWidget {
   final String url;
@@ -34,6 +35,7 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
   Future<void> _init() async {
     // Inform the operating system of our app's audio attributes etc.
     // We pick a reasonable default for an app that plays speech.
+    Wakelock.enable();
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
@@ -55,6 +57,7 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
     _player.dispose();
+    Wakelock.disable();
     super.dispose();
   }
 
