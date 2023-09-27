@@ -8,10 +8,12 @@ import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
 import 'package:emmanuel_rhythms_app/widgets/menu_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class HomePage extends StatefulWidget {
   static const route = 'home';
@@ -136,7 +138,9 @@ class _HomePageState extends State<HomePage>
         });
   }
 
-  _showMenuOverlay(HomeViewModel viewModel) {
+  _showMenuOverlay(HomeViewModel viewModel) async {
+    var token = await FirebaseMessaging.instance.getToken();
+
     OverlayState? overlayState = Overlay.of(context);
     OverlayEntry? overlayEntry;
 
@@ -208,22 +212,66 @@ class _HomePageState extends State<HomePage>
                     ),
                     const SizedBox(height: 50),
                     viewModel.hasNotifications
-                        ? Column(
-                            children: viewModel.notifications
-                                .map((notification) => Column(
-                                      children: [
-                                        Text(notification.title ?? ''),
-                                        const SizedBox(height: 10),
-                                        Text(notification.text),
-                                        const SizedBox(height: 10),
-                                        Container(
-                                            height: 1,
-                                            color: AppColours.emmanuelBlue),
-                                      ],
-                                    ))
-                                .toList(),
-                          )
-                        : Text('No recent notifications', style: AppTextStyle.menuItemCaption(context)),
+                        ? Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                Text('Notifications',
+                                    style: AppTextStyle.menuItemCaption(context)),
+                                Column(
+                                    children: viewModel.notifications
+                                        .map((notification) => Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 30.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  const SizedBox(height: 20),
+                                                  Text(notification.title ?? '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline3),
+                                                  const SizedBox(height: 10),
+                                                  Text(notification.text,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      const Spacer(),
+                                                      Text(
+                                                          timeago.format(
+                                                              notification.timestamp),
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  fontStyle: FontStyle
+                                                                      .italic,
+                                                                  fontSize: 12)),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 20),
+                                                  Container(
+                                                      height: 1,
+                                                      color: AppColours.emmanuelBlue),
+                                                ],
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
+                                const SizedBox(height: 50),
+                              ],
+                            ),
+                          ),
+                        )
+                        : Text('No recent notifications',
+                            style: AppTextStyle.menuItemCaption(context)),
                   ]))));
     });
     animationController!.addListener(() {

@@ -68,8 +68,8 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
     if (rawNotifications != null) {
       return rawNotifications
           .map((raw) => ELRNotification.fromJson(jsonDecode(raw)))
-          .toList();
+          .toList(growable: true);
     }
-    return List<ELRNotification>.empty();
+    return List<ELRNotification>.empty(growable: true);
   }
 }

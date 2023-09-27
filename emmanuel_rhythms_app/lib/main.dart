@@ -32,9 +32,9 @@ void main() async {
 
   await Dependencies.register();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingHandler);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingHandler);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    _firebaseMessagingHandler(message);
+    firebaseMessagingHandler(message);
   });
 
   runApp(const MyApp());
@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
 }
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingHandler(RemoteMessage message) async {
+Future<void> firebaseMessagingHandler(RemoteMessage message) async {
   final repo = SharedPreferencesLocalStorageRepository(await SharedPreferences.getInstance());
 
   if(message.notification?.body != null)
