@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage>
                             child: Column(
                               children: [
                                 const SizedBox(height: 20),
-                                Text('Notifications',
+                                Text('NOTIFICATIONS',
                                     style: AppTextStyle.menuItemCaption(context)),
                                 Column(
                                     children: viewModel.notifications
