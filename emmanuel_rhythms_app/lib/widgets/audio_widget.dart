@@ -4,23 +4,30 @@
 
 import 'dart:math';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:emmanuel_rhythms_app/common/audio_handler.dart';
+import 'package:emmanuel_rhythms_app/common/constants.dart';
+import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
+import 'package:emmanuel_rhythms_app/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
+
 import 'package:wakelock/wakelock.dart';
 
 class AudioWidget extends StatefulWidget {
-  final String url;
-  const AudioWidget({required this.url,Key? key}) : super(key: key);
+  final PodcastDetails podcast;
+
+  const AudioWidget({required this.podcast, Key? key}) : super(key: key);
 
   @override
   AudioWidgetState createState() => AudioWidgetState();
 }
 
 class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
-  final _player = AudioPlayer();
+  final _handler = GetIt.I.get<ELRAudioHandler>();
 
   @override
   void initState() {
@@ -39,13 +46,13 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
-    _player.playbackEventStream.listen((event) {},
-        onError: (Object e, StackTrace stackTrace) {
-      print('A stream error occurred: $e');
-    });
     // Try to load audio from a source and catch any errors.
     try {
-      await _player.setAudioSource(AudioSource.uri(Uri.parse(widget.url)));
+      await _handler.playMediaItem(MediaItem(
+          id: widget.podcast.audioFileUrl!,
+          title: widget.podcast.title ?? 'Emmanuel Life Rhythms',
+          artist: 'Emmanuel Church',
+          artUri: Uri.parse(appIconUri)));
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -56,30 +63,13 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
     ambiguate(WidgetsBinding.instance)!.removeObserver(this);
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
-    _player.dispose();
+    _handler.stop();
     Wakelock.disable();
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      // Release the player's resources when not in use. We use "stop" so that
-      // if the app resumes later, it will still remember what position to
-      // resume from.
-      _player.stop();
-    }
-  }
-
   /// Collects the data useful for displaying in a seek bar, using a handy
   /// feature of rx_dart to combine the 3 streams of interest into one.
-  Stream<PositionData> get _positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          _player.positionStream,
-          _player.bufferedPositionStream,
-          _player.durationStream,
-          (position, bufferedPosition, duration) => PositionData(
-              position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   Widget build(BuildContext context) {
@@ -88,18 +78,18 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Display play/pause button and volume/speed sliders.
-        ControlButtons(_player),
+        ControlButtons(_handler),
         // Display seek bar. Using StreamBuilder, this widget rebuilds
         // each time the position, buffered position or duration changes.
         StreamBuilder<PositionData>(
-          stream: _positionDataStream,
+          stream: _handler.positionDataStream,
           builder: (context, snapshot) {
             final positionData = snapshot.data;
             return SeekBar(
               duration: positionData?.duration ?? Duration.zero,
               position: positionData?.position ?? Duration.zero,
               bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-              onChangeEnd: _player.seek,
+              onChangeEnd: _handler.seek,
             );
           },
         ),
@@ -110,9 +100,9 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
 
 /// Displays the play/pause button and volume/speed sliders.
 class ControlButtons extends StatelessWidget {
-  final AudioPlayer player;
+  final ELRAudioHandler _handler;
 
-  const ControlButtons(this.player, {Key? key}) : super(key: key);
+  const ControlButtons(this._handler, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +119,9 @@ class ControlButtons extends StatelessWidget {
               divisions: 10,
               min: 0.0,
               max: 1.0,
-              value: player.volume,
-              stream: player.volumeStream,
-              onChanged: player.setVolume,
+              value: _handler.player.volume,
+              stream: _handler.player.volumeStream,
+              onChanged: _handler.player.setVolume,
             );
           },
         ),
@@ -141,7 +131,7 @@ class ControlButtons extends StatelessWidget {
         /// loading/buffering/ready state. Depending on the state we show the
         /// appropriate button or loading indicator.
         StreamBuilder<PlayerState>(
-          stream: player.playerStateStream,
+          stream: _handler.player.playerStateStream,
           builder: (context, snapshot) {
             final playerState = snapshot.data;
             final processingState = playerState?.processingState;
@@ -158,26 +148,26 @@ class ControlButtons extends StatelessWidget {
               return IconButton(
                 icon: const Icon(Icons.play_arrow),
                 iconSize: 64.0,
-                onPressed: player.play,
+                onPressed: _handler.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
                 icon: const Icon(Icons.pause),
                 iconSize: 64.0,
-                onPressed: player.pause,
+                onPressed: _handler.pause,
               );
             } else {
               return IconButton(
                 icon: const Icon(Icons.replay),
                 iconSize: 64.0,
-                onPressed: () => player.seek(Duration.zero),
+                onPressed: () => _handler.seek(Duration.zero),
               );
             }
           },
         ),
         // Opens speed slider dialog
         StreamBuilder<double>(
-          stream: player.speedStream,
+          stream: _handler.player.speedStream,
           builder: (context, snapshot) => IconButton(
             icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
                 style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -188,9 +178,9 @@ class ControlButtons extends StatelessWidget {
                 divisions: 10,
                 min: 0.5,
                 max: 1.5,
-                value: player.speed,
-                stream: player.speedStream,
-                onChanged: player.setSpeed,
+                value: _handler.player.speed,
+                stream: _handler.player.speedStream,
+                onChanged: _handler.setSpeed,
               );
             },
           ),
@@ -240,14 +230,6 @@ void showSliderDialog({
       ),
     ),
   );
-}
-
-class PositionData {
-  final Duration position;
-  final Duration bufferedPosition;
-  final Duration duration;
-
-  PositionData(this.position, this.bufferedPosition, this.duration);
 }
 
 class SeekBar extends StatefulWidget {

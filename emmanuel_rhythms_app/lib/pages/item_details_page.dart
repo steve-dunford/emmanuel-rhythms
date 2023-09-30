@@ -180,7 +180,7 @@ class ItemDetailsPage extends StatelessWidget {
           const SizedBox(height: 20),
         ],
         if (details.audioFileUrl != null)
-          AudioWidget(url: details!.audioFileUrl!)
+          AudioWidget(podcast: details!)
       ],
     );
   }
