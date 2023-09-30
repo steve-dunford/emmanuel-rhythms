@@ -29,6 +29,13 @@
             {
               "client_id": "69147677069-08umi4141vhs3oknhnvrob0maq2cv875.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ecl.liferhythms"
+              }
             }
           ]
         }
