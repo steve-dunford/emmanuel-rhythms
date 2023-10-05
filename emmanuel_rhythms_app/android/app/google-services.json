@@ -1,40 +1,41 @@
 {
   "project_info": {
-    "project_number": "69147677069",
-    "project_id": "emmanuel-rhythms-staging",
-    "storage_bucket": "emmanuel-rhythms-staging.appspot.com"
+    "project_number": "810020278226",
+    "project_id": "emmanuel-rhythms-production",
+    "storage_bucket": "emmanuel-rhythms-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:69147677069:android:49360c624674ffad9f6dc4",
+        "mobilesdk_app_id": "1:810020278226:android:0853e7c070b77863a4820b",
         "android_client_info": {
           "package_name": "com.emmanuel.rhythms.emmanuel_rhythms_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "69147677069-08umi4141vhs3oknhnvrob0maq2cv875.apps.googleusercontent.com",
+          "client_id": "810020278226-tbd957eam2se4h9e54kc7ueoer91f2po.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD1fK2-HA_IxB8kjZd3FFt0mfLCFYLBkqo"
+          "current_key": "AIzaSyBUXv2e1IptwVModbuVTiCLdHh0VplYkIU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "69147677069-08umi4141vhs3oknhnvrob0maq2cv875.apps.googleusercontent.com",
+              "client_id": "810020278226-tbd957eam2se4h9e54kc7ueoer91f2po.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "69147677069-1c1pb1oh18b2dlvf2l389dc7qgusln33.apps.googleusercontent.com",
+              "client_id": "810020278226-bnao8slcqgta3q63n1k0kq3lsu34annd.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ecl.liferhythms"
+                "bundle_id": "com.ecl.liferhythms",
+                "app_store_id": "6445926636"
               }
             }
           ]
