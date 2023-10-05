@@ -121,7 +121,7 @@ extension BibleBookExtensions on BibleBook {
       case BibleBook.lamentations:
         return 'Lamentations';
       case BibleBook.ezekiel:
-        return 'Ezehiel';
+        return 'Ezekiel';
       case BibleBook.daniel:
         return 'Daniel';
       case BibleBook.hosea:

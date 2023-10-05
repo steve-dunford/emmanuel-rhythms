@@ -51,10 +51,12 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
   }
 
   List<CalendarEventData<DailyContent>> get events {
-    final events = (_instances ?? []).map((instance) {
+    final rawInstances = _instances ?? [];
+    rawInstances.sort((a,b) => a.item.resolvedSortOrder.compareTo(b.item.resolvedSortOrder));
+
+    final events = rawInstances.map((instance) {
       final dailyContent =
           (_dailyContent ?? []).firstWhere((content) => content.dailyContentId == instance.dailyContentId);
-
 
       return CalendarEventData<DailyContent>(
           title: dailyContent.item.title,
@@ -62,6 +64,7 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
           event: dailyContent,
           color: dailyContent.item.type.color);
     }).toList();
+
 
     return events;
   }

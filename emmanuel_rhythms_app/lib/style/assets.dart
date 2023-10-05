@@ -4,6 +4,7 @@ class Assets {
   static const closeIcon = 'assets/icon_close.png';
   static const rightIcon = 'assets/icon_right.png';
   static const menuIcon = 'assets/icon_menu.png';
+  static const notificataionIcon = 'assets/icon_notification.png';
 
   static const lurganSelected = 'assets/lurgan_selected.png';
   static const lurganUnselected = 'assets/lurgan_unselected.png';

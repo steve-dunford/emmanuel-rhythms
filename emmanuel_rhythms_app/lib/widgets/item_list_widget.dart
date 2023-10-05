@@ -21,11 +21,7 @@ class ItemListWidget extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: items
-                .sorted((item1, item2) => item1.isPriority
-                    ? -1
-                    : item2.isPriority
-                        ? 1
-                        : 0)
+                .sorted((item1, item2) => item1.resolvedSortOrder.compareTo(item2.resolvedSortOrder))
                 .map(
                   (item) => Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),

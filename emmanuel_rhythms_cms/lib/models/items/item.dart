@@ -16,6 +16,7 @@ class Item with _$Item {
       required ItemType type,
       required String title,
       required bool isPriority,
+      int? sortOrder,
       String? description,
       String? backgroundImage,
       String? url,
@@ -36,4 +37,14 @@ class Item with _$Item {
     type: ItemType.text,
     usePodcastDetails: true,
   );
+}
+
+const int maxInteger = 0x20000000000000;
+
+extension ItemExtensions on Item {
+  int get resolvedSortOrder => isPriority
+      ? -1
+      : sortOrder != null
+      ? sortOrder!
+      : maxInteger;
 }

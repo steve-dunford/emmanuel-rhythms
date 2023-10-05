@@ -13,6 +13,7 @@ import 'package:emmanuel_rhythms_cms/widgets/item_description_widget.dart';
 import 'package:emmanuel_rhythms_cms/widgets/scripture_reference_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +32,16 @@ class ItemDetailsWidget extends StatefulWidget {
 class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
   final titleController = TextEditingController();
   final urlController = TextEditingController();
+  final sortOrderController = TextEditingController();
 
   @override
   void initState() {
     titleController.text = widget.initialItem.title;
     if (widget.initialItem.url != null) {
       urlController.text = widget.initialItem.url!;
+    }
+    if (widget.initialItem.sortOrder != null) {
+      sortOrderController.text = widget.initialItem.sortOrder!.toString();
     }
 
     super.initState();
@@ -271,14 +276,49 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                               TableCell(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Checkbox(
-                                      value: viewModel
-                                          .item.isPriority,
-                                      onChanged: (selected) =>
-                                          viewModel
-                                              .setIsPriority(
-                                              selected ??
-                                                  false)),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Checkbox(
+                                        value: viewModel
+                                            .item.isPriority,
+                                        onChanged: (selected) =>
+                                            viewModel
+                                                .setIsPriority(
+                                                selected ??
+                                                    false)),
+                                  ),
+                                ),
+                              )
+                            ]
+                        ),
+                        TableRow(
+                            children: [
+                              TableCell(
+                                verticalAlignment: TableCellVerticalAlignment.middle,
+                                child: Text('Sort Order:',
+                                    style: Theme.of(context).textTheme.bodyText1),
+                              ),
+                              TableCell(
+                                child:  Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SizedBox(
+                                      height: 48,
+                                      width: 60 ,
+                                      child: TextField(
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter(RegExp('[0-9]'), allow: true)
+                                        ],
+                                        controller: sortOrderController,
+                                        onChanged: viewModel.setSortOrder,
+                                        decoration:
+                                        AppTextStyle.textInputDecoration(
+                                            '', false),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               )
                             ]

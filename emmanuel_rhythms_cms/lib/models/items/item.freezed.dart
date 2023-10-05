@@ -24,6 +24,7 @@ mixin _$Item {
   ItemType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isPriority => throw _privateConstructorUsedError;
+  int? get sortOrder => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $ItemCopyWith<$Res> {
       ItemType type,
       String title,
       bool isPriority,
+      int? sortOrder,
       String? description,
       String? backgroundImage,
       String? url,
@@ -72,6 +74,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? type = freezed,
     Object? title = freezed,
     Object? isPriority = freezed,
+    Object? sortOrder = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
@@ -98,6 +101,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.isPriority
           : isPriority // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortOrder: sortOrder == freezed
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -144,6 +151,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       ItemType type,
       String title,
       bool isPriority,
+      int? sortOrder,
       String? description,
       String? backgroundImage,
       String? url,
@@ -169,6 +177,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? type = freezed,
     Object? title = freezed,
     Object? isPriority = freezed,
+    Object? sortOrder = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
     Object? url = freezed,
@@ -195,6 +204,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.isPriority
           : isPriority // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortOrder: sortOrder == freezed
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -239,6 +252,7 @@ class _$_Item implements _Item {
       required this.type,
       required this.title,
       required this.isPriority,
+      this.sortOrder,
       this.description,
       this.backgroundImage,
       this.url,
@@ -261,6 +275,8 @@ class _$_Item implements _Item {
   final String title;
   @override
   final bool isPriority;
+  @override
+  final int? sortOrder;
   @override
   final String? description;
   @override
@@ -296,7 +312,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -309,6 +325,7 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
                 .equals(other.isPriority, isPriority) &&
+            const DeepCollectionEquality().equals(other.sortOrder, sortOrder) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
             const DeepCollectionEquality()
@@ -332,6 +349,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(isPriority),
+      const DeepCollectionEquality().hash(sortOrder),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(backgroundImage),
       const DeepCollectionEquality().hash(url),
@@ -358,6 +376,7 @@ abstract class _Item implements Item {
       required final ItemType type,
       required final String title,
       required final bool isPriority,
+      final int? sortOrder,
       final String? description,
       final String? backgroundImage,
       final String? url,
@@ -377,6 +396,8 @@ abstract class _Item implements Item {
   String get title;
   @override
   bool get isPriority;
+  @override
+  int? get sortOrder;
   @override
   String? get description;
   @override

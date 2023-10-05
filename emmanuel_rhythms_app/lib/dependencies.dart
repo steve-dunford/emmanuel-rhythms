@@ -1,3 +1,5 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:emmanuel_rhythms_app/common/audio_handler.dart';
 import 'package:emmanuel_rhythms_app/common/log_service.dart';
 import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/repositories/daily_content_repository.dart';
@@ -19,7 +21,16 @@ class Dependencies {
   static Future<void> register() async {
     final _sharedPreferences = await SharedPreferences.getInstance();
 
+    final audioHandler = await AudioService.init(
+      builder: () => ELRAudioHandler(),
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.emmanuel.rhythms.channel.audio',
+        androidNotificationChannelName: 'Emmanuel Life Rhythms',
+      ),
+    );
+
     GetIt.I.registerSingleton<SharedPreferences>(_sharedPreferences);
+    GetIt.I.registerSingleton<ELRAudioHandler>(audioHandler);
     GetIt.I.registerSingleton<AnalyticsRepository>(FirebaseAnalyticsRepository());
     GetIt.I.registerSingleton<DailyContentRepository>(FirebaseDailyContentRepository());
     GetIt.I.registerSingleton<ResourceRepository>(FirebaseResourceRepository());

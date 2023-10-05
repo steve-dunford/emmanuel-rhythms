@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
+import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/pages/church_selection_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
@@ -7,10 +8,12 @@ import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:emmanuel_rhythms_app/view_models/home_view_model.dart';
 import 'package:emmanuel_rhythms_app/widgets/item_list_widget.dart';
 import 'package:emmanuel_rhythms_app/widgets/menu_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class HomePage extends StatefulWidget {
   static const route = 'home';
@@ -21,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-
   final PageController _pageController =
       PageController(initialPage: HomeViewModel.initialPageIndex);
   AnimationController? animationController;
@@ -45,18 +47,25 @@ class _HomePageState extends State<HomePage>
 
           return Scaffold(
             appBar: AppBar(
-                systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: Colors.white, // Status bar
-                ),
-                backgroundColor: Colors.white,
-                centerTitle: true,
-                title: Text('DAILY CONTENT',
-                    style: Theme.of(context).textTheme.headline3),
-                elevation: 0,
-                leading: IconButton(
-                  icon: Image.asset(Assets.menuIcon),
-                  onPressed: () => _showMenuOverlay(viewModel),
-                )),
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.white, // Status bar
+              ),
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Text('DAILY CONTENT',
+                  style: Theme.of(context).textTheme.headline3),
+              elevation: 0,
+              leading: IconButton(
+                icon: Image.asset(Assets.menuIcon),
+                onPressed: () => _showMenuOverlay(viewModel),
+              ),
+              actions: [
+                IconButton(
+                  icon: Image.asset(Assets.notificataionIcon),
+                  onPressed: () => _showNotificationsOverlay(viewModel),
+                )
+              ],
+            ),
             body: Column(
               children: [
                 Container(
@@ -67,12 +76,14 @@ class _HomePageState extends State<HomePage>
                     child: Row(
                       children: [
                         GestureDetector(
-                          behavior: HitTestBehavior.translucent,
+                            behavior: HitTestBehavior.translucent,
                             onTap: () {
-                              GetIt.I.get<AnalyticsRepository>().track('prev_date', {});
+                              GetIt.I
+                                  .get<AnalyticsRepository>()
+                                  .track('prev_date', {});
                               _pageController.previousPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
@@ -89,10 +100,12 @@ class _HomePageState extends State<HomePage>
                         GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () {
-                              GetIt.I.get<AnalyticsRepository>().track('next_date', {});
+                              GetIt.I
+                                  .get<AnalyticsRepository>()
+                                  .track('next_date', {});
                               _pageController.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
@@ -125,7 +138,7 @@ class _HomePageState extends State<HomePage>
         });
   }
 
-  _showMenuOverlay(HomeViewModel viewModel) {
+  _showMenuOverlay(HomeViewModel viewModel) async {
     OverlayState? overlayState = Overlay.of(context);
     OverlayEntry? overlayEntry;
 
@@ -147,7 +160,9 @@ class _HomePageState extends State<HomePage>
                 MenuEntry('SWITCH CHURCH', () async {
                   overlayEntry!.remove();
 
-                  GetIt.I.get<AnalyticsRepository>().track('switch_church_tap', {});
+                  GetIt.I
+                      .get<AnalyticsRepository>()
+                      .track('switch_church_tap', {});
 
                   await Navigator.of(context).pushNamed(
                       ChurchSelectionPage.route,
@@ -157,6 +172,105 @@ class _HomePageState extends State<HomePage>
               ],
             ),
           ));
+    });
+    animationController!.addListener(() {
+      overlayState!.setState(() {});
+    });
+    // inserting overlay entry
+    overlayState!.insert(overlayEntry);
+    animationController!.forward();
+  }
+
+  _showNotificationsOverlay(HomeViewModel viewModel) {
+    OverlayState? overlayState = Overlay.of(context);
+    OverlayEntry? overlayEntry;
+
+    overlayEntry = OverlayEntry(builder: (context) {
+      return FadeTransition(
+          opacity: animation!,
+          child: SafeArea(
+              child: Container(
+                  color: AppColours.menuBackground,
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            await animationController?.reverse();
+                            overlayEntry!.remove();
+                          },
+                          child: Container(
+                              width: 50,
+                              height: 50,
+                              color: AppColours.midGrey,
+                              child: Image.asset(Assets.closeIcon)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    viewModel.hasNotifications
+                        ? Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                Text('NOTIFICATIONS',
+                                    style: AppTextStyle.menuItemCaption(context)),
+                                Column(
+                                    children: viewModel.notifications
+                                        .map((notification) => Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 30.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  const SizedBox(height: 20),
+                                                  Text(notification.title ?? '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline3),
+                                                  const SizedBox(height: 10),
+                                                  Text(notification.text,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1),
+                                                  const SizedBox(height: 10),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      const Spacer(),
+                                                      Text(
+                                                          timeago.format(
+                                                              notification.timestamp),
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  fontStyle: FontStyle
+                                                                      .italic,
+                                                                  fontSize: 12)),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 20),
+                                                  Container(
+                                                      height: 1,
+                                                      color: AppColours.emmanuelBlue),
+                                                ],
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
+                                const SizedBox(height: 50),
+                              ],
+                            ),
+                          ),
+                        )
+                        : Text('No recent notifications',
+                            style: AppTextStyle.menuItemCaption(context)),
+                  ]))));
     });
     animationController!.addListener(() {
       overlayState!.setState(() {});
