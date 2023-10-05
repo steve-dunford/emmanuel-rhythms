@@ -139,8 +139,6 @@ class _HomePageState extends State<HomePage>
   }
 
   _showMenuOverlay(HomeViewModel viewModel) async {
-    var token = await FirebaseMessaging.instance.getToken();
-
     OverlayState? overlayState = Overlay.of(context);
     OverlayEntry? overlayEntry;
 
