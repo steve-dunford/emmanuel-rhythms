@@ -27,10 +27,18 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   bool _isLoading = true;
   bool _hasDoneFirstLoad = false;
   List<DailyContentInstance>? instances;
+  List<ELRNotification> notifications = [];
   StreamSubscription? instancesSubscription;
 
   HomeViewModel(this._dailyContentRepository, this._localStorageRepository) {
     _updateInstanceListener();
+    _localStorageRepository
+        .notifications()
+    .listen((notifications) {
+      this.notifications = notifications.sorted((x, y) => y.timestamp.compareTo(x.timestamp));
+      notifyListeners();
+    });
+
   }
 
   _updateInstanceListener() {
@@ -99,8 +107,4 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   String get title => DateFormat('d MMM yyyy').format(currentDate);
 
   bool get hasNotifications => notifications.isNotEmpty;
-
-  List<ELRNotification> get notifications => _localStorageRepository
-      .getNotifications()
-      .sorted((x, y) => y.timestamp.compareTo(x.timestamp));
 }
