@@ -6,6 +6,7 @@ import 'package:emmanuel_rhythms_cms/models/items/daily_content.dart';
 import 'package:emmanuel_rhythms_cms/routes.dart';
 import 'package:emmanuel_rhythms_cms/view_models/calendar_view_model.dart';
 import 'package:emmanuel_rhythms_cms/widgets/daily_content_widget.dart';
+import 'package:emmanuel_rhythms_cms/widgets/send_notification_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +29,19 @@ class CalendarPage extends StatelessWidget {
               children: [
                 HeaderWidget(
                   commands: [
+                    HeaderCommand(
+                      caption: 'Send Notification',
+                      assetName: Assets.notificationIcon,
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => Dialog(
+                              child: SendNotificationWidget(
+                                  dismiss: () => Navigator.pop(context)),
+                              backgroundColor: Colors.white,
+                            ));
+                      }
+                    ),
                     HeaderCommand(
                         caption: 'Add Item',
                         assetName: Assets.addIcon,
