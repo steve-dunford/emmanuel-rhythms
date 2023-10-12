@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/common/audio_handler.dart';
+import 'package:emmanuel_rhythms_app/common/constants.dart';
 import 'package:emmanuel_rhythms_app/dependencies.dart';
 import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/models/notification.dart';
@@ -24,9 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -38,6 +37,9 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     firebaseMessagingHandler(message);
   });
+  FirebaseMessaging.instance.subscribeToTopic(fcmMessageTopic);
+
+  WidgetsBinding.instance.addObserver(LifecycleEventHandler());
 
   runApp(const MyApp());
 }
@@ -47,12 +49,11 @@ class MyApp extends StatelessWidget {
 
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
       create: (_) => GetIt.I.get<TagsViewModel>(),
       builder: (context, child) {
@@ -139,20 +140,34 @@ class MyApp extends StatelessWidget {
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingHandler(RemoteMessage message) async {
-  final repo = SharedPreferencesLocalStorageRepository(await SharedPreferences.getInstance());
+  final repo = Dependencies.areDependenciesRegistered
+      ? GetIt.I.get<LocalStorageRepository>()
+      : SharedPreferencesLocalStorageRepository(
+          await SharedPreferences.getInstance());
 
-  if(message.notification?.body != null)
-  {
+  if (message.notification?.body != null) {
     final notification = ELRNotification(
         id: message.messageId ?? 'unknown',
         text: message.notification!.body!,
         timestamp: DateTime.now(),
-        title: message.notification?.title
-    );
+        title: message.notification?.title);
 
     repo.addNotification(notification);
   }
 
-
   print("Handling a background message: ${message.messageId}");
+}
+
+class LifecycleEventHandler extends WidgetsBindingObserver {
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if(Dependencies.areDependenciesRegistered) {
+          GetIt.I.get<LocalStorageRepository>().refreshNotifications();
+        }
+        break;
+    }
+  }
 }

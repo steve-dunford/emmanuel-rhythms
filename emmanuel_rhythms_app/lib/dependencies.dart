@@ -18,6 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Dependencies {
 
+  static bool areDependenciesRegistered = false;
+
   static Future<void> register() async {
     final _sharedPreferences = await SharedPreferences.getInstance();
 
@@ -47,5 +49,6 @@ class Dependencies {
     GetIt.I.registerFactory<ChurchSelectionViewModel>(() => ChurchSelectionViewModel(GetIt.I.get()));
     GetIt.I.registerFactory<TagsViewModel>(() => TagsViewModel(GetIt.I.get()));
 
+    areDependenciesRegistered = true;
   }
 }

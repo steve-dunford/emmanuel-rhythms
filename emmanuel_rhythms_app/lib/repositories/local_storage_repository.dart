@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_app/models/church.dart';
 import 'package:emmanuel_rhythms_app/models/notification.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/rxdart.dart';
 
 abstract class LocalStorageRepository {
   bool get hasSelectedChurch;
@@ -12,9 +13,11 @@ abstract class LocalStorageRepository {
 
   setSelectedChurch(Church church);
 
+  refreshNotifications();
+
   addNotification(ELRNotification notification);
 
-  List<ELRNotification> getNotifications();
+  Stream<List<ELRNotification>> notifications();
 }
 
 const _selectedChurchKey = 'selectedChurch';
@@ -23,8 +26,18 @@ const _maxNotifications = 30;
 
 class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   final SharedPreferences _sharedPreferences;
+  final BehaviorSubject<List<ELRNotification>> _notifications = BehaviorSubject();
 
-  SharedPreferencesLocalStorageRepository(this._sharedPreferences);
+  SharedPreferencesLocalStorageRepository(this._sharedPreferences)
+  {
+    refreshNotifications();
+  }
+
+
+  Future<void> refreshNotifications() async {
+    await _sharedPreferences.reload();
+    _notifications.add(getNotifications());
+  }
 
   @override
   Church? selectedChurch() {
@@ -59,6 +72,8 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
 
     _sharedPreferences.setStringList(_notificationsKey,
         allNotifications.map((n) => jsonEncode(n.toJson())).toList());
+
+    _notifications.add(allNotifications);
   }
 
   @override
@@ -71,5 +86,10 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
           .toList(growable: true);
     }
     return List<ELRNotification>.empty(growable: true);
+  }
+
+  @override
+  Stream<List<ELRNotification>> notifications() {
+    return _notifications;
   }
 }

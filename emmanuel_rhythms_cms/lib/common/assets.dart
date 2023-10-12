@@ -3,4 +3,5 @@ class Assets {
   static const addIcon = 'assets/icon_add.png';
   static const deleteIcon = 'assets/icon_delete.png';
   static const downloadIcon = 'assets/icon_download.png';
+  static const notificationIcon = 'assets/icon_notification.png';
 }
