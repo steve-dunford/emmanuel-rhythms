@@ -162,7 +162,9 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.resumed:
-        GetIt.I.get<LocalStorageRepository>().refreshNotifications();
+        if(Dependencies.areDependenciesRegistered) {
+          GetIt.I.get<LocalStorageRepository>().refreshNotifications();
+        }
         break;
     }
   }
