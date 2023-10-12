@@ -41,8 +41,6 @@ export const sendNotification = region(Region).https.onCall(
           },
         },
       },
-      token:
-        'eFNz4gsNSHm3krnRk4bgJj:APA91bHoGiVRdkKC9cWi9ksW0gKVXv0hKR-po4QSse0wMYEQtCPoBp5zD8kpLbgD5XpURA0QsIvU4IEFu1NosJ_cTmcGXdZ1obsY1owBABPPQKifUfNX1AKJJIMOIZKBcbFiQqYvUJMu',
     };
 
     const result = await messaging.send(message);
