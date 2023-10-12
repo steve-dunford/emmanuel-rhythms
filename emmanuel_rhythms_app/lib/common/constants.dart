@@ -1,2 +1,2 @@
 const String appIconUri = 'https://firebasestorage.googleapis.com/v0/b/emmanuel-rhythms-production.appspot.com/o/app_images%2FEmmanuelApp_Icon_1024x1024-1024.png?alt=media&token=b0d3cecd-ecc0-49cb-9738-02d47941a5aa&_gl=1*wpvgyt*_ga*MTYxNzI4MjE5MC4xNjE2NDIwMTAz*_ga_CW55HF8NVT*MTY5NjA5MTUzNC4xMTUuMS4xNjk2MDkxNjI2LjYwLjAuMA..';
-const String fcmMessageTopic = 'ECL_LifeRhythms_Broadcast_Staging';
+const String fcmMessageTopic = 'ECL_LifeRhythms_Broadcast';
