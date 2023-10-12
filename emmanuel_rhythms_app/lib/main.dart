@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/common/audio_handler.dart';
+import 'package:emmanuel_rhythms_app/common/constants.dart';
 import 'package:emmanuel_rhythms_app/dependencies.dart';
 import 'package:emmanuel_rhythms_app/firebase_options.dart';
 import 'package:emmanuel_rhythms_app/models/notification.dart';
@@ -36,6 +37,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     firebaseMessagingHandler(message);
   });
+  FirebaseMessaging.instance.subscribeToTopic(fcmMessageTopic);
 
   WidgetsBinding.instance.addObserver(LifecycleEventHandler());
 

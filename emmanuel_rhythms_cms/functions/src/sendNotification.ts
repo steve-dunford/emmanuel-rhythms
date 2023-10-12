@@ -1,5 +1,5 @@
 import { region, https } from 'firebase-functions';
-import { ErrorCodes, Region } from './constants';
+import { ErrorCodes, Region, fcmMessagesTopic } from './constants';
 import { getMessaging } from './utils';
 import { Message } from 'firebase-admin/lib/messaging/messaging-api';
 
@@ -41,6 +41,7 @@ export const sendNotification = region(Region).https.onCall(
           },
         },
       },
+      topic: fcmMessagesTopic,
     };
 
     const result = await messaging.send(message);

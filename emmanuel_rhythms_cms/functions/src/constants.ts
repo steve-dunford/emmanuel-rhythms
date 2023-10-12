@@ -1,4 +1,5 @@
 export const Region = 'europe-west2';
+export const fcmMessagesTopic = 'ECL_LifeRhythms_Broadcast_Staging';
 
 export class ErrorCodes {
   static notLoggedIn = 'The user is not authorised';
