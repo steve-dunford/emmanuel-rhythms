@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -9,10 +10,10 @@ class NotificationConsentViewModel extends ChangeNotifier {
 
   Future<void> requestNotificationPermission() async {
     if(await Permission.notification.isDenied) {
-      final status = await Permission.notification.request();
+       final settings = await FirebaseMessaging.instance.requestPermission();
 
       _analyticsRepository.track('notification_continue', {
-        'granted': status == PermissionStatus.granted ? 'true' : 'false'
+        'granted': settings.authorizationStatus == AuthorizationStatus.authorized ? 'true' : 'false'
       });
     }
   }
