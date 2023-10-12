@@ -13,6 +13,8 @@ abstract class LocalStorageRepository {
 
   setSelectedChurch(Church church);
 
+  refreshNotifications();
+
   addNotification(ELRNotification notification);
 
   Stream<List<ELRNotification>> notifications();
@@ -28,9 +30,14 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
 
   SharedPreferencesLocalStorageRepository(this._sharedPreferences)
   {
-    _notifications.add(getNotifications());
+    refreshNotifications();
   }
 
+
+  Future<void> refreshNotifications() async {
+    await _sharedPreferences.reload();
+    _notifications.add(getNotifications());
+  }
 
   @override
   Church? selectedChurch() {

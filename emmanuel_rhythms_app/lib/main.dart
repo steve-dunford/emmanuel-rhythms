@@ -37,6 +37,8 @@ void main() async {
     firebaseMessagingHandler(message);
   });
 
+  WidgetsBinding.instance.addObserver(LifecycleEventHandler());
+
   runApp(const MyApp());
 }
 
@@ -152,4 +154,16 @@ Future<void> firebaseMessagingHandler(RemoteMessage message) async {
   }
 
   print("Handling a background message: ${message.messageId}");
+}
+
+class LifecycleEventHandler extends WidgetsBindingObserver {
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        GetIt.I.get<LocalStorageRepository>().refreshNotifications();
+        break;
+    }
+  }
 }

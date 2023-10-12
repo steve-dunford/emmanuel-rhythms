@@ -42,7 +42,7 @@ export const sendNotification = region(Region).https.onCall(
         },
       },
       token:
-        'dsm7u2154EXGr9-H51rAmo:APA91bHv6Rrl9TIP4OskHWrcQASDkH803FE1A6ekb6jY0P8ztSa2UbZ9Cz9tzC7aGJpafw-h31mIYrqrEAH23xGNR0-Xr6TDtwRQV1529KYBrnECsjEEMyolx900qLdLvAgAZiPF_597',
+        'eFNz4gsNSHm3krnRk4bgJj:APA91bHoGiVRdkKC9cWi9ksW0gKVXv0hKR-po4QSse0wMYEQtCPoBp5zD8kpLbgD5XpURA0QsIvU4IEFu1NosJ_cTmcGXdZ1obsY1owBABPPQKifUfNX1AKJJIMOIZKBcbFiQqYvUJMu',
     };
 
     const result = await messaging.send(message);
