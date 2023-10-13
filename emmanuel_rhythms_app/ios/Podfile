@@ -59,8 +59,3 @@ post_install do |installer|
   # Workaround for Xcode 14.3:
   system('sed -i \'\' \'44s/readlink/readlink -f/\' \'Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\'')
 end
-
-target 'EclNotification' do
-  use_frameworks!
-  pod 'Firebase/Messaging'
-end
