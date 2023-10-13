@@ -62,6 +62,8 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
           title: dailyContent.item.title,
           date: instance.date,
           event: dailyContent,
+          startTime: dailyContent.startDate,
+          endTime: dailyContent.endDate,
           color: dailyContent.item.type.color);
     }).toList();
 
