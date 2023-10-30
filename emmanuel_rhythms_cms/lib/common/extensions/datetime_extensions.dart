@@ -5,7 +5,7 @@ extension DateTimeExtensions on DateTime {
 
   DateTime get endOfMonth {
     final newYear = month == 12 ? year + 1 : year;
-    final newMonth = (month + 1) % 12;
+    final newMonth = (month % 12) + 1;
     return DateTime.utc(newYear, newMonth, 1, 0, 0, 0)
         .subtract(const Duration(days: 1))
         .toUtc();
