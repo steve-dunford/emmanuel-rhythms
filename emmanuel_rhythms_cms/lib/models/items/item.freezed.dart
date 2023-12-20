@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'item.dart';
 
@@ -28,10 +28,12 @@ mixin _$Item {
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
-  String? get downloadFilename => throw _privateConstructorUsedError;
+  String? get downloadFilename =>
+      throw _privateConstructorUsedError; //Deprecated - use downloads collection instead
   bool? get usePodcastDetails => throw _privateConstructorUsedError;
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
+  List<Download>? get downloads => throw _privateConstructorUsedError;
   List<Church> get churches => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
 
@@ -43,7 +45,8 @@ mixin _$Item {
 /// @nodoc
 abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
-      _$ItemCopyWithImpl<$Res>;
+      _$ItemCopyWithImpl<$Res, Item>;
+  @useResult
   $Res call(
       {String id,
       ItemType type,
@@ -56,24 +59,28 @@ abstract class $ItemCopyWith<$Res> {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       List<Church> churches,
       List<Tag> tags});
 }
 
 /// @nodoc
-class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
+class _$ItemCopyWithImpl<$Res, $Val extends Item>
+    implements $ItemCopyWith<$Res> {
   _$ItemCopyWithImpl(this._value, this._then);
 
-  final Item _value;
   // ignore: unused_field
-  final $Res Function(Item) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? type = freezed,
-    Object? title = freezed,
-    Object? isPriority = freezed,
+    Object? id = null,
+    Object? type = null,
+    Object? title = null,
+    Object? isPriority = null,
     Object? sortOrder = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
@@ -81,63 +88,68 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? downloadFilename = freezed,
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
-    Object? churches = freezed,
-    Object? tags = freezed,
+    Object? downloads = freezed,
+    Object? churches = null,
+    Object? tags = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ItemType,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      isPriority: isPriority == freezed
+      isPriority: null == isPriority
           ? _value.isPriority
           : isPriority // ignore: cast_nullable_to_non_nullable
               as bool,
-      sortOrder: sortOrder == freezed
+      sortOrder: freezed == sortOrder
           ? _value.sortOrder
           : sortOrder // ignore: cast_nullable_to_non_nullable
               as int?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundImage: backgroundImage == freezed
+      backgroundImage: freezed == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      downloadFilename: downloadFilename == freezed
+      downloadFilename: freezed == downloadFilename
           ? _value.downloadFilename
           : downloadFilename // ignore: cast_nullable_to_non_nullable
               as String?,
-      usePodcastDetails: usePodcastDetails == freezed
+      usePodcastDetails: freezed == usePodcastDetails
           ? _value.usePodcastDetails
           : usePodcastDetails // ignore: cast_nullable_to_non_nullable
               as bool?,
-      scriptureReferences: scriptureReferences == freezed
+      scriptureReferences: freezed == scriptureReferences
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
-      churches: churches == freezed
+      downloads: freezed == downloads
+          ? _value.downloads
+          : downloads // ignore: cast_nullable_to_non_nullable
+              as List<Download>?,
+      churches: null == churches
           ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
               as List<Church>,
-      tags: tags == freezed
+      tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -146,6 +158,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   factory _$$_ItemCopyWith(_$_Item value, $Res Function(_$_Item) then) =
       __$$_ItemCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       ItemType type,
@@ -158,25 +171,24 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       List<Church> churches,
       List<Tag> tags});
 }
 
 /// @nodoc
-class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
+class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     implements _$$_ItemCopyWith<$Res> {
   __$$_ItemCopyWithImpl(_$_Item _value, $Res Function(_$_Item) _then)
-      : super(_value, (v) => _then(v as _$_Item));
+      : super(_value, _then);
 
-  @override
-  _$_Item get _value => super._value as _$_Item;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? type = freezed,
-    Object? title = freezed,
-    Object? isPriority = freezed,
+    Object? id = null,
+    Object? type = null,
+    Object? title = null,
+    Object? isPriority = null,
     Object? sortOrder = freezed,
     Object? description = freezed,
     Object? backgroundImage = freezed,
@@ -184,59 +196,64 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? downloadFilename = freezed,
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
-    Object? churches = freezed,
-    Object? tags = freezed,
+    Object? downloads = freezed,
+    Object? churches = null,
+    Object? tags = null,
   }) {
     return _then(_$_Item(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ItemType,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      isPriority: isPriority == freezed
+      isPriority: null == isPriority
           ? _value.isPriority
           : isPriority // ignore: cast_nullable_to_non_nullable
               as bool,
-      sortOrder: sortOrder == freezed
+      sortOrder: freezed == sortOrder
           ? _value.sortOrder
           : sortOrder // ignore: cast_nullable_to_non_nullable
               as int?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundImage: backgroundImage == freezed
+      backgroundImage: freezed == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      downloadFilename: downloadFilename == freezed
+      downloadFilename: freezed == downloadFilename
           ? _value.downloadFilename
           : downloadFilename // ignore: cast_nullable_to_non_nullable
               as String?,
-      usePodcastDetails: usePodcastDetails == freezed
+      usePodcastDetails: freezed == usePodcastDetails
           ? _value.usePodcastDetails
           : usePodcastDetails // ignore: cast_nullable_to_non_nullable
               as bool?,
-      scriptureReferences: scriptureReferences == freezed
+      scriptureReferences: freezed == scriptureReferences
           ? _value._scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
-      churches: churches == freezed
+      downloads: freezed == downloads
+          ? _value._downloads
+          : downloads // ignore: cast_nullable_to_non_nullable
+              as List<Download>?,
+      churches: null == churches
           ? _value._churches
           : churches // ignore: cast_nullable_to_non_nullable
               as List<Church>,
-      tags: tags == freezed
+      tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
@@ -259,9 +276,11 @@ class _$_Item implements _Item {
       this.downloadFilename,
       this.usePodcastDetails,
       final List<ScriptureReference>? scriptureReferences,
+      final List<Download>? downloads,
       required final List<Church> churches,
       required final List<Tag> tags})
       : _scriptureReferences = scriptureReferences,
+        _downloads = downloads,
         _churches = churches,
         _tags = tags;
 
@@ -285,6 +304,7 @@ class _$_Item implements _Item {
   final String? url;
   @override
   final String? downloadFilename;
+//Deprecated - use downloads collection instead
   @override
   final bool? usePodcastDetails;
   final List<ScriptureReference>? _scriptureReferences;
@@ -292,6 +312,18 @@ class _$_Item implements _Item {
   List<ScriptureReference>? get scriptureReferences {
     final value = _scriptureReferences;
     if (value == null) return null;
+    if (_scriptureReferences is EqualUnmodifiableListView)
+      return _scriptureReferences;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Download>? _downloads;
+  @override
+  List<Download>? get downloads {
+    final value = _downloads;
+    if (value == null) return null;
+    if (_downloads is EqualUnmodifiableListView) return _downloads;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -299,6 +331,7 @@ class _$_Item implements _Item {
   final List<Church> _churches;
   @override
   List<Church> get churches {
+    if (_churches is EqualUnmodifiableListView) return _churches;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_churches);
   }
@@ -306,13 +339,14 @@ class _$_Item implements _Item {
   final List<Tag> _tags;
   @override
   List<Tag> get tags {
+    if (_tags is EqualUnmodifiableListView) return _tags;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tags);
   }
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, downloads: $downloads, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -320,23 +354,26 @@ class _$_Item implements _Item {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Item &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.isPriority, isPriority) &&
-            const DeepCollectionEquality().equals(other.sortOrder, sortOrder) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.backgroundImage, backgroundImage) &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality()
-                .equals(other.downloadFilename, downloadFilename) &&
-            const DeepCollectionEquality()
-                .equals(other.usePodcastDetails, usePodcastDetails) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.isPriority, isPriority) ||
+                other.isPriority == isPriority) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.backgroundImage, backgroundImage) ||
+                other.backgroundImage == backgroundImage) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.downloadFilename, downloadFilename) ||
+                other.downloadFilename == downloadFilename) &&
+            (identical(other.usePodcastDetails, usePodcastDetails) ||
+                other.usePodcastDetails == usePodcastDetails) &&
             const DeepCollectionEquality()
                 .equals(other._scriptureReferences, _scriptureReferences) &&
+            const DeepCollectionEquality()
+                .equals(other._downloads, _downloads) &&
             const DeepCollectionEquality().equals(other._churches, _churches) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
   }
@@ -345,28 +382,32 @@ class _$_Item implements _Item {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(isPriority),
-      const DeepCollectionEquality().hash(sortOrder),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(backgroundImage),
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(downloadFilename),
-      const DeepCollectionEquality().hash(usePodcastDetails),
+      id,
+      type,
+      title,
+      isPriority,
+      sortOrder,
+      description,
+      backgroundImage,
+      url,
+      downloadFilename,
+      usePodcastDetails,
       const DeepCollectionEquality().hash(_scriptureReferences),
+      const DeepCollectionEquality().hash(_downloads),
       const DeepCollectionEquality().hash(_churches),
       const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ItemCopyWith<_$_Item> get copyWith =>
       __$$_ItemCopyWithImpl<_$_Item>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemToJson(this);
+    return _$$_ItemToJson(
+      this,
+    );
   }
 }
 
@@ -383,6 +424,7 @@ abstract class _Item implements Item {
       final String? downloadFilename,
       final bool? usePodcastDetails,
       final List<ScriptureReference>? scriptureReferences,
+      final List<Download>? downloads,
       required final List<Church> churches,
       required final List<Tag> tags}) = _$_Item;
 
@@ -406,10 +448,12 @@ abstract class _Item implements Item {
   String? get url;
   @override
   String? get downloadFilename;
-  @override
+  @override //Deprecated - use downloads collection instead
   bool? get usePodcastDetails;
   @override
   List<ScriptureReference>? get scriptureReferences;
+  @override
+  List<Download>? get downloads;
   @override
   List<Church> get churches;
   @override

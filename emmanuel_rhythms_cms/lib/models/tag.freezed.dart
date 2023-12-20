@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'tag.dart';
 
@@ -32,38 +32,41 @@ mixin _$Tag {
 /// @nodoc
 abstract class $TagCopyWith<$Res> {
   factory $TagCopyWith(Tag value, $Res Function(Tag) then) =
-      _$TagCopyWithImpl<$Res>;
+      _$TagCopyWithImpl<$Res, Tag>;
+  @useResult
   $Res call({String id, String name, String? parentId});
 }
 
 /// @nodoc
-class _$TagCopyWithImpl<$Res> implements $TagCopyWith<$Res> {
+class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
   _$TagCopyWithImpl(this._value, this._then);
 
-  final Tag _value;
   // ignore: unused_field
-  final $Res Function(Tag) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? parentId = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      parentId: parentId == freezed
+      parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,34 +75,33 @@ abstract class _$$_TagCopyWith<$Res> implements $TagCopyWith<$Res> {
   factory _$$_TagCopyWith(_$_Tag value, $Res Function(_$_Tag) then) =
       __$$_TagCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String name, String? parentId});
 }
 
 /// @nodoc
-class __$$_TagCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res>
+class __$$_TagCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$_Tag>
     implements _$$_TagCopyWith<$Res> {
   __$$_TagCopyWithImpl(_$_Tag _value, $Res Function(_$_Tag) _then)
-      : super(_value, (v) => _then(v as _$_Tag));
+      : super(_value, _then);
 
-  @override
-  _$_Tag get _value => super._value as _$_Tag;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? parentId = freezed,
   }) {
     return _then(_$_Tag(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      parentId: parentId == freezed
+      parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -131,27 +133,27 @@ class _$_Tag implements _Tag {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Tag &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.parentId, parentId));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(parentId));
+  int get hashCode => Object.hash(runtimeType, id, name, parentId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TagCopyWith<_$_Tag> get copyWith =>
       __$$_TagCopyWithImpl<_$_Tag>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TagToJson(this);
+    return _$$_TagToJson(
+      this,
+    );
   }
 }
 
