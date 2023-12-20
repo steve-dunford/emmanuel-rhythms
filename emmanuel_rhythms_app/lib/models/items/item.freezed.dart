@@ -34,6 +34,7 @@ class _$ItemTearOff {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       required List<Church> churches,
       required List<Tag> tags}) {
     return _Item(
@@ -48,6 +49,7 @@ class _$ItemTearOff {
       downloadFilename: downloadFilename,
       usePodcastDetails: usePodcastDetails,
       scriptureReferences: scriptureReferences,
+      downloads: downloads,
       churches: churches,
       tags: tags,
     );
@@ -72,10 +74,12 @@ mixin _$Item {
   String? get description => throw _privateConstructorUsedError;
   String? get backgroundImage => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
-  String? get downloadFilename => throw _privateConstructorUsedError;
+  String? get downloadFilename =>
+      throw _privateConstructorUsedError; //Deprecated, use downloads property
   bool? get usePodcastDetails => throw _privateConstructorUsedError;
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
+  List<Download>? get downloads => throw _privateConstructorUsedError;
   List<Church> get churches => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
 
@@ -100,6 +104,7 @@ abstract class $ItemCopyWith<$Res> {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       List<Church> churches,
       List<Tag> tags});
 }
@@ -125,6 +130,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? downloadFilename = freezed,
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
+    Object? downloads = freezed,
     Object? churches = freezed,
     Object? tags = freezed,
   }) {
@@ -173,6 +179,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
+      downloads: downloads == freezed
+          ? _value.downloads
+          : downloads // ignore: cast_nullable_to_non_nullable
+              as List<Download>?,
       churches: churches == freezed
           ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
@@ -202,6 +212,7 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       List<Church> churches,
       List<Tag> tags});
 }
@@ -228,6 +239,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? downloadFilename = freezed,
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
+    Object? downloads = freezed,
     Object? churches = freezed,
     Object? tags = freezed,
   }) {
@@ -276,6 +288,10 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.scriptureReferences
           : scriptureReferences // ignore: cast_nullable_to_non_nullable
               as List<ScriptureReference>?,
+      downloads: downloads == freezed
+          ? _value.downloads
+          : downloads // ignore: cast_nullable_to_non_nullable
+              as List<Download>?,
       churches: churches == freezed
           ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
@@ -303,6 +319,7 @@ class _$_Item implements _Item {
       this.downloadFilename,
       this.usePodcastDetails,
       this.scriptureReferences,
+      this.downloads,
       required this.churches,
       required this.tags});
 
@@ -327,10 +344,12 @@ class _$_Item implements _Item {
   final String? url;
   @override
   final String? downloadFilename;
-  @override
+  @override //Deprecated, use downloads property
   final bool? usePodcastDetails;
   @override
   final List<ScriptureReference>? scriptureReferences;
+  @override
+  final List<Download>? downloads;
   @override
   final List<Church> churches;
   @override
@@ -338,7 +357,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, downloads: $downloads, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -363,6 +382,7 @@ class _$_Item implements _Item {
                 .equals(other.usePodcastDetails, usePodcastDetails) &&
             const DeepCollectionEquality()
                 .equals(other.scriptureReferences, scriptureReferences) &&
+            const DeepCollectionEquality().equals(other.downloads, downloads) &&
             const DeepCollectionEquality().equals(other.churches, churches) &&
             const DeepCollectionEquality().equals(other.tags, tags));
   }
@@ -381,6 +401,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(downloadFilename),
       const DeepCollectionEquality().hash(usePodcastDetails),
       const DeepCollectionEquality().hash(scriptureReferences),
+      const DeepCollectionEquality().hash(downloads),
       const DeepCollectionEquality().hash(churches),
       const DeepCollectionEquality().hash(tags));
 
@@ -408,6 +429,7 @@ abstract class _Item implements Item {
       String? downloadFilename,
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
+      List<Download>? downloads,
       required List<Church> churches,
       required List<Tag> tags}) = _$_Item;
 
@@ -432,10 +454,12 @@ abstract class _Item implements Item {
   String? get url;
   @override
   String? get downloadFilename;
-  @override
+  @override //Deprecated, use downloads property
   bool? get usePodcastDetails;
   @override
   List<ScriptureReference>? get scriptureReferences;
+  @override
+  List<Download>? get downloads;
   @override
   List<Church> get churches;
   @override
