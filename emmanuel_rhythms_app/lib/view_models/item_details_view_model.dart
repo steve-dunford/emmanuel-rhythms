@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:emmanuel_rhythms_app/models/bible_book.dart';
+import 'package:emmanuel_rhythms_app/models/download_type.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
@@ -8,6 +9,7 @@ import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/repositories/podcast_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/items/item_type.dart';
@@ -50,6 +52,8 @@ class ItemDetailsViewModel extends ChangeNotifier {
       case ItemType.transistorFMPodcast:
       case ItemType.soundcloudPodcast:
         return podcastDetails?.title;
+      case ItemType.devotional:
+        return null;  //Don't show title for devotionals
       default:
         return item.title;
     }
@@ -133,23 +137,54 @@ class ItemDetailsViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> openUrl() async {
-    if (item.url == null) {
+  bool hasDevotionalTranscript() =>
+      item.downloads?.any((d) => d.downloadType == DownloadType.devotionalTranscript) ?? false;
+
+  Future<void> openDevotionalTranscript() async {
+    return _doOpenDownload(DownloadType.devotionalTranscript, 'devotion_transcript_viewed');
+  }
+
+  bool hasDevotionalAudio() =>
+      item.downloads?.any((d) => d.downloadType == DownloadType.devotionalAudio) ?? false;
+
+  PodcastDetails? devotionalAudioDetails() {
+    final audio = item.downloads?.firstWhereOrNull((d) => d.downloadType == DownloadType.devotionalAudio);
+
+    if(audio != null) {
+      final title = 'Devotional: ${scriptureReading()}';
+
+      return PodcastDetails(title, '', audio.url);
+    }
+
+    return null;
+  }
+
+  Future<void> openDownload() async {
+    return _doOpenDownload(DownloadType.fileDownload, 'download_viewed');
+  }
+
+  Future<void> _doOpenDownload(DownloadType type, String analyticsName) async {
+
+    final rawUrl = item.downloads?.firstWhereOrNull((d) => d.downloadType == type)?.url ?? item.url;
+
+    if (rawUrl == null) {
       return;
     }
 
-    _analyticsRepository.track('download_viewed', {
-      'content_name': item.title,
-      'content_id': item.id,
-      'download_url': item.url ?? ''
-    });
-
-    final url = Uri.parse(item.url!);
+    final url = Uri.parse(rawUrl);
 
     if (await canLaunchUrl(url)) {
+
+      _analyticsRepository.track(analyticsName, {
+        'content_name': item.title,
+        'content_id': item.id,
+        'download_url': rawUrl ?? ''
+      });
 
       final launchMode = Platform.isAndroid ? LaunchMode.externalApplication : LaunchMode.platformDefault;
       await launchUrl(url, mode: launchMode);
     }
   }
+
+
 }

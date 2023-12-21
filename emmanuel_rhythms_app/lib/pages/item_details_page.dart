@@ -5,8 +5,10 @@ import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
 import 'package:emmanuel_rhythms_app/models/video_type.dart';
 import 'package:emmanuel_rhythms_app/view_models/item_details_view_model.dart';
+import 'package:emmanuel_rhythms_app/widgets/scripture_button.dart';
 import 'package:emmanuel_rhythms_app/widgets/standard_button.dart';
 import 'package:emmanuel_rhythms_app/widgets/video_widget.dart';
+import 'package:emmanuel_rhythms_app/widgets/view_download_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -113,6 +115,8 @@ class ItemDetailsPage extends StatelessWidget {
       case ItemType.transistorFMPodcast:
       case ItemType.soundcloudPodcast:
         return _podcastPlayer(context, viewModel);
+      case ItemType.devotional:
+        return _devotional(context, viewModel);
     }
 
     return Container();
@@ -123,24 +127,8 @@ class ItemDetailsPage extends StatelessWidget {
       return Container();
     }
 
-    return Center(
-      child: GestureDetector(
-          onTap: viewModel.openUrl,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: AppColours.emmanuelBlue),
-            ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              child: Text(
-                'View Now',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-            ),
-          )),
-    );
+    return ViewDownloadButton(
+        caption: 'View Now', onClick: viewModel.openDownload);
   }
 
   Widget _vimeoVideo(BuildContext context, ItemDetailsViewModel viewModel) {
@@ -179,8 +167,7 @@ class ItemDetailsPage extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 20),
         ],
-        if (details.audioFileUrl != null)
-          AudioWidget(podcast: details!)
+        if (details.audioFileUrl != null) AudioWidget(podcast: details!)
       ],
     );
   }
@@ -193,35 +180,9 @@ class ItemDetailsPage extends StatelessWidget {
 
     return Column(children: [
       ...viewModel.item.scriptureReferences!.map((ref) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                color: AppColours.emmanuelBlue,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(50, 50, 40, 20),
-                  child: Column(
-                    children: [
-                      Center(
-                          child: Text(ref.displayString.toUpperCase() ?? '',
-                              textAlign: TextAlign.center,
-                              style: AppTextStyle.scriptureCaption(context))),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      StandardButton(
-                          onTap: () => viewModel.readScriptureRef(ref),
-                          isEnabled: true,
-                          text: 'READ'),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
+        return ScriptureButton(
+            caption: ref.displayString.toUpperCase() ?? '',
+            onClick: () => viewModel.readScriptureRef(ref));
       }).toList(),
       if (viewModel.item.url != null) ...[
         const SizedBox(height: 10),
@@ -242,7 +203,7 @@ class ItemDetailsPage extends StatelessWidget {
                       height: 10,
                     ),
                     StandardButton(
-                        onTap: () => viewModel.openUrl(),
+                        onTap: () => viewModel.openDownload(),
                         isEnabled: true,
                         text: 'WATCH'),
                   ],
@@ -253,6 +214,49 @@ class ItemDetailsPage extends StatelessWidget {
         ),
       ]
     ]);
+  }
+
+  Widget _devotional(BuildContext context, ItemDetailsViewModel viewModel) {
+    final scriptures = viewModel.item.scriptureReferences ?? [];
+
+    return Column(
+      children: [
+        if (scriptures.isNotEmpty)
+          Text('BIBLE', style: Theme.of(context).textTheme.headline2),
+        const SizedBox(height: 10),
+        Column(
+          children: scriptures.map((ref) {
+            return ScriptureButton(
+                caption: ref.displayString.toUpperCase() ?? '',
+                onClick: () => viewModel.readScriptureRef(ref));
+          }).toList(),
+        ),
+        if (viewModel.hasDevotionalAudio() ||
+            viewModel.hasDevotionalTranscript())
+          Column(
+            children: [
+              const SizedBox(height: 30),
+              Text('DEVOTIONAL', style: Theme.of(context).textTheme.headline2),
+            ],
+          ),
+        if (viewModel.hasDevotionalAudio())
+          Column(
+            children: [
+              const SizedBox(height: 20),
+              AudioWidget(podcast: viewModel.devotionalAudioDetails()!),
+            ],
+          ),
+        if (viewModel.hasDevotionalTranscript())
+          Column(
+            children: [
+              const SizedBox(height: 10),
+              ViewDownloadButton(
+                  caption: 'View Transcript',
+                  onClick: viewModel.openDevotionalTranscript),
+            ],
+          ),
+      ],
+    );
   }
 }
 

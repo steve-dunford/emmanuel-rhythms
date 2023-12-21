@@ -71,7 +71,7 @@ extension BibleBookExtensions on BibleBook {
   String get bookName {
     switch (this) {
       case BibleBook.genesis:
-        return 'Gensis';
+        return 'Genesis';
       case BibleBook.exodus:
         return 'Exodus';
       case BibleBook.leviticus:
