@@ -4,6 +4,7 @@ import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
 import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/download_type.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/tag.dart';
@@ -11,6 +12,7 @@ import 'package:emmanuel_rhythms_cms/view_models/item_details_view_model.dart';
 import 'package:emmanuel_rhythms_cms/view_models/tags_view_model.dart';
 import 'package:emmanuel_rhythms_cms/widgets/item_description_widget.dart';
 import 'package:emmanuel_rhythms_cms/widgets/scripture_reference_widget.dart';
+import 'package:emmanuel_rhythms_cms/widgets/upload_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,7 +112,8 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Text('Description:',
-                                    style: Theme.of(context).textTheme.bodyText1),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1),
                               ),
                             ),
                             TableCell(
@@ -122,29 +125,34 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                       showDialog(
                                           context: context,
                                           builder: (ctx) => Dialog(
-                                            child: ItemDescriptionWidget(
-                                              initialDescription: viewModel.item.description,
-                                                descriptionUpdated: viewModel.setDescription),
-                                            backgroundColor: Colors.white,
-                                          ));
+                                                child: ItemDescriptionWidget(
+                                                    initialDescription:
+                                                        viewModel
+                                                            .item.description,
+                                                    descriptionUpdated:
+                                                        viewModel
+                                                            .setDescription),
+                                                backgroundColor: Colors.white,
+                                              ));
                                     },
                                     child: Container(
-                                      width: 400,
-                                      height: 200,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: AppColours.emmanuelBlue),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: EasyWebView(
-                                          key: ValueKey(viewModel.item.id),
-                                          src: viewModel.item.description ?? '',
-                                          convertToWidgets: true,
+                                        width: 400,
+                                        height: 200,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AppColours.emmanuelBlue),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
-                                      )
-                                    ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: EasyWebView(
+                                            key: ValueKey(viewModel.item.id),
+                                            src: viewModel.item.description ??
+                                                '',
+                                            convertToWidgets: true,
+                                          ),
+                                        )),
                                   )),
                             )
                           ],
@@ -209,11 +217,16 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10.0),
                                 child: MultiSelectDialogField<Tag>(
-                                  items: tagsModel.tags.map((t) => MultiSelectItem(t, t.name)).toList(),
+                                  items: tagsModel.tags
+                                      .map((t) => MultiSelectItem(t, t.name))
+                                      .toList(),
                                   initialValue: viewModel.item.tags,
                                   listType: MultiSelectListType.CHIP,
                                   selectedColor: AppColours.emmanuelBlue,
-                                  selectedItemsTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+                                  selectedItemsTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(color: Colors.white),
                                   onConfirm: (values) {
                                     viewModel.setSelectedTags(values);
                                   },
@@ -226,103 +239,100 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                           children: [
                             TableCell(
                               verticalAlignment:
-                              TableCellVerticalAlignment.middle,
+                                  TableCellVerticalAlignment.middle,
                               child: Text('Churches',
                                   style: Theme.of(context).textTheme.bodyText1),
                             ),
                             TableCell(
                               child: Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Wrap(
                                     runAlignment: WrapAlignment.center,
                                     children: Church.values
                                         .map((church) => Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(church.displayName,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2),
-                                          Checkbox(
-                                              value: viewModel
-                                                  .isChurchSelected(
-                                                  church),
-                                              onChanged: (selected) =>
-                                                  viewModel
-                                                      .setChurchSelected(
-                                                      church,
-                                                      selected ??
-                                                          false))
-                                        ],
-                                      ),
-                                    ))
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(church.displayName,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText2),
+                                                  Checkbox(
+                                                      value: viewModel
+                                                          .isChurchSelected(
+                                                              church),
+                                                      onChanged: (selected) =>
+                                                          viewModel
+                                                              .setChurchSelected(
+                                                                  church,
+                                                                  selected ??
+                                                                      false))
+                                                ],
+                                              ),
+                                            ))
                                         .toList()),
                               ),
                             )
                           ],
                         ),
-                        TableRow(
-                            children: [
-                              TableCell(
-                                verticalAlignment: TableCellVerticalAlignment.middle,
-                                child: Text('Priority:',
-                                    style: Theme.of(context).textTheme.bodyText1),
-                              ),
-                              TableCell(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Checkbox(
-                                        value: viewModel
-                                            .item.isPriority,
-                                        onChanged: (selected) =>
-                                            viewModel
-                                                .setIsPriority(
-                                                selected ??
-                                                    false)),
-                                  ),
-                                ),
-                              )
-                            ]
-                        ),
-                        TableRow(
-                            children: [
-                              TableCell(
-                                verticalAlignment: TableCellVerticalAlignment.middle,
-                                child: Text('Sort Order:',
-                                    style: Theme.of(context).textTheme.bodyText1),
-                              ),
-                              TableCell(
-                                child:  Padding(
-                                  padding:
+                        TableRow(children: [
+                          TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Text('Priority:',
+                                style: Theme.of(context).textTheme.bodyText1),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: SizedBox(
-                                      height: 48,
-                                      width: 60 ,
-                                      child: TextField(
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter(RegExp('[0-9]'), allow: true)
-                                        ],
-                                        controller: sortOrderController,
-                                        onChanged: viewModel.setSortOrder,
-                                        decoration:
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Checkbox(
+                                    value: viewModel.item.isPriority,
+                                    onChanged: (selected) => viewModel
+                                        .setIsPriority(selected ?? false)),
+                              ),
+                            ),
+                          )
+                        ]),
+                        TableRow(children: [
+                          TableCell(
+                            verticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            child: Text('Sort Order:',
+                                style: Theme.of(context).textTheme.bodyText1),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: SizedBox(
+                                  height: 48,
+                                  width: 60,
+                                  child: TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter(
+                                          RegExp('[0-9]'),
+                                          allow: true)
+                                    ],
+                                    controller: sortOrderController,
+                                    onChanged: viewModel.setSortOrder,
+                                    decoration:
                                         AppTextStyle.textInputDecoration(
                                             '', false),
-                                      ),
-                                    ),
                                   ),
                                 ),
-                              )
-                            ]
-                        ),
+                              ),
+                            ),
+                          )
+                        ]),
                         TableRow(
                           children: [
                             TableCell(
@@ -365,7 +375,9 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
 
   List<TableRow> _itemTypeOptions(
       BuildContext context, ItemDetailsViewModel viewModel) {
-    if (viewModel.selectedItemType.itemType == ItemType.scripture) {
+    if (viewModel.selectedItemType.itemType == ItemType.devotional) {
+      return _devotionalOptions(viewModel);
+    } else if (viewModel.selectedItemType.itemType == ItemType.scripture) {
       return [
         TableRow(children: [
           TableCell(
@@ -478,18 +490,20 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         )
       ];
-    } else if (viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast ||
-    viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast) {
-
-      final caption = viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast ?
-          'Transistor.fm URL:' : 'Soundcloud URL:';
+    } else if (viewModel.selectedItemType.itemType ==
+            ItemType.transistorFMPodcast ||
+        viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast) {
+      final caption =
+          viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast
+              ? 'Transistor.fm URL:'
+              : 'Soundcloud URL:';
       return [
         TableRow(
           children: [
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Text(caption,
-                  style: Theme.of(context).textTheme.bodyText1),
+              child:
+                  Text(caption, style: Theme.of(context).textTheme.bodyText1),
             ),
             TableCell(
               child: Padding(
@@ -507,102 +521,91 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
             ),
           ],
         ),
-        TableRow(
-          children: [
-            TableCell(
-              verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Text('Use Podcast Details:',
-                  style: Theme.of(context).textTheme.bodyText1),
+        TableRow(children: [
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child: Text('Use Podcast Details:',
+                style: Theme.of(context).textTheme.bodyText1),
+          ),
+          TableCell(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Checkbox(
+                  value: viewModel.item.usePodcastDetails ?? true,
+                  onChanged: (selected) =>
+                      viewModel.setUsePodcastDetails(selected ?? false)),
             ),
-            TableCell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Checkbox(
-                    value: viewModel
-                        .item.usePodcastDetails ?? true,
-                    onChanged: (selected) =>
-                        viewModel
-                            .setUsePodcastDetails(
-                            selected ??
-                                false)),
-              ),
-            )
-          ]
-        )
+          )
+        ])
       ];
-    }else if (viewModel.selectedItemType.itemType == ItemType.download) {
+    } else if (viewModel.selectedItemType.itemType == ItemType.download) {
       return [
-        TableRow(
-          children: [
-            TableCell(
-              verticalAlignment: TableCellVerticalAlignment.middle,
-              child:
-                  Text('File:', style: Theme.of(context).textTheme.bodyText1),
-            ),
-            TableCell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    final result = await FilePicker.platform
-                        .pickFiles(allowMultiple: false);
-
-                    if (result?.count == 1) {
-                      viewModel.setUpload(result!.files.first);
-                    }
-                  },
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColours.emmanuelBlue),
-                            borderRadius: BorderRadius.circular(8.0)),
-                        width: 200,
-                        height: 48,
-                        child: viewModel.isUploadingFile
-                            ? const Center(
-                                child: SizedBox(
-                                    width: 40,
-                                    height: 40,
-                                    child: CircularProgressIndicator()),
-                              )
-                            : Center(
-                                child: Text(
-                                  viewModel.item.downloadFilename ?? '',
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ),
-                      ),
-                      const SizedBox(width: 10),
-                      if (viewModel.item.url != null)
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (viewModel.item.url != null) {
-                                html.AnchorElement anchorElement =
-                                    html.AnchorElement(
-                                        href: viewModel.item.url);
-                                anchorElement.download = viewModel.item.url;
-                                anchorElement.click();
-                              }
-                            },
-                            child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: Image.asset(Assets.downloadIcon),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        )
+        _uploadRow(viewModel, 'File:', DownloadType.fileDownload)
       ];
     }
     return [];
+  }
+
+  TableRow _uploadRow(ItemDetailsViewModel viewModel, String caption, DownloadType type) =>
+      TableRow(
+        children: [
+          TableCell(
+            verticalAlignment: TableCellVerticalAlignment.middle,
+            child:
+            Text(caption, style: Theme.of(context).textTheme.bodyText1),
+          ),
+          TableCell(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: UploadWidget(
+                onFilePicked: (file) => viewModel.setDownload(type, file),
+                isUploading: viewModel.isUploading(type),
+                filename: viewModel.downloadFileName(type),
+                url: viewModel.downloadUrl(type),
+              ),
+            ),
+          )
+        ],
+      );
+
+  List<TableRow> _devotionalOptions(ItemDetailsViewModel viewModel) {
+    return [
+      TableRow(children: [
+        TableCell(
+          verticalAlignment: TableCellVerticalAlignment.top,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Text('Scripture References:',
+                style: Theme.of(context).textTheme.bodyText1),
+          ),
+        ),
+        TableCell(
+            child: Column(
+          children: [
+            ...(viewModel.item.scriptureReferences ?? []).map((ref) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: ScriptureReferenceWidget(
+                      initialReference: ref,
+                      onChanged: (updatedRef) =>
+                          viewModel.updateScriptureReference(updatedRef),
+                      onDelete: (deletedRef) =>
+                          viewModel.deleteScriptureReference(deletedRef)),
+                )),
+            SizedBox(
+              width: 140,
+              child: ThemedButton(
+                onTap: () {
+                  viewModel.addScriptureReference();
+                },
+                text: 'Add Reference',
+                height: 30,
+              ),
+            ),
+          ],
+        ))
+      ]),
+      _uploadRow(viewModel, 'Devotional Audio:', DownloadType.devotionalAudio),
+      _uploadRow(viewModel, 'Devotional Transcript:', DownloadType.devotionalTranscript),
+    ];
   }
 }

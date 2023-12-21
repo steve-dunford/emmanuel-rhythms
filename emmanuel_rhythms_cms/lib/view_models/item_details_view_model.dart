@@ -1,10 +1,13 @@
 import 'package:emmanuel_rhythms_cms/models/bible_book.dart';
 import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/download.dart';
+import 'package:emmanuel_rhythms_cms/models/download_type.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/scripture_reference.dart';
 import 'package:emmanuel_rhythms_cms/models/tag.dart';
 import 'package:emmanuel_rhythms_cms/repositories/file_repository.dart';
+import 'package:emmanuel_rhythms_cms/common/extensions/list_extensions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -14,7 +17,7 @@ class ItemDetailsViewModel extends ChangeNotifier {
 
   Item item;
   bool isSettingImage = false;
-  bool isUploadingFile = false;
+  List<DownloadType> _currentlyUploading = [];
 
   ItemDetailsViewModel(this._fileRepository, this.item);
 
@@ -137,14 +140,34 @@ class ItemDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  _updateUploadingFile(bool uploading) {
-    isUploadingFile = uploading;
+  _updateUploadingFile(DownloadType type, bool uploading) {
+    if(uploading) {
+      if(!_currentlyUploading.contains(type)) {
+        _currentlyUploading.add(type);
+      }
+    } else {
+      _currentlyUploading.removeWhere((d) => d == type);
+    }
     notifyListeners();
   }
 
-  Future<void> setUpload(PlatformFile file) async {
+  String? downloadFileName(DownloadType type) {
+    final name = item.downloads?.firstOrNullWhere((d) => d.downloadType == type)?.filename;
+
+    return name ?? item.downloadFilename; //Backwards compatibility only
+  }
+
+  String? downloadUrl(DownloadType type) {
+    final url = item.downloads?.firstOrNullWhere((d) => d.downloadType == type)?.url;
+
+    return url ?? item.url; //Backwards compatibility only
+  }
+
+  bool isUploading(DownloadType type) => _currentlyUploading.contains(type);
+
+  Future<void> setDownload(DownloadType type, PlatformFile file) async {
     try {
-      _updateUploadingFile(true);
+      _updateUploadingFile(type, true);
 
       if (file.bytes == null) {
         return;
@@ -154,13 +177,25 @@ class ItemDetailsViewModel extends ChangeNotifier {
           file.name, file.bytes!, 'item_uploads');
 
       if (url != null) {
+
+        var existingDownloads = item.downloads ?? [];
+
         item = item.copyWith(
-            url: url,
-            downloadFilename: file.name);
+          downloads: [
+            ...existingDownloads.where((d) => d.downloadType != type),
+            Download(
+              id: const Uuid().v4(),
+              downloadType: type,
+              filename: file.name,
+              url: url
+            )
+          ]
+        );
+
         notifyListeners();
       }
     } finally {
-      _updateUploadingFile(false);
+      _updateUploadingFile(type, false);
     }
   }
 

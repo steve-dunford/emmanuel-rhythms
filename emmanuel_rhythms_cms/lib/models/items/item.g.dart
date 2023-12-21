@@ -20,6 +20,9 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       scriptureReferences: (json['scriptureReferences'] as List<dynamic>?)
           ?.map((e) => ScriptureReference.fromJson(e as Map<String, dynamic>))
           .toList(),
+      downloads: (json['downloads'] as List<dynamic>?)
+          ?.map((e) => Download.fromJson(e as Map<String, dynamic>))
+          .toList(),
       churches: (json['churches'] as List<dynamic>)
           .map((e) => $enumDecode(_$ChurchEnumMap, e))
           .toList(),
@@ -41,6 +44,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'usePodcastDetails': instance.usePodcastDetails,
       'scriptureReferences':
           instance.scriptureReferences?.map((e) => e.toJson()).toList(),
+      'downloads': instance.downloads?.map((e) => e.toJson()).toList(),
       'churches': instance.churches.map((e) => _$ChurchEnumMap[e]!).toList(),
       'tags': instance.tags.map((e) => e.toJson()).toList(),
     };
@@ -53,6 +57,7 @@ const _$ItemTypeEnumMap = {
   ItemType.scripture: 'scripture',
   ItemType.transistorFMPodcast: 'transistorFMPodcast',
   ItemType.soundcloudPodcast: 'soundcloudPodcast',
+  ItemType.devotional: 'devotional',
 };
 
 const _$ChurchEnumMap = {
