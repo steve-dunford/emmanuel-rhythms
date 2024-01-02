@@ -44,25 +44,31 @@ class ChurchSelectionPage extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                              'Please choose which church family you are part of.',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1),
-                          const SizedBox(height: 20),
-                          ...Church.values
-                              .map((church) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: GestureDetector(
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Text(
+                                    'Please choose which church family you are part of.',
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.bodyText1),
+                                const SizedBox(height: 20),
+                                ...Church.values
+                                    .map((church) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0),
+                                  child: GestureDetector(
                                       onTap: () => viewModel
                                           .setSelectedChurch(church),
                                       child: Image.asset(
                                           viewModel.isChurchSelected(church) ? church.selectedImageName : church.unselectedImageName
                                       )
 
-                                    ),
-                                  ))
-                              .toList(),
+                                  ),
+                                ))
+                                    .toList(),
+                              ],
+                            ),
+                          ),
                           const Spacer(),
                           StandardButton(
                             onTap: () async {
