@@ -50,3 +50,5 @@ app.*.map.json
 .env.default
 Runner.app.dSYM.zip
 Runner.ipa
+
+flutter_macos_*.zip
