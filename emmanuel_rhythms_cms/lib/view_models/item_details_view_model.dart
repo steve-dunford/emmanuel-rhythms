@@ -192,6 +192,10 @@ class ItemDetailsViewModel extends ChangeNotifier {
           ]
         );
 
+        if(type == DownloadType.fileDownload) {
+          item = item.copyWith(url: url);
+        }
+
         notifyListeners();
       }
     } finally {
