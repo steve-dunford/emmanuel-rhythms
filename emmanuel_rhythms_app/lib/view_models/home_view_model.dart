@@ -64,6 +64,9 @@ class HomeViewModel extends ChangeNotifier with Disposer {
           currentIndex < loadWindowStartIndex ||
           currentIndex > loadWindowEndIndex);
 
+  bool get canGoForward =>
+      currentIndex < initialPageIndex;
+
   DateTime get currentDate => _dateForIndex(currentIndex);
 
   setCurrentIndex(int index) {
