@@ -5,4 +5,5 @@ class FirebaseCollections {
   static const resources = 'resources';
   static const tags = 'tags';
   static const publishedResources = 'pub_resources';
+  static const notifications = 'notifications';
 }

@@ -1,10 +1,6 @@
-import 'dart:convert';
 
 import 'package:emmanuel_rhythms_app/models/church.dart';
-import 'package:emmanuel_rhythms_app/models/notification.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rxdart/rxdart.dart';
 
 abstract class LocalStorageRepository {
   bool get hasSelectedChurch;
@@ -12,12 +8,6 @@ abstract class LocalStorageRepository {
   Church? selectedChurch();
 
   setSelectedChurch(Church church);
-
-  refreshNotifications();
-
-  addNotification(ELRNotification notification);
-
-  Stream<List<ELRNotification>> notifications();
 }
 
 const _selectedChurchKey = 'selectedChurch';
@@ -26,18 +16,8 @@ const _maxNotifications = 30;
 
 class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   final SharedPreferences _sharedPreferences;
-  final BehaviorSubject<List<ELRNotification>> _notifications = BehaviorSubject();
 
-  SharedPreferencesLocalStorageRepository(this._sharedPreferences)
-  {
-    refreshNotifications();
-  }
-
-
-  Future<void> refreshNotifications() async {
-    await _sharedPreferences.reload();
-    _notifications.add(getNotifications());
-  }
+  SharedPreferencesLocalStorageRepository(this._sharedPreferences);
 
   @override
   Church? selectedChurch() {
@@ -58,38 +38,5 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   @override
   bool get hasSelectedChurch => selectedChurch() != null;
 
-  @override
-  addNotification(ELRNotification notification) {
-    var allNotifications = getNotifications();
-    allNotifications.add(notification);
-    allNotifications = allNotifications.sortedBy((n) => n.timestamp);
 
-    if (allNotifications.length > _maxNotifications) {
-      allNotifications = allNotifications
-          .skip(allNotifications.length - _maxNotifications)
-          .toList();
-    }
-
-    _sharedPreferences.setStringList(_notificationsKey,
-        allNotifications.map((n) => jsonEncode(n.toJson())).toList());
-
-    _notifications.add(allNotifications);
-  }
-
-  @override
-  List<ELRNotification> getNotifications() {
-    final rawNotifications =
-        _sharedPreferences.getStringList(_notificationsKey);
-    if (rawNotifications != null) {
-      return rawNotifications
-          .map((raw) => ELRNotification.fromJson(jsonDecode(raw)))
-          .toList(growable: true);
-    }
-    return List<ELRNotification>.empty(growable: true);
-  }
-
-  @override
-  Stream<List<ELRNotification>> notifications() {
-    return _notifications;
-  }
 }

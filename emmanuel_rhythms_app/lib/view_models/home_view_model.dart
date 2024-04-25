@@ -3,18 +3,19 @@ import 'dart:async';
 import 'package:emmanuel_rhythms_app/common/extensions/datetime_extensions.dart';
 import 'package:emmanuel_rhythms_app/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
-import 'package:emmanuel_rhythms_app/models/notification.dart';
 import 'package:emmanuel_rhythms_app/repositories/daily_content_repository.dart';
 import 'package:emmanuel_rhythms_app/common/disposer.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:emmanuel_rhythms_app/repositories/notifications_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:emmanuel_rhythms_app/models/notification.dart'
+as er_notifications;
 
 class HomeViewModel extends ChangeNotifier with Disposer {
   final DailyContentRepository _dailyContentRepository;
   final LocalStorageRepository _localStorageRepository;
+  final NotificationsRepository _notificationsRepository;
 
   static const initialPageIndex = 1000;
   static const loadAheadCount = 14;
@@ -27,15 +28,15 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   bool _isLoading = true;
   bool _hasDoneFirstLoad = false;
   List<DailyContentInstance>? instances;
-  List<ELRNotification> notifications = [];
+  List<er_notifications.Notification> notifications = [];
   StreamSubscription? instancesSubscription;
 
-  HomeViewModel(this._dailyContentRepository, this._localStorageRepository) {
+  HomeViewModel(this._dailyContentRepository, this._localStorageRepository, this._notificationsRepository) {
     _updateInstanceListener();
-    _localStorageRepository
-        .notifications()
+    _notificationsRepository
+        .recentNotifications()
     .listen((notifications) {
-      this.notifications = notifications.sorted((x, y) => y.timestamp.compareTo(x.timestamp));
+      this.notifications = notifications;
       notifyListeners();
     });
 
