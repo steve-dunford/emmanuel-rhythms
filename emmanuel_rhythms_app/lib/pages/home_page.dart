@@ -100,6 +100,10 @@ class _HomePageState extends State<HomePage>
                         GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () {
+                              if(!viewModel.canGoForward) {
+                                return;
+                              }
+
                               GetIt.I
                                   .get<AnalyticsRepository>()
                                   .track('next_date', {});
@@ -109,7 +113,9 @@ class _HomePageState extends State<HomePage>
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
-                              child: Image.asset(Assets.rightIcon),
+                              child: Opacity(
+                                opacity: viewModel.canGoForward ? 1.0 : 0.3,
+                                  child: Image.asset(Assets.rightIcon)),
                             )),
                       ],
                     ),
@@ -120,6 +126,7 @@ class _HomePageState extends State<HomePage>
                         controller: _pageController,
                         onPageChanged: (index) =>
                             viewModel.setCurrentIndex(index),
+                        itemCount: HomeViewModel.initialPageIndex + 1,
                         itemBuilder: (context, index) {
                           if (viewModel.shouldShowLoadingIndicator) {
                             return const Center(
