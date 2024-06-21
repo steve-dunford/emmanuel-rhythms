@@ -6,19 +6,19 @@ part of 'scripture_reference.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ScriptureReference _$$_ScriptureReferenceFromJson(
+_$ScriptureReferenceImpl _$$ScriptureReferenceImplFromJson(
         Map<String, dynamic> json) =>
-    _$_ScriptureReference(
+    _$ScriptureReferenceImpl(
       id: json['id'] as String,
       book: $enumDecode(_$BibleBookEnumMap, json['book']),
-      fromChapter: json['fromChapter'] as int?,
-      toChapter: json['toChapter'] as int?,
-      fromVerse: json['fromVerse'] as int?,
-      toVerse: json['toVerse'] as int?,
+      fromChapter: (json['fromChapter'] as num?)?.toInt(),
+      toChapter: (json['toChapter'] as num?)?.toInt(),
+      fromVerse: (json['fromVerse'] as num?)?.toInt(),
+      toVerse: (json['toVerse'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$_ScriptureReferenceToJson(
-        _$_ScriptureReference instance) =>
+Map<String, dynamic> _$$ScriptureReferenceImplToJson(
+        _$ScriptureReferenceImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'book': _$BibleBookEnumMap[instance.book]!,

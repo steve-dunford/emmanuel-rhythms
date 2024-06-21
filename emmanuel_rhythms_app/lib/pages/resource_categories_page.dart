@@ -30,7 +30,7 @@ class ResourceCategoriesPage extends StatelessWidget {
                     style: Theme
                         .of(context)
                         .textTheme
-                        .headline3),
+                        .headlineSmall),
                 automaticallyImplyLeading: true,
                 elevation: 2,
               ),
@@ -68,7 +68,7 @@ class ResourceCategoriesPage extends StatelessWidget {
                                   style: Theme
                                       .of(context)
                                       .textTheme
-                                      .headline3,
+                                      .headlineSmall,
                                 ),
                                 Image.asset(Assets.rightIcon)
                               ],

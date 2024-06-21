@@ -9,13 +9,11 @@ import 'package:audio_session/audio_session.dart';
 import 'package:emmanuel_rhythms_app/common/audio_handler.dart';
 import 'package:emmanuel_rhythms_app/common/constants.dart';
 import 'package:emmanuel_rhythms_app/models/podcast_details.dart';
-import 'package:emmanuel_rhythms_app/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
-
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class AudioWidget extends StatefulWidget {
   final PodcastDetails podcast;
@@ -42,7 +40,7 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
   Future<void> _init() async {
     // Inform the operating system of our app's audio attributes etc.
     // We pick a reasonable default for an app that plays speech.
-    Wakelock.enable();
+    WakelockPlus.enable();
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
@@ -64,7 +62,7 @@ class AudioWidgetState extends State<AudioWidget> with WidgetsBindingObserver {
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
     _handler.stop();
-    Wakelock.disable();
+    WakelockPlus.disable();
     super.dispose();
   }
 
@@ -331,7 +329,7 @@ class SeekBarState extends State<SeekBar> {
                       .firstMatch("$_remaining")
                       ?.group(1) ??
                   '$_remaining',
-              style: Theme.of(context).textTheme.caption),
+              style: Theme.of(context).textTheme.titleSmall),
         ),
       ],
     );

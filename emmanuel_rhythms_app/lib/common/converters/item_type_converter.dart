@@ -1,5 +1,6 @@
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:collection/collection.dart';
 
 class ItemTypeConverter extends JsonConverter<ItemType, String> {
 

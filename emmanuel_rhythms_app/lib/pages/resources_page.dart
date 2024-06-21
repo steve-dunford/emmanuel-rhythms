@@ -39,7 +39,7 @@ class ResourcesPage extends StatelessWidget {
                     style: Theme
                         .of(context)
                         .textTheme
-                        .headline3),
+                        .headlineSmall),
                 automaticallyImplyLeading: true,
                 elevation: 2,
               ),

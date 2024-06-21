@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage>
               backgroundColor: Colors.white,
               centerTitle: true,
               title: Text('DAILY CONTENT',
-                  style: Theme.of(context).textTheme.headline3),
+                  style: Theme.of(context).textTheme.headlineSmall),
               elevation: 0,
               leading: IconButton(
                 icon: Image.asset(Assets.menuIcon),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage>
                           child: Center(
                             child: Text(
                               viewModel.title.toUpperCase(),
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
                         ),
@@ -237,12 +237,12 @@ class _HomePageState extends State<HomePage>
                                                   Text(notification.title ?? '',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline3),
+                                                          .headlineSmall),
                                                   const SizedBox(height: 10),
                                                   Text(notification.text,
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .bodyText1),
+                                                          .bodyMedium),
                                                   const SizedBox(height: 10),
                                                   Row(
                                                     mainAxisAlignment:
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage>
                                                               notification.timestamp),
                                                           style: Theme.of(context)
                                                               .textTheme
-                                                              .bodyText1!
+                                                              .bodyMedium!
                                                               .copyWith(
                                                                   fontStyle: FontStyle
                                                                       .italic,
