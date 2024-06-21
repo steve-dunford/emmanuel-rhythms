@@ -6,14 +6,15 @@ part of 'download.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Download _$$_DownloadFromJson(Map<String, dynamic> json) => _$_Download(
+_$DownloadImpl _$$DownloadImplFromJson(Map<String, dynamic> json) =>
+    _$DownloadImpl(
       id: json['id'] as String,
       downloadType: $enumDecode(_$DownloadTypeEnumMap, json['downloadType']),
       filename: json['filename'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$$_DownloadToJson(_$_Download instance) =>
+Map<String, dynamic> _$$DownloadImplToJson(_$DownloadImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'downloadType': _$DownloadTypeEnumMap[instance.downloadType]!,

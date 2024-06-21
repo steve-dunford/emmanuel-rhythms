@@ -6,12 +6,12 @@ part of 'item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
+_$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
       id: json['id'] as String,
       type: const ItemTypeConverter().fromJson(json['type'] as String),
       title: json['title'] as String,
       isPriority: json['isPriority'] as bool,
-      sortOrder: json['sortOrder'] as int?,
+      sortOrder: (json['sortOrder'] as num?)?.toInt(),
       description: json['description'] as String?,
       backgroundImage: json['backgroundImage'] as String?,
       url: json['url'] as String?,
@@ -31,7 +31,8 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
           .toList(),
     );
 
-Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
+Map<String, dynamic> _$$ItemImplToJson(_$ItemImpl instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'type': const ItemTypeConverter().toJson(instance.type),
       'title': instance.title,

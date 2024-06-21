@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'daily_content.dart';
 
@@ -12,40 +12,11 @@ part of 'daily_content.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DailyContent _$DailyContentFromJson(Map<String, dynamic> json) {
   return _DailyContent.fromJson(json);
 }
-
-/// @nodoc
-class _$DailyContentTearOff {
-  const _$DailyContentTearOff();
-
-  _DailyContent call(
-      {required String dailyContentId,
-      required ScheduleType scheduleType,
-      @TimestampConverter() required DateTime startDate,
-      @TimestampConverter() required DateTime endDate,
-      List<int>? daysOfWeek,
-      required Item item}) {
-    return _DailyContent(
-      dailyContentId: dailyContentId,
-      scheduleType: scheduleType,
-      startDate: startDate,
-      endDate: endDate,
-      daysOfWeek: daysOfWeek,
-      item: item,
-    );
-  }
-
-  DailyContent fromJson(Map<String, Object?> json) {
-    return DailyContent.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $DailyContent = _$DailyContentTearOff();
 
 /// @nodoc
 mixin _$DailyContent {
@@ -68,7 +39,8 @@ mixin _$DailyContent {
 abstract class $DailyContentCopyWith<$Res> {
   factory $DailyContentCopyWith(
           DailyContent value, $Res Function(DailyContent) then) =
-      _$DailyContentCopyWithImpl<$Res>;
+      _$DailyContentCopyWithImpl<$Res, DailyContent>;
+  @useResult
   $Res call(
       {String dailyContentId,
       ScheduleType scheduleType,
@@ -81,65 +53,70 @@ abstract class $DailyContentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DailyContentCopyWithImpl<$Res> implements $DailyContentCopyWith<$Res> {
+class _$DailyContentCopyWithImpl<$Res, $Val extends DailyContent>
+    implements $DailyContentCopyWith<$Res> {
   _$DailyContentCopyWithImpl(this._value, this._then);
 
-  final DailyContent _value;
   // ignore: unused_field
-  final $Res Function(DailyContent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dailyContentId = freezed,
-    Object? scheduleType = freezed,
-    Object? startDate = freezed,
-    Object? endDate = freezed,
+    Object? dailyContentId = null,
+    Object? scheduleType = null,
+    Object? startDate = null,
+    Object? endDate = null,
     Object? daysOfWeek = freezed,
-    Object? item = freezed,
+    Object? item = null,
   }) {
     return _then(_value.copyWith(
-      dailyContentId: dailyContentId == freezed
+      dailyContentId: null == dailyContentId
           ? _value.dailyContentId
           : dailyContentId // ignore: cast_nullable_to_non_nullable
               as String,
-      scheduleType: scheduleType == freezed
+      scheduleType: null == scheduleType
           ? _value.scheduleType
           : scheduleType // ignore: cast_nullable_to_non_nullable
               as ScheduleType,
-      startDate: startDate == freezed
+      startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      endDate: endDate == freezed
+      endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      daysOfWeek: daysOfWeek == freezed
+      daysOfWeek: freezed == daysOfWeek
           ? _value.daysOfWeek
           : daysOfWeek // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      item: item == freezed
+      item: null == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as Item,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemCopyWith<$Res> get item {
     return $ItemCopyWith<$Res>(_value.item, (value) {
-      return _then(_value.copyWith(item: value));
+      return _then(_value.copyWith(item: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$DailyContentCopyWith<$Res>
+abstract class _$$DailyContentImplCopyWith<$Res>
     implements $DailyContentCopyWith<$Res> {
-  factory _$DailyContentCopyWith(
-          _DailyContent value, $Res Function(_DailyContent) then) =
-      __$DailyContentCopyWithImpl<$Res>;
+  factory _$$DailyContentImplCopyWith(
+          _$DailyContentImpl value, $Res Function(_$DailyContentImpl) then) =
+      __$$DailyContentImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String dailyContentId,
       ScheduleType scheduleType,
@@ -153,46 +130,45 @@ abstract class _$DailyContentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$DailyContentCopyWithImpl<$Res> extends _$DailyContentCopyWithImpl<$Res>
-    implements _$DailyContentCopyWith<$Res> {
-  __$DailyContentCopyWithImpl(
-      _DailyContent _value, $Res Function(_DailyContent) _then)
-      : super(_value, (v) => _then(v as _DailyContent));
+class __$$DailyContentImplCopyWithImpl<$Res>
+    extends _$DailyContentCopyWithImpl<$Res, _$DailyContentImpl>
+    implements _$$DailyContentImplCopyWith<$Res> {
+  __$$DailyContentImplCopyWithImpl(
+      _$DailyContentImpl _value, $Res Function(_$DailyContentImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _DailyContent get _value => super._value as _DailyContent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dailyContentId = freezed,
-    Object? scheduleType = freezed,
-    Object? startDate = freezed,
-    Object? endDate = freezed,
+    Object? dailyContentId = null,
+    Object? scheduleType = null,
+    Object? startDate = null,
+    Object? endDate = null,
     Object? daysOfWeek = freezed,
-    Object? item = freezed,
+    Object? item = null,
   }) {
-    return _then(_DailyContent(
-      dailyContentId: dailyContentId == freezed
+    return _then(_$DailyContentImpl(
+      dailyContentId: null == dailyContentId
           ? _value.dailyContentId
           : dailyContentId // ignore: cast_nullable_to_non_nullable
               as String,
-      scheduleType: scheduleType == freezed
+      scheduleType: null == scheduleType
           ? _value.scheduleType
           : scheduleType // ignore: cast_nullable_to_non_nullable
               as ScheduleType,
-      startDate: startDate == freezed
+      startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      endDate: endDate == freezed
+      endDate: null == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      daysOfWeek: daysOfWeek == freezed
-          ? _value.daysOfWeek
+      daysOfWeek: freezed == daysOfWeek
+          ? _value._daysOfWeek
           : daysOfWeek // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      item: item == freezed
+      item: null == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as Item,
@@ -202,17 +178,18 @@ class __$DailyContentCopyWithImpl<$Res> extends _$DailyContentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DailyContent implements _DailyContent {
-  _$_DailyContent(
+class _$DailyContentImpl implements _DailyContent {
+  _$DailyContentImpl(
       {required this.dailyContentId,
       required this.scheduleType,
       @TimestampConverter() required this.startDate,
       @TimestampConverter() required this.endDate,
-      this.daysOfWeek,
-      required this.item});
+      final List<int>? daysOfWeek,
+      required this.item})
+      : _daysOfWeek = daysOfWeek;
 
-  factory _$_DailyContent.fromJson(Map<String, dynamic> json) =>
-      _$$_DailyContentFromJson(json);
+  factory _$DailyContentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DailyContentImplFromJson(json);
 
   @override
   final String dailyContentId;
@@ -224,8 +201,16 @@ class _$_DailyContent implements _DailyContent {
   @override
   @TimestampConverter()
   final DateTime endDate;
+  final List<int>? _daysOfWeek;
   @override
-  final List<int>? daysOfWeek;
+  List<int>? get daysOfWeek {
+    final value = _daysOfWeek;
+    if (value == null) return null;
+    if (_daysOfWeek is EqualUnmodifiableListView) return _daysOfWeek;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Item item;
 
@@ -235,53 +220,58 @@ class _$_DailyContent implements _DailyContent {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DailyContent &&
+            other is _$DailyContentImpl &&
+            (identical(other.dailyContentId, dailyContentId) ||
+                other.dailyContentId == dailyContentId) &&
+            (identical(other.scheduleType, scheduleType) ||
+                other.scheduleType == scheduleType) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
             const DeepCollectionEquality()
-                .equals(other.dailyContentId, dailyContentId) &&
-            const DeepCollectionEquality()
-                .equals(other.scheduleType, scheduleType) &&
-            const DeepCollectionEquality().equals(other.startDate, startDate) &&
-            const DeepCollectionEquality().equals(other.endDate, endDate) &&
-            const DeepCollectionEquality()
-                .equals(other.daysOfWeek, daysOfWeek) &&
-            const DeepCollectionEquality().equals(other.item, item));
+                .equals(other._daysOfWeek, _daysOfWeek) &&
+            (identical(other.item, item) || other.item == item));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(dailyContentId),
-      const DeepCollectionEquality().hash(scheduleType),
-      const DeepCollectionEquality().hash(startDate),
-      const DeepCollectionEquality().hash(endDate),
-      const DeepCollectionEquality().hash(daysOfWeek),
-      const DeepCollectionEquality().hash(item));
 
   @JsonKey(ignore: true)
   @override
-  _$DailyContentCopyWith<_DailyContent> get copyWith =>
-      __$DailyContentCopyWithImpl<_DailyContent>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      dailyContentId,
+      scheduleType,
+      startDate,
+      endDate,
+      const DeepCollectionEquality().hash(_daysOfWeek),
+      item);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyContentImplCopyWith<_$DailyContentImpl> get copyWith =>
+      __$$DailyContentImplCopyWithImpl<_$DailyContentImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DailyContentToJson(this);
+    return _$$DailyContentImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _DailyContent implements DailyContent {
   factory _DailyContent(
-      {required String dailyContentId,
-      required ScheduleType scheduleType,
-      @TimestampConverter() required DateTime startDate,
-      @TimestampConverter() required DateTime endDate,
-      List<int>? daysOfWeek,
-      required Item item}) = _$_DailyContent;
+      {required final String dailyContentId,
+      required final ScheduleType scheduleType,
+      @TimestampConverter() required final DateTime startDate,
+      @TimestampConverter() required final DateTime endDate,
+      final List<int>? daysOfWeek,
+      required final Item item}) = _$DailyContentImpl;
 
   factory _DailyContent.fromJson(Map<String, dynamic> json) =
-      _$_DailyContent.fromJson;
+      _$DailyContentImpl.fromJson;
 
   @override
   String get dailyContentId;
@@ -299,6 +289,6 @@ abstract class _DailyContent implements DailyContent {
   Item get item;
   @override
   @JsonKey(ignore: true)
-  _$DailyContentCopyWith<_DailyContent> get copyWith =>
+  _$$DailyContentImplCopyWith<_$DailyContentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

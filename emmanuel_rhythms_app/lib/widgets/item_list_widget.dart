@@ -16,7 +16,7 @@ class ItemListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final sorted = List.from(items);
+    final sorted = List<Item>.from(items);
     sorted.sort((item1, item2) => item1.resolvedSortOrder.compareTo(item2.resolvedSortOrder));
 
     return SingleChildScrollView(
