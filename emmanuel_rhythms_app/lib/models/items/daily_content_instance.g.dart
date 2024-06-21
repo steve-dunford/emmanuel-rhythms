@@ -6,17 +6,17 @@ part of 'daily_content_instance.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DailyContentInstance _$$_DailyContentInstanceFromJson(
+_$DailyContentInstanceImpl _$$DailyContentInstanceImplFromJson(
         Map<String, dynamic> json) =>
-    _$_DailyContentInstance(
+    _$DailyContentInstanceImpl(
       dailyContentInstanceId: json['dailyContentInstanceId'] as String,
       dailyContentId: json['dailyContentId'] as String,
       item: Item.fromJson(json['item'] as Map<String, dynamic>),
       date: const TimestampConverter().fromJson(json['date'] as Timestamp),
     );
 
-Map<String, dynamic> _$$_DailyContentInstanceToJson(
-        _$_DailyContentInstance instance) =>
+Map<String, dynamic> _$$DailyContentInstanceImplToJson(
+        _$DailyContentInstanceImpl instance) =>
     <String, dynamic>{
       'dailyContentInstanceId': instance.dailyContentInstanceId,
       'dailyContentId': instance.dailyContentId,

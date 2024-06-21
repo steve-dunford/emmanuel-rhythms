@@ -23,7 +23,7 @@ class ViewDownloadButton extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
                 caption,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 14),
               ),
             ),
           )),

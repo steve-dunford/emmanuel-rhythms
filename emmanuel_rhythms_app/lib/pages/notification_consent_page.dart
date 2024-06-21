@@ -27,7 +27,7 @@ class NotificationConsentPage extends StatelessWidget {
                 foregroundColor: AppColours.emmanuelBlue,
                 centerTitle: true,
                 title: Text('Notifications'.toUpperCase(),
-                    style: Theme.of(context).textTheme.headline3),
+                    style: Theme.of(context).textTheme.headlineSmall),
                 automaticallyImplyLeading: false,
                 elevation: 2,
               ),
@@ -43,7 +43,7 @@ class NotificationConsentPage extends StatelessWidget {
                               'content and upcoming events. To allow this, please tap continue and allow notifications '
                               'when you are prompted to allow notifications.',
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1),
+                              style: Theme.of(context).textTheme.bodyMedium),
 
                           const Spacer(),
                           StandardButton(

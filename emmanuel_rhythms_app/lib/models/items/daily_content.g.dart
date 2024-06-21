@@ -6,20 +6,21 @@ part of 'daily_content.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DailyContent _$$_DailyContentFromJson(Map<String, dynamic> json) =>
-    _$_DailyContent(
+_$DailyContentImpl _$$DailyContentImplFromJson(Map<String, dynamic> json) =>
+    _$DailyContentImpl(
       dailyContentId: json['dailyContentId'] as String,
       scheduleType: $enumDecode(_$ScheduleTypeEnumMap, json['scheduleType']),
       startDate:
           const TimestampConverter().fromJson(json['startDate'] as Timestamp),
       endDate:
           const TimestampConverter().fromJson(json['endDate'] as Timestamp),
-      daysOfWeek:
-          (json['daysOfWeek'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      daysOfWeek: (json['daysOfWeek'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       item: Item.fromJson(json['item'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_DailyContentToJson(_$_DailyContent instance) =>
+Map<String, dynamic> _$$DailyContentImplToJson(_$DailyContentImpl instance) =>
     <String, dynamic>{
       'dailyContentId': instance.dailyContentId,
       'scheduleType': _$ScheduleTypeEnumMap[instance.scheduleType]!,

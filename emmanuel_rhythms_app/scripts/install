@@ -16,7 +16,7 @@ printf "Unzipping Flutter...\n"
 unzip -qq -o $flutter_version.zip # -o force overwrite
 
 printf "Configuring Flutter...\n"
-flutter config --no-analytics
-flutter precache
+flutter/bin/flutter config --no-analytics
+flutter/bin/flutter precache
 
 printf "\nDone.\n"

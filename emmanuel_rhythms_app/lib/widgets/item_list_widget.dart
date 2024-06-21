@@ -15,13 +15,16 @@ class ItemListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final sorted = List<Item>.from(items);
+    sorted.sort((item1, item2) => item1.resolvedSortOrder.compareTo(item2.resolvedSortOrder));
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: items
-                .sorted((item1, item2) => item1.resolvedSortOrder.compareTo(item2.resolvedSortOrder))
+            children: sorted
                 .map(
                   (item) => Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
@@ -30,7 +33,7 @@ class ItemListWidget extends StatelessWidget {
                         GetIt.I.get<AnalyticsRepository>().track('content_viewed', {
                           'content_name':item.title,
                           'content_id':item.id,
-                          'content_type':item.type.name
+                          'content_type':item.type.toString()
                         });
 
                         Navigator.of(context).pushNamed(
