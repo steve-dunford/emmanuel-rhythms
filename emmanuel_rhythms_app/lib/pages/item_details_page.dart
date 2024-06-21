@@ -40,7 +40,7 @@ class ItemDetailsPage extends StatelessWidget {
               foregroundColor: AppColours.emmanuelBlue,
               centerTitle: true,
               title: Text(viewModel.pageTitle.toUpperCase(),
-                  style: Theme.of(context).textTheme.headline3),
+                  style: Theme.of(context).textTheme.headlineSmall),
               automaticallyImplyLeading: true,
             ),
             body: Padding(
@@ -51,12 +51,12 @@ class ItemDetailsPage extends StatelessWidget {
                     if (viewModel.title != null)
                       Text(
                         viewModel.title!,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     if (viewModel.item.description != null)
                       Html(
                         data: viewModel.item.description,
-                        onLinkTap: (link, context, map, element) {
+                        onLinkTap: (link, map, element) {
                           viewModel.openLink(link);
                         },
                       ),
@@ -85,7 +85,7 @@ class ItemDetailsPage extends StatelessWidget {
                                               tag.name,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .bodyText1!
+                                                  .bodyMedium!
                                                   .copyWith(
                                                       color: AppColours
                                                           .emmanuelBlue),
@@ -164,7 +164,7 @@ class ItemDetailsPage extends StatelessWidget {
         if (viewModel.showPodcastDetails && details.description != null) ...[
           Text(details.description!,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 20),
         ],
         if (details.audioFileUrl != null) AudioWidget(podcast: details!)
@@ -222,7 +222,7 @@ class ItemDetailsPage extends StatelessWidget {
     return Column(
       children: [
         if (scriptures.isNotEmpty)
-          Text('BIBLE', style: Theme.of(context).textTheme.headline2),
+          Text('BIBLE', style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 10),
         Column(
           children: scriptures.map((ref) {
@@ -236,7 +236,7 @@ class ItemDetailsPage extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 30),
-              Text('DEVOTIONAL', style: Theme.of(context).textTheme.headline2),
+              Text('DEVOTIONAL', style: Theme.of(context).textTheme.headlineMedium),
             ],
           ),
         if (viewModel.hasDevotionalAudio())

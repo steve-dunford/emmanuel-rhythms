@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:collection/collection.dart';
 import '../models/items/item_type.dart';
 
 class ItemDetailsViewModel extends ChangeNotifier {

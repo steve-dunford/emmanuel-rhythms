@@ -5,13 +5,13 @@ class AppTextStyle {
   static TextStyle acuminProSemibold(BuildContext context) {
     return Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyMedium
             ?.copyWith(fontFamily: 'Acumin Pro', fontWeight: FontWeight.w600) ??
         const TextStyle();
   }
 
   static TextStyle montserrat(BuildContext context) {
-    return Theme.of(context).textTheme.bodyText1?.copyWith(
+    return Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontFamily: 'Montserrat',
             ) ??
         const TextStyle();
@@ -20,7 +20,7 @@ class AppTextStyle {
   static TextStyle montserratMedium(BuildContext context) {
     return Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyMedium
             ?.copyWith(fontFamily: 'Montserrat', fontWeight: FontWeight.w500) ??
         const TextStyle();
   }
@@ -28,7 +28,7 @@ class AppTextStyle {
   static TextStyle montserratLight(BuildContext context) {
     return Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyMedium
             ?.copyWith(fontFamily: 'Montserrat', fontWeight: FontWeight.w300) ??
         const TextStyle();
   }
@@ -36,7 +36,7 @@ class AppTextStyle {
   static TextStyle montserratSemiBold(BuildContext context) {
     return Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyMedium
             ?.copyWith(fontFamily: 'Montserrat', fontWeight: FontWeight.w600) ??
         const TextStyle();
   }
@@ -47,26 +47,20 @@ class AppTextStyle {
     TextStyle montserratSemiBold = AppTextStyle.montserratSemiBold(context);
 
     return Theme.of(context).textTheme.copyWith(
-          headline1: montserratMedium.copyWith(
+          headlineLarge: montserratMedium.copyWith(
               fontSize: 40, color: AppColours.emmanuelBlue),
-          headline2: montserratMedium.copyWith(
+          headlineMedium: montserratMedium.copyWith(
               fontSize: 34, color: AppColours.emmanuelBlue),
-          headline3: montserratMedium.copyWith(
+          headlineSmall: montserratMedium.copyWith(
               fontSize: 20, color: AppColours.emmanuelBlue),
-          headline4: montserratMedium.copyWith(
-              fontSize: 24, color: AppColours.emmanuelBlue),
-          headline5: montserratMedium.copyWith(
-              fontSize: 22, color: AppColours.emmanuelBlue),
-          headline6: montserratMedium.copyWith(
-              fontSize: 20, color: AppColours.emmanuelBlue),
-          subtitle1: montserratSemiBold.copyWith(
+          titleLarge: montserratSemiBold.copyWith(
               fontSize: 18, color: AppColours.emmanuelBlue),
-          subtitle2: montserratMedium.copyWith(
+          titleMedium: montserratMedium.copyWith(
               fontSize: 18, color: AppColours.emmanuelBlue),
-          bodyText1: montserratLight.copyWith(fontSize: 16),
-          bodyText2: montserratMedium.copyWith(fontSize: 14),
-          caption: montserratMedium.copyWith(fontSize: 11),
-          button: montserratMedium.copyWith(fontSize: 18),
+          bodyMedium: montserratLight.copyWith(fontSize: 16),
+          bodySmall: montserratMedium.copyWith(fontSize: 14),
+          labelMedium: montserratMedium.copyWith(fontSize: 11),
+          labelSmall: montserratMedium.copyWith(fontSize: 18),
         );
   }
 

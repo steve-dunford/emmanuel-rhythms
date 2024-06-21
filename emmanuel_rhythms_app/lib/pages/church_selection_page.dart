@@ -33,7 +33,7 @@ class ChurchSelectionPage extends StatelessWidget {
                 foregroundColor: AppColours.emmanuelBlue,
                 centerTitle: true,
                 title: Text('Select Church'.toUpperCase(),
-                    style: Theme.of(context).textTheme.headline3),
+                    style: Theme.of(context).textTheme.headlineSmall),
                 automaticallyImplyLeading: !args.isInitialSelection,
                 elevation: 2,
               ),
@@ -50,7 +50,7 @@ class ChurchSelectionPage extends StatelessWidget {
                                 Text(
                                     'Please choose which church family you are part of.',
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyText1),
+                                    style: Theme.of(context).textTheme.bodyMedium),
                                 const SizedBox(height: 20),
                                 ...Church.values
                                     .map((church) => Padding(

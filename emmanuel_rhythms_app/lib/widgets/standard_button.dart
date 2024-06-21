@@ -32,7 +32,7 @@ class StandardButton extends StatelessWidget {
                 ? const CircularProgressIndicator(color: AppColours.emmanuelBlue)
                 : Text(
                     text,
-                    style: Theme.of(context).textTheme.button,
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
           ),
         ),
