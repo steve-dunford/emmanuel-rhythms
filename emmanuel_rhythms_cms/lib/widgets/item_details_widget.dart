@@ -1,9 +1,8 @@
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
-import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
-import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/church_v2.dart';
 import 'package:emmanuel_rhythms_cms/models/download_type.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
@@ -16,7 +15,6 @@ import 'package:emmanuel_rhythms_cms/widgets/upload_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'dart:html' as html;
@@ -249,7 +247,7 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                     const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Wrap(
                                     runAlignment: WrapAlignment.center,
-                                    children: Church.values
+                                    children: ChurchV2.values
                                         .map((church) => Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(

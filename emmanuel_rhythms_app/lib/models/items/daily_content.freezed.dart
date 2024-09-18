@@ -29,8 +29,12 @@ mixin _$DailyContent {
   List<int>? get daysOfWeek => throw _privateConstructorUsedError;
   Item get item => throw _privateConstructorUsedError;
 
+  /// Serializes this DailyContent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DailyContentCopyWith<DailyContent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$DailyContentCopyWithImpl<$Res, $Val extends DailyContent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class _$DailyContentCopyWithImpl<$Res, $Val extends DailyContent>
     ) as $Val);
   }
 
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ItemCopyWith<$Res> get item {
@@ -137,6 +145,8 @@ class __$$DailyContentImplCopyWithImpl<$Res>
       _$DailyContentImpl _value, $Res Function(_$DailyContentImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -236,7 +246,7 @@ class _$DailyContentImpl implements _DailyContent {
             (identical(other.item, item) || other.item == item));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -247,7 +257,9 @@ class _$DailyContentImpl implements _DailyContent {
       const DeepCollectionEquality().hash(_daysOfWeek),
       item);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DailyContentImplCopyWith<_$DailyContentImpl> get copyWith =>
@@ -287,8 +299,11 @@ abstract class _DailyContent implements DailyContent {
   List<int>? get daysOfWeek;
   @override
   Item get item;
+
+  /// Create a copy of DailyContent
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DailyContentImplCopyWith<_$DailyContentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

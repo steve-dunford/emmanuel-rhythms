@@ -10,7 +10,7 @@ import 'package:emmanuel_rhythms_app/repositories/notifications_repository.dart'
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:emmanuel_rhythms_app/models/notification.dart'
-as er_notifications;
+    as er_notifications;
 
 class HomeViewModel extends ChangeNotifier with Disposer {
   final DailyContentRepository _dailyContentRepository;
@@ -31,15 +31,13 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   List<er_notifications.Notification> notifications = [];
   StreamSubscription? instancesSubscription;
 
-  HomeViewModel(this._dailyContentRepository, this._localStorageRepository, this._notificationsRepository) {
+  HomeViewModel(this._dailyContentRepository, this._localStorageRepository,
+      this._notificationsRepository) {
     _updateInstanceListener();
-    _notificationsRepository
-        .recentNotifications()
-    .listen((notifications) {
+    _notificationsRepository.recentNotifications().listen((notifications) {
       this.notifications = notifications;
       notifyListeners();
     });
-
   }
 
   _updateInstanceListener() {
@@ -65,8 +63,7 @@ class HomeViewModel extends ChangeNotifier with Disposer {
           currentIndex < loadWindowStartIndex ||
           currentIndex > loadWindowEndIndex);
 
-  bool get canGoForward =>
-      currentIndex < initialPageIndex;
+  bool get canGoForward => currentIndex < initialPageIndex;
 
   DateTime get currentDate => _dateForIndex(currentIndex);
 
@@ -89,8 +86,11 @@ class HomeViewModel extends ChangeNotifier with Disposer {
   List<Item> itemsForIndex(int index) =>
       instances
           ?.where((instance) =>
-              instance.item.churches
-                  .contains(_localStorageRepository.selectedChurch()) &&
+              (instance.item.churches
+                      .contains(_localStorageRepository.selectedChurch()?.name) ||
+                  (instance.item.churchesV2?.contains(
+                          _localStorageRepository.selectedChurch()?.name) ??
+                      false)) &&
               instance.date.toUtc().isAtSameMomentAs(_dateForIndex(index)))
           .map((instance) => instance.item)
           .toList() ??

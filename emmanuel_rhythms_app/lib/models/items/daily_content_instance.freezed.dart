@@ -26,8 +26,12 @@ mixin _$DailyContentInstance {
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
 
+  /// Serializes this DailyContentInstance to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DailyContentInstanceCopyWith<DailyContentInstance> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$DailyContentInstanceCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class _$DailyContentInstanceCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ItemCopyWith<$Res> get item {
@@ -121,6 +129,8 @@ class __$$DailyContentInstanceImplCopyWithImpl<$Res>
       $Res Function(_$DailyContentInstanceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -190,12 +200,14 @@ class _$DailyContentInstanceImpl implements _DailyContentInstance {
             (identical(other.date, date) || other.date == date));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, dailyContentInstanceId, dailyContentId, item, date);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DailyContentInstanceImplCopyWith<_$DailyContentInstanceImpl>
@@ -231,8 +243,11 @@ abstract class _DailyContentInstance implements DailyContentInstance {
   @override
   @TimestampConverter()
   DateTime get date;
+
+  /// Create a copy of DailyContentInstance
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DailyContentInstanceImplCopyWith<_$DailyContentInstanceImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

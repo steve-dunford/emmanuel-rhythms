@@ -1,4 +1,5 @@
 import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/church_v2.dart';
 import 'package:emmanuel_rhythms_cms/models/download.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/scripture_reference.dart';
@@ -25,6 +26,7 @@ class Item with _$Item {
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
       List<Download>? downloads,
+      List<ChurchV2>? churchesV2,
       required List<Church> churches,
       required List<Tag> tags}) = _Item;
 
@@ -34,6 +36,7 @@ class Item with _$Item {
         id: const Uuid().v4(),
         tags: [],
         churches: [Church.emmanuelLurgan, Church.emmanuelPortadown],
+        churchesV2: [ChurchV2.emmanuelLurgan, ChurchV2.emmanuelPortadown, ChurchV2.journeyLisburn],
         title: '',
         isPriority: false,
         type: ItemType.text,

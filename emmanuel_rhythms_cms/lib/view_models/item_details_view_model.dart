@@ -1,5 +1,6 @@
 import 'package:emmanuel_rhythms_cms/models/bible_book.dart';
 import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/church_v2.dart';
 import 'package:emmanuel_rhythms_cms/models/download.dart';
 import 'package:emmanuel_rhythms_cms/models/download_type.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
@@ -78,18 +79,33 @@ class ItemDetailsViewModel extends ChangeNotifier {
     }
   }
 
-  isChurchSelected(Church church) =>
-    item.churches.contains(church);
 
-  setChurchSelected(Church church, bool selected) {
+  isChurchSelected(ChurchV2 church) =>
+      (item.churchesV2?.contains(church) ?? false) ||
+          (church.toLegacyChurch() != null && item.churches.contains(church.toLegacyChurch()));
+
+  setChurchSelected(ChurchV2 church, bool selected) {
+
+    final legacyChurch = church.toLegacyChurch();
+
     if (selected) {
-      if (!item.churches.contains(church)) {
-        item = item.copyWith(churches: [...item.churches, church]);
+      if (item.churchesV2 == null || !item.churchesV2!.contains(church)) {
+        item = item.copyWith(churchesV2: [...item.churchesV2 ?? [], church]);
+      }
+
+
+      if(legacyChurch != null && !item.churches.contains(legacyChurch)) {
+        item = item.copyWith(churches: [...item.churches, legacyChurch]);
       }
     } else {
-      if (item.churches.contains(church)) {
+      if (item.churchesV2 != null && item.churchesV2!.contains(church)) {
         item = item.copyWith(
-            churches: item.churches.where((c) => c != church).toList());
+            churchesV2: item.churchesV2!.where((c) => c != church).toList());
+      }
+
+      if (item.churches.contains(legacyChurch)) {
+        item = item.copyWith(
+            churches: item.churches!.where((c) => c != legacyChurch).toList());
       }
     }
 

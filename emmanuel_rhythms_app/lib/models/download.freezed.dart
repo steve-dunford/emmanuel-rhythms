@@ -25,8 +25,12 @@ mixin _$Download {
   String get filename => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
 
+  /// Serializes this Download to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Download
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DownloadCopyWith<Download> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$DownloadCopyWithImpl<$Res, $Val extends Download>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Download
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -99,6 +105,8 @@ class __$$DownloadImplCopyWithImpl<$Res>
       _$DownloadImpl _value, $Res Function(_$DownloadImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Download
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,11 +175,13 @@ class _$DownloadImpl implements _Download {
             (identical(other.url, url) || other.url == url));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, downloadType, filename, url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Download
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DownloadImplCopyWith<_$DownloadImpl> get copyWith =>
@@ -203,8 +213,11 @@ abstract class _Download implements Download {
   String get filename;
   @override
   String get url;
+
+  /// Create a copy of Download
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DownloadImplCopyWith<_$DownloadImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
