@@ -7,11 +7,13 @@ import '../models/podcast_details.dart';
 abstract class PodcastRepository {
   Future<PodcastDetails?> getTransistorFMPodcastDetails(String itemUrl);
   Future<PodcastDetails?> getSoundcloudPodcastDetails(String itemUrl);
+  Future<PodcastDetails?> getAnchorFMPodcastDetails(String itemUrl);
 }
 
 class TransistorFMPodcastRepository extends PodcastRepository {
   static const transistorRssFeedUrl = 'https://feeds.transistor.fm/emmanuel-church-lurgan';
   static const soundcloudRssFeedUrl = 'https://feeds.soundcloud.com/users/soundcloud:users:383486789/sounds.rss';
+  static const anchorFmJourneyUrl = 'https://anchor.fm/s/124e6aa8/podcast/rss';
 
   @override
   Future<PodcastDetails?> getTransistorFMPodcastDetails(String itemUrl) async {
@@ -21,6 +23,11 @@ class TransistorFMPodcastRepository extends PodcastRepository {
   @override
   Future<PodcastDetails?> getSoundcloudPodcastDetails(String itemUrl) async {
     return _getPodcastDetails(itemUrl, soundcloudRssFeedUrl);
+  }
+
+  @override
+  Future<PodcastDetails?> getAnchorFMPodcastDetails(String itemUrl) async {
+    return _getPodcastDetails(itemUrl, anchorFmJourneyUrl);
   }
 
   @override

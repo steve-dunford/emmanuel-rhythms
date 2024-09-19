@@ -488,13 +488,17 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         )
       ];
-    } else if (viewModel.selectedItemType.itemType ==
-            ItemType.transistorFMPodcast ||
-        viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast) {
-      final caption =
-          viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast
-              ? 'Transistor.fm URL:'
-              : 'Soundcloud URL:';
+    } else if ([
+      ItemType.anchorFMPodcast,
+      ItemType.transistorFMPodcast,
+      ItemType.soundcloudPodcast
+    ].contains(viewModel.selectedItemType.itemType)) {
+      final caption = viewModel.selectedItemType.itemType ==
+              ItemType.transistorFMPodcast
+          ? 'Transistor.fm URL:'
+          : viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast
+              ? 'Soundcloud URL:'
+              : 'Anchor.FM URL:';
       return [
         TableRow(
           children: [
@@ -537,20 +541,18 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
         ])
       ];
     } else if (viewModel.selectedItemType.itemType == ItemType.download) {
-      return [
-        _uploadRow(viewModel, 'File:', DownloadType.fileDownload)
-      ];
+      return [_uploadRow(viewModel, 'File:', DownloadType.fileDownload)];
     }
     return [];
   }
 
-  TableRow _uploadRow(ItemDetailsViewModel viewModel, String caption, DownloadType type) =>
+  TableRow _uploadRow(
+          ItemDetailsViewModel viewModel, String caption, DownloadType type) =>
       TableRow(
         children: [
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
-            child:
-            Text(caption, style: Theme.of(context).textTheme.bodyText1),
+            child: Text(caption, style: Theme.of(context).textTheme.bodyText1),
           ),
           TableCell(
             child: Padding(
@@ -603,7 +605,8 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
         ))
       ]),
       _uploadRow(viewModel, 'Devotional Audio:', DownloadType.devotionalAudio),
-      _uploadRow(viewModel, 'Devotional Transcript:', DownloadType.devotionalTranscript),
+      _uploadRow(viewModel, 'Devotional Transcript:',
+          DownloadType.devotionalTranscript),
     ];
   }
 }

@@ -62,6 +62,7 @@ const _$ItemTypeEnumMap = {
   ItemType.scripture: 'scripture',
   ItemType.transistorFMPodcast: 'transistorFMPodcast',
   ItemType.soundcloudPodcast: 'soundcloudPodcast',
+  ItemType.anchorFMPodcast: 'anchorFMPodcast',
   ItemType.devotional: 'devotional',
 };
 

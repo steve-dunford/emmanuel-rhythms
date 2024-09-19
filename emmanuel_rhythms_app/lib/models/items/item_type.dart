@@ -8,6 +8,7 @@ enum ItemType {
   scripture,
   transistorFMPodcast,
   soundcloudPodcast,
+  anchorFMPodcast,
   devotional,
   unknown
 }
@@ -27,6 +28,7 @@ extension ItemTypeExtensions on ItemType {
         return 'Reading';
       case ItemType.transistorFMPodcast:
       case ItemType.soundcloudPodcast:
+      case ItemType.anchorFMPodcast:
         return 'Podcast';
       case ItemType.devotional:
         return 'Daily Devotional';
