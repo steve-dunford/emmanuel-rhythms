@@ -21,7 +21,8 @@ class ResourcesViewModel extends ChangeNotifier with Disposer {
         final selectedChurch = _localStorageRepository.selectedChurch();
 
         this.resources =
-            resources.where((r) => r.churches.contains(selectedChurch))
+            resources.where((r) => r.churches.contains(selectedChurch?.name) ||
+                (r.churchesV2 ?? []).contains(selectedChurch?.name))
                 .toList();
         notifyListeners();
       }).disposedBy(disposeBag);
