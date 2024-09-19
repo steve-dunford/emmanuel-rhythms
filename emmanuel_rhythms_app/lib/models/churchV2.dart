@@ -25,7 +25,7 @@ extension ChurchExtensions on ChurchV2 {
       case ChurchV2.emmanuelPortadown:
         return Assets.portadownSelected;
       case ChurchV2.journeyLisburn:
-        return Assets.lurganSelected;
+        return Assets.journeySelected;
     }
   }
 
@@ -36,7 +36,7 @@ extension ChurchExtensions on ChurchV2 {
       case ChurchV2.emmanuelPortadown:
         return Assets.portadownUnselected;
       case ChurchV2.journeyLisburn:
-        return Assets.lurganUnselected;
+        return Assets.journeyUnselected;
     }
   }
 }
