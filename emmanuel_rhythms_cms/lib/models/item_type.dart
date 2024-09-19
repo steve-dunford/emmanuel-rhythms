@@ -27,11 +27,11 @@ extension ItemTypeExtensions on ItemType {
       case ItemType.scripture:
         return 'Scripture Reading';
       case ItemType.transistorFMPodcast:
-        return 'Transistor.fm Podcast';
+        return 'Emmanuel Lurgan Podcast';
       case ItemType.soundcloudPodcast:
-        return 'Soundcloud Podcast';
+        return 'Emmanuel Portadown Podcast';
       case ItemType.anchorFMPodcast:
-        return 'Anchor.FM Podcast';
+        return 'Journey Lisburn Podcast';
       case ItemType.devotional:
         return 'Devotional';
     }

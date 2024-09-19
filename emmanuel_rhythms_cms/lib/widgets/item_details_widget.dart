@@ -493,19 +493,13 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
       ItemType.transistorFMPodcast,
       ItemType.soundcloudPodcast
     ].contains(viewModel.selectedItemType.itemType)) {
-      final caption = viewModel.selectedItemType.itemType ==
-              ItemType.transistorFMPodcast
-          ? 'Transistor.fm URL:'
-          : viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast
-              ? 'Soundcloud URL:'
-              : 'Anchor.FM URL:';
       return [
         TableRow(
           children: [
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child:
-                  Text(caption, style: Theme.of(context).textTheme.bodyText1),
+                  Text('Episode URL:', style: Theme.of(context).textTheme.bodyText1),
             ),
             TableCell(
               child: Padding(
