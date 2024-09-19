@@ -68,8 +68,11 @@ class ChurchSelectionPage extends StatelessWidget {
                                   child: GestureDetector(
                                       onTap: () => viewModel
                                           .setSelectedChurch(church),
-                                      child: Image.asset(
-                                          viewModel.isChurchSelected(church) ? church.selectedImageName : church.unselectedImageName
+                                      child: SizedBox(
+                                        height: church.imageHeight,
+                                        child: Image.asset(
+                                            viewModel.isChurchSelected(church) ? church.selectedImageName : church.unselectedImageName
+                                        ),
                                       )
 
                                   ),
