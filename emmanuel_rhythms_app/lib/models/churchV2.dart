@@ -29,6 +29,16 @@ extension ChurchExtensions on ChurchV2 {
     }
   }
 
+  double get imageHeight {
+    switch(this) {
+      case ChurchV2.emmanuelLurgan:
+      case ChurchV2.emmanuelPortadown:
+        return 210;
+      case ChurchV2.journeyLisburn:
+        return 160;
+    }
+  }
+
   String get unselectedImageName {
     switch(this) {
       case ChurchV2.emmanuelLurgan:
