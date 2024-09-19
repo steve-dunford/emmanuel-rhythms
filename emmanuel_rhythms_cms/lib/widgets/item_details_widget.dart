@@ -1,9 +1,8 @@
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:emmanuel_rhythms_cms/common/app_colours.dart';
-import 'package:emmanuel_rhythms_cms/common/assets.dart';
 import 'package:emmanuel_rhythms_cms/common/text_style.dart';
 import 'package:emmanuel_rhythms_cms/common/widgets/themed_button.dart';
-import 'package:emmanuel_rhythms_cms/models/church.dart';
+import 'package:emmanuel_rhythms_cms/models/church_v2.dart';
 import 'package:emmanuel_rhythms_cms/models/download_type.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
@@ -16,7 +15,6 @@ import 'package:emmanuel_rhythms_cms/widgets/upload_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'dart:html' as html;
@@ -249,7 +247,7 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                                     const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Wrap(
                                     runAlignment: WrapAlignment.center,
-                                    children: Church.values
+                                    children: ChurchV2.values
                                         .map((church) => Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -490,20 +488,18 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
           ],
         )
       ];
-    } else if (viewModel.selectedItemType.itemType ==
-            ItemType.transistorFMPodcast ||
-        viewModel.selectedItemType.itemType == ItemType.soundcloudPodcast) {
-      final caption =
-          viewModel.selectedItemType.itemType == ItemType.transistorFMPodcast
-              ? 'Transistor.fm URL:'
-              : 'Soundcloud URL:';
+    } else if ([
+      ItemType.anchorFMPodcast,
+      ItemType.transistorFMPodcast,
+      ItemType.soundcloudPodcast
+    ].contains(viewModel.selectedItemType.itemType)) {
       return [
         TableRow(
           children: [
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child:
-                  Text(caption, style: Theme.of(context).textTheme.bodyText1),
+                  Text('Episode URL:', style: Theme.of(context).textTheme.bodyText1),
             ),
             TableCell(
               child: Padding(
@@ -539,20 +535,18 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
         ])
       ];
     } else if (viewModel.selectedItemType.itemType == ItemType.download) {
-      return [
-        _uploadRow(viewModel, 'File:', DownloadType.fileDownload)
-      ];
+      return [_uploadRow(viewModel, 'File:', DownloadType.fileDownload)];
     }
     return [];
   }
 
-  TableRow _uploadRow(ItemDetailsViewModel viewModel, String caption, DownloadType type) =>
+  TableRow _uploadRow(
+          ItemDetailsViewModel viewModel, String caption, DownloadType type) =>
       TableRow(
         children: [
           TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
-            child:
-            Text(caption, style: Theme.of(context).textTheme.bodyText1),
+            child: Text(caption, style: Theme.of(context).textTheme.bodyText1),
           ),
           TableCell(
             child: Padding(
@@ -605,7 +599,8 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
         ))
       ]),
       _uploadRow(viewModel, 'Devotional Audio:', DownloadType.devotionalAudio),
-      _uploadRow(viewModel, 'Devotional Transcript:', DownloadType.devotionalTranscript),
+      _uploadRow(viewModel, 'Devotional Transcript:',
+          DownloadType.devotionalTranscript),
     ];
   }
 }

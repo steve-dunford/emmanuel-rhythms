@@ -10,4 +10,6 @@ class Assets {
   static const lurganUnselected = 'assets/lurgan_unselected.png';
   static const portadownSelected = 'assets/portadown_selected.png';
   static const portadownUnselected = 'assets/portadown_unselected.png';
+  static const journeySelected = 'assets/journey_selected.png';
+  static const journeyUnselected = 'assets/journey_unselected.png';
 }

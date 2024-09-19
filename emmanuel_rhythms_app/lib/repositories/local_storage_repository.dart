@@ -1,13 +1,12 @@
-
-import 'package:emmanuel_rhythms_app/models/church.dart';
+import 'package:emmanuel_rhythms_app/models/churchV2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalStorageRepository {
   bool get hasSelectedChurch;
 
-  Church? selectedChurch();
+  ChurchV2? selectedChurch();
 
-  setSelectedChurch(Church church);
+  setSelectedChurch(ChurchV2 church);
 }
 
 const _selectedChurchKey = 'selectedChurch';
@@ -20,18 +19,18 @@ class SharedPreferencesLocalStorageRepository extends LocalStorageRepository {
   SharedPreferencesLocalStorageRepository(this._sharedPreferences);
 
   @override
-  Church? selectedChurch() {
+  ChurchV2? selectedChurch() {
     final rawValue = _sharedPreferences.getString(_selectedChurchKey);
 
-    if (rawValue != null && Church.values.any((c) => c.name == rawValue)) {
-      return Church.values.firstWhere((c) => c.name == rawValue);
+    if (rawValue != null && ChurchV2.values.any((c) => c.name == rawValue)) {
+      return ChurchV2.values.firstWhere((c) => c.name == rawValue);
     }
 
     return null;
   }
 
   @override
-  setSelectedChurch(Church church) {
+  setSelectedChurch(ChurchV2 church) {
     _sharedPreferences.setString(_selectedChurchKey, church.name);
   }
 

@@ -37,6 +37,13 @@ class ItemDetailsViewModel extends ChangeNotifier {
       });
     }
 
+    if (item.type == ItemType.anchorFMPodcast && item.url != null) {
+      _podcastRepository.getAnchorFMPodcastDetails(item.url!).then((details) {
+        podcastDetails = details;
+        notifyListeners();
+      });
+    }
+
     ItemDetailsViewModel.htmlTemplate().then((template) {
       if (item.description != null) {
         description = template.replaceAll("#CONTENT#", item.description!);

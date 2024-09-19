@@ -27,8 +27,12 @@ mixin _$ScriptureReference {
   int? get fromVerse => throw _privateConstructorUsedError;
   int? get toVerse => throw _privateConstructorUsedError;
 
+  /// Serializes this ScriptureReference to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ScriptureReference
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ScriptureReferenceCopyWith<ScriptureReference> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$ScriptureReferenceCopyWithImpl<$Res, $Val extends ScriptureReference>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ScriptureReference
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$ScriptureReferenceImplCopyWithImpl<$Res>
       $Res Function(_$ScriptureReferenceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ScriptureReference
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -209,12 +217,14 @@ class _$ScriptureReferenceImpl implements _ScriptureReference {
             (identical(other.toVerse, toVerse) || other.toVerse == toVerse));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, book, fromChapter, toChapter, fromVerse, toVerse);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ScriptureReference
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ScriptureReferenceImplCopyWith<_$ScriptureReferenceImpl> get copyWith =>
@@ -253,8 +263,11 @@ abstract class _ScriptureReference implements ScriptureReference {
   int? get fromVerse;
   @override
   int? get toVerse;
+
+  /// Create a copy of ScriptureReference
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ScriptureReferenceImplCopyWith<_$ScriptureReferenceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

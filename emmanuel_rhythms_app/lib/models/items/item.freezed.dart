@@ -35,11 +35,16 @@ mixin _$Item {
   List<ScriptureReference>? get scriptureReferences =>
       throw _privateConstructorUsedError;
   List<Download>? get downloads => throw _privateConstructorUsedError;
-  List<Church> get churches => throw _privateConstructorUsedError;
+  List<String>? get churchesV2 => throw _privateConstructorUsedError;
+  List<String> get churches => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
 
+  /// Serializes this Item to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Item
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ItemCopyWith<Item> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -61,7 +66,8 @@ abstract class $ItemCopyWith<$Res> {
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
       List<Download>? downloads,
-      List<Church> churches,
+      List<String>? churchesV2,
+      List<String> churches,
       List<Tag> tags});
 }
 
@@ -75,6 +81,8 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Item
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -90,6 +98,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
     Object? downloads = freezed,
+    Object? churchesV2 = freezed,
     Object? churches = null,
     Object? tags = null,
   }) {
@@ -142,10 +151,14 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.downloads
           : downloads // ignore: cast_nullable_to_non_nullable
               as List<Download>?,
+      churchesV2: freezed == churchesV2
+          ? _value.churchesV2
+          : churchesV2 // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       churches: null == churches
           ? _value.churches
           : churches // ignore: cast_nullable_to_non_nullable
-              as List<Church>,
+              as List<String>,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -174,7 +187,8 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
       List<Download>? downloads,
-      List<Church> churches,
+      List<String>? churchesV2,
+      List<String> churches,
       List<Tag> tags});
 }
 
@@ -185,6 +199,8 @@ class __$$ItemImplCopyWithImpl<$Res>
   __$$ItemImplCopyWithImpl(_$ItemImpl _value, $Res Function(_$ItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Item
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -200,6 +216,7 @@ class __$$ItemImplCopyWithImpl<$Res>
     Object? usePodcastDetails = freezed,
     Object? scriptureReferences = freezed,
     Object? downloads = freezed,
+    Object? churchesV2 = freezed,
     Object? churches = null,
     Object? tags = null,
   }) {
@@ -252,10 +269,14 @@ class __$$ItemImplCopyWithImpl<$Res>
           ? _value._downloads
           : downloads // ignore: cast_nullable_to_non_nullable
               as List<Download>?,
+      churchesV2: freezed == churchesV2
+          ? _value._churchesV2
+          : churchesV2 // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       churches: null == churches
           ? _value._churches
           : churches // ignore: cast_nullable_to_non_nullable
-              as List<Church>,
+              as List<String>,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -280,10 +301,12 @@ class _$ItemImpl implements _Item {
       this.usePodcastDetails,
       final List<ScriptureReference>? scriptureReferences,
       final List<Download>? downloads,
-      required final List<Church> churches,
+      final List<String>? churchesV2,
+      required final List<String> churches,
       required final List<Tag> tags})
       : _scriptureReferences = scriptureReferences,
         _downloads = downloads,
+        _churchesV2 = churchesV2,
         _churches = churches,
         _tags = tags;
 
@@ -333,9 +356,19 @@ class _$ItemImpl implements _Item {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Church> _churches;
+  final List<String>? _churchesV2;
   @override
-  List<Church> get churches {
+  List<String>? get churchesV2 {
+    final value = _churchesV2;
+    if (value == null) return null;
+    if (_churchesV2 is EqualUnmodifiableListView) return _churchesV2;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String> _churches;
+  @override
+  List<String> get churches {
     if (_churches is EqualUnmodifiableListView) return _churches;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_churches);
@@ -351,7 +384,7 @@ class _$ItemImpl implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, downloads: $downloads, churches: $churches, tags: $tags)';
+    return 'Item(id: $id, type: $type, title: $title, isPriority: $isPriority, sortOrder: $sortOrder, description: $description, backgroundImage: $backgroundImage, url: $url, downloadFilename: $downloadFilename, usePodcastDetails: $usePodcastDetails, scriptureReferences: $scriptureReferences, downloads: $downloads, churchesV2: $churchesV2, churches: $churches, tags: $tags)';
   }
 
   @override
@@ -379,11 +412,13 @@ class _$ItemImpl implements _Item {
                 .equals(other._scriptureReferences, _scriptureReferences) &&
             const DeepCollectionEquality()
                 .equals(other._downloads, _downloads) &&
+            const DeepCollectionEquality()
+                .equals(other._churchesV2, _churchesV2) &&
             const DeepCollectionEquality().equals(other._churches, _churches) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -399,10 +434,13 @@ class _$ItemImpl implements _Item {
       usePodcastDetails,
       const DeepCollectionEquality().hash(_scriptureReferences),
       const DeepCollectionEquality().hash(_downloads),
+      const DeepCollectionEquality().hash(_churchesV2),
       const DeepCollectionEquality().hash(_churches),
       const DeepCollectionEquality().hash(_tags));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Item
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ItemImplCopyWith<_$ItemImpl> get copyWith =>
@@ -430,7 +468,8 @@ abstract class _Item implements Item {
       final bool? usePodcastDetails,
       final List<ScriptureReference>? scriptureReferences,
       final List<Download>? downloads,
-      required final List<Church> churches,
+      final List<String>? churchesV2,
+      required final List<String> churches,
       required final List<Tag> tags}) = _$ItemImpl;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$ItemImpl.fromJson;
@@ -453,19 +492,24 @@ abstract class _Item implements Item {
   @override
   String? get url;
   @override
-  String? get downloadFilename;
-  @override //Deprecated, use downloads property
+  String? get downloadFilename; //Deprecated, use downloads property
+  @override
   bool? get usePodcastDetails;
   @override
   List<ScriptureReference>? get scriptureReferences;
   @override
   List<Download>? get downloads;
   @override
-  List<Church> get churches;
+  List<String>? get churchesV2;
+  @override
+  List<String> get churches;
   @override
   List<Tag> get tags;
+
+  /// Create a copy of Item
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ItemImplCopyWith<_$ItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -8,6 +8,7 @@ enum ItemType {
   scripture,
   transistorFMPodcast,
   soundcloudPodcast,
+  anchorFMPodcast,
   devotional
 }
 
@@ -26,9 +27,11 @@ extension ItemTypeExtensions on ItemType {
       case ItemType.scripture:
         return 'Scripture Reading';
       case ItemType.transistorFMPodcast:
-        return 'Transistor.fm Podcast';
+        return 'Emmanuel Lurgan Podcast';
       case ItemType.soundcloudPodcast:
-        return 'Soundcloud Podcast';
+        return 'Emmanuel Portadown Podcast';
+      case ItemType.anchorFMPodcast:
+        return 'Journey Lisburn Podcast';
       case ItemType.devotional:
         return 'Devotional';
     }
@@ -47,6 +50,7 @@ extension ItemTypeExtensions on ItemType {
         return Colors.red;
       case ItemType.transistorFMPodcast:
       case ItemType.soundcloudPodcast:
+      case ItemType.anchorFMPodcast:
         return Colors.green;
       case ItemType.devotional:
         return Colors.cyan;

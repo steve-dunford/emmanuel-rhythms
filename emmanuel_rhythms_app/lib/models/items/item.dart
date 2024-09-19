@@ -1,5 +1,4 @@
 import 'package:emmanuel_rhythms_app/common/converters/item_type_converter.dart';
-import 'package:emmanuel_rhythms_app/models/church.dart';
 import 'package:emmanuel_rhythms_app/models/download.dart';
 import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/models/scripture_reference.dart';
@@ -25,7 +24,8 @@ class Item with _$Item {
       bool? usePodcastDetails,
       List<ScriptureReference>? scriptureReferences,
       List<Download>? downloads,
-      required List<Church> churches,
+      List<String>? churchesV2,
+      required List<String> churches,
       required List<Tag> tags}) = _Item;
 
   factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);

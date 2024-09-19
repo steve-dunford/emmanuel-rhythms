@@ -1,5 +1,5 @@
 import 'package:emmanuel_rhythms_app/common/app_colours.dart';
-import 'package:emmanuel_rhythms_app/models/church.dart';
+import 'package:emmanuel_rhythms_app/models/churchV2.dart';
 import 'package:emmanuel_rhythms_app/pages/home_page.dart';
 import 'package:emmanuel_rhythms_app/pages/notification_consent_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
@@ -40,11 +40,20 @@ class ChurchSelectionPage extends StatelessWidget {
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ShaderMask(
+                          shaderCallback: (Rect rect) {
+                            return const LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Colors.transparent, AppColours.lightGrey],
+                              stops: [0.9, 1.0],
+                            ).createShader(rect);
+                          },
+                          blendMode: BlendMode.dstOut,
+                          child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 Text(
@@ -52,7 +61,7 @@ class ChurchSelectionPage extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context).textTheme.bodyMedium),
                                 const SizedBox(height: 20),
-                                ...Church.values
+                                ...ChurchV2.values
                                     .map((church) => Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8.0),
@@ -66,33 +75,36 @@ class ChurchSelectionPage extends StatelessWidget {
                                   ),
                                 ))
                                     .toList(),
+                                const SizedBox(height: 40),
                               ],
                             ),
                           ),
-                          const Spacer(),
-                          StandardButton(
-                            onTap: () async {
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      StandardButton(
+                        onTap: () async {
 
-                              GetIt.I<AnalyticsRepository>().track('church_selected', {
-                                'church': viewModel.selectedChurch?.name ?? 'none'
-                              });
+                          GetIt.I<AnalyticsRepository>().track('church_selected', {
+                            'church': viewModel.selectedChurch?.name ?? 'none'
+                          });
 
-                              if(args.isInitialSelection) {
-                                if (await Permission.notification.isDenied) {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(NotificationConsentPage.route);
-                                } else {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(HomePage.route);
-                                }
-                              } else {
-                                Navigator.of(context).pop();
-                              }
-                            },
-                            text: 'CONFIRM',
-                            isEnabled: viewModel.hasSelectedChurch,
-                          ),
-                        ]),
+                          if(args.isInitialSelection) {
+                            if (await Permission.notification.isDenied) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(NotificationConsentPage.route);
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(HomePage.route);
+                            }
+                          } else {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        text: 'CONFIRM',
+                        isEnabled: viewModel.hasSelectedChurch,
+                      ),
+                    ],
                   ),
                 ),
               ));

@@ -114,6 +114,7 @@ class ItemDetailsPage extends StatelessWidget {
         return _download(context, viewModel);
       case ItemType.transistorFMPodcast:
       case ItemType.soundcloudPodcast:
+      case ItemType.anchorFMPodcast:
         return _podcastPlayer(context, viewModel);
       case ItemType.devotional:
         return _devotional(context, viewModel);
@@ -162,9 +163,11 @@ class ItemDetailsPage extends StatelessWidget {
       children: [
         if (viewModel.showPodcastDetails && details.title != null) ...[],
         if (viewModel.showPodcastDetails && details.description != null) ...[
-          Text(details.description!,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall),
+          viewModel.item.type == ItemType.anchorFMPodcast
+              ? Html(data: details.description)
+              : Text(details.description!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 20),
         ],
         if (details.audioFileUrl != null) AudioWidget(podcast: details!)
@@ -236,7 +239,8 @@ class ItemDetailsPage extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 30),
-              Text('DEVOTIONAL', style: Theme.of(context).textTheme.headlineMedium),
+              Text('DEVOTIONAL',
+                  style: Theme.of(context).textTheme.headlineMedium),
             ],
           ),
         if (viewModel.hasDevotionalAudio())

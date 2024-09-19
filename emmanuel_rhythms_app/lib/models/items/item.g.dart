@@ -23,9 +23,11 @@ _$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
       downloads: (json['downloads'] as List<dynamic>?)
           ?.map((e) => Download.fromJson(e as Map<String, dynamic>))
           .toList(),
-      churches: (json['churches'] as List<dynamic>)
-          .map((e) => $enumDecode(_$ChurchEnumMap, e))
+      churchesV2: (json['churchesV2'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
+      churches:
+          (json['churches'] as List<dynamic>).map((e) => e as String).toList(),
       tags: (json['tags'] as List<dynamic>)
           .map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -46,11 +48,7 @@ Map<String, dynamic> _$$ItemImplToJson(_$ItemImpl instance) =>
       'scriptureReferences':
           instance.scriptureReferences?.map((e) => e.toJson()).toList(),
       'downloads': instance.downloads?.map((e) => e.toJson()).toList(),
-      'churches': instance.churches.map((e) => _$ChurchEnumMap[e]!).toList(),
+      'churchesV2': instance.churchesV2,
+      'churches': instance.churches,
       'tags': instance.tags.map((e) => e.toJson()).toList(),
     };
-
-const _$ChurchEnumMap = {
-  Church.emmanuelLurgan: 'emmanuelLurgan',
-  Church.emmanuelPortadown: 'emmanuelPortadown',
-};
