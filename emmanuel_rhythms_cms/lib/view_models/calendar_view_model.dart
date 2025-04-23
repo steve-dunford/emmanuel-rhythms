@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:emmanuel_rhythms_cms/common/disposer.dart';
 import 'package:emmanuel_rhythms_cms/common/extensions/datetime_extensions.dart';
+import 'package:emmanuel_rhythms_cms/common/extensions/list_extensions.dart';
+import 'package:emmanuel_rhythms_cms/common/log_service.dart';
 import 'package:emmanuel_rhythms_cms/models/item_type.dart';
 import 'package:emmanuel_rhythms_cms/models/items/daily_content.dart';
 import 'package:emmanuel_rhythms_cms/models/items/item.dart';
 import 'package:emmanuel_rhythms_cms/models/items/daily_content_instance.dart';
 import 'package:emmanuel_rhythms_cms/repositories/daily_content_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class CalendarViewModel extends ChangeNotifier with Disposer {
   final DailyContentRepository _itemRepository;
@@ -56,14 +59,18 @@ class CalendarViewModel extends ChangeNotifier with Disposer {
 
     final events = rawInstances.map((instance) {
       final dailyContent =
-          (_dailyContent ?? []).firstWhere((content) => content.dailyContentId == instance.dailyContentId);
+          (_dailyContent ?? []).firstOrNullWhere((content) => content.dailyContentId == instance.dailyContentId);
 
+      if(dailyContent == null) {
+        GetIt.I.get<LogService>().debug("SD123");
+
+      }
       return CalendarEventData<DailyContent>(
-          title: dailyContent.item.title,
+          title: dailyContent!.item.title,
           date: instance.date,
           event: dailyContent,
-          startTime: dailyContent.startDate,
-          endTime: dailyContent.endDate,
+          startTime: dailyContent!.startDate,
+          endTime: dailyContent!.endDate,
           color: dailyContent.item.type.color);
     }).toList();
 

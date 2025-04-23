@@ -15,7 +15,7 @@ await ImportDevotionals();
 async Task ImportDevotionals()
 {
     //Read CSV
-    using (var reader = new StreamReader("devotionals.csv"))
+    using (var reader = new StreamReader("devotionals_2025.csv"))
     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
     {
         var devotionals = csv.GetRecords<dynamic>();
@@ -29,14 +29,9 @@ async Task ImportDevotionals()
         {
             var day = int.Parse(devotional.day);
 
-            if (day <= 32)
-            {
-                continue;
-            }
-
             Console.WriteLine("Processing devotional " + day);
             
-            var date = new DateTime(2024, 1, 1, 0,0,0,DateTimeKind.Utc).AddDays(day - 1);
+            var date = new DateTime(2025, 1, 1, 0,0,0,DateTimeKind.Utc).AddDays(day - 1);
 
             var dcId = Guid.NewGuid().ToString();
             var dcInstanceId = Guid.NewGuid().ToString();
@@ -53,6 +48,12 @@ async Task ImportDevotionals()
                 {
                     "emmanuelLurgan",
                     "emmanuelPortadown"
+                },
+                churchesV2 = new string[]
+                {
+                    "emmanuelLurgan",
+                    "emmanuelPortadown",
+                    "journeyLisburn"
                 },
                 scriptureReferences = new[]
                 {
