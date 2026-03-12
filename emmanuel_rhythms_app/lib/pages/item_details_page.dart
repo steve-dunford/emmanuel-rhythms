@@ -143,11 +143,11 @@ class ItemDetailsPage extends StatelessWidget {
   }
 
   Widget _youtubeVideo(BuildContext context, ItemDetailsViewModel viewModel) {
-    if (viewModel.youtubeVideoUrl == null) {
+    if (viewModel.youtubeVideoId == null) {
       return Container();
     }
     return VideoWidget(
-      videoId: viewModel.youtubeVideoUrl!,
+      videoId: viewModel.youtubeVideoId!,
       videoType: VideoType.youTube,
     );
   }

@@ -15,7 +15,7 @@ await ImportDevotionals();
 async Task ImportDevotionals()
 {
     //Read CSV
-    using (var reader = new StreamReader("devotionals_2025.csv"))
+    using (var reader = new StreamReader("devotionals_2026.csv"))
     using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
     {
         var devotionals = csv.GetRecords<dynamic>();
@@ -31,7 +31,7 @@ async Task ImportDevotionals()
 
             Console.WriteLine("Processing devotional " + day);
             
-            var date = new DateTime(2025, 1, 1, 0,0,0,DateTimeKind.Utc).AddDays(day - 1);
+            var date = new DateTime(2026, 1, 1, 0,0,0,DateTimeKind.Utc).AddDays(day - 1);
 
             var dcId = Guid.NewGuid().ToString();
             var dcInstanceId = Guid.NewGuid().ToString();
@@ -62,7 +62,9 @@ async Task ImportDevotionals()
                         id = Guid.NewGuid().ToString(),
                         book = devotional.book,
                         fromChapter = devotional.chapterFrom != String.Empty ? int.Parse(devotional.chapterFrom) : null,
-                        toChapter = devotional.chapterTo != String.Empty ? int.Parse(devotional.chapterTo) : null
+                        toChapter = devotional.chapterTo != String.Empty ? int.Parse(devotional.chapterTo) : null,
+                        fromVerse = devotional.verseFrom != String.Empty ? int.Parse(devotional.verseFrom) : null,
+                        toVerse = devotional.verseTo != String.Empty ? int.Parse(devotional.verseTo) : null
                     }
                 },
                 title = "Bible Reading Plan",

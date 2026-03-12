@@ -1,7 +1,7 @@
 import 'package:emmanuel_rhythms_app/models/video_type.dart';
 import 'package:flutter/material.dart';
-import 'package:pod_player/pod_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 
 class VideoWidget extends StatefulWidget {
@@ -16,12 +16,15 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-  late final PodPlayerController _controller;
-  bool isLoading = true;
+  late final _controller = YoutubePlayerController(
+      initialVideoId: widget.videoId,
+      flags: const YoutubePlayerFlags(
+      autoPlay: true,
+    ),
+  );
 
   @override
   void initState() {
-    loadVideo();
     WakelockPlus.enable();
     super.initState();
   }
@@ -34,25 +37,10 @@ class _VideoWidgetState extends State<VideoWidget> {
     super.deactivate();
   }
 
-  void loadVideo() async {
-    final urls = widget.videoType == VideoType.vimeo ? await PodPlayerController
-        .getVimeoUrls(widget.videoId) :
-    await PodPlayerController.getYoutubeUrls(widget.videoId);
 
-    setState(() => isLoading = false);
-    _controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.networkQualityUrls(videoUrls: urls!),
-      podPlayerConfig: const PodPlayerConfig(
-        videoQualityPriority: [360],
-      ),
-    )
-      ..initialise();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Center(child: PodVideoPlayer(controller: _controller));
+    return Center(child: YoutubePlayer(controller: _controller));
   }
 }
