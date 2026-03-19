@@ -8,6 +8,7 @@ import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
 import 'package:emmanuel_rhythms_app/pages/notification_consent_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resource_categories_page.dart';
 import 'package:emmanuel_rhythms_app/pages/resources_page.dart';
+import 'package:emmanuel_rhythms_app/pages/video_item_details_page.dart';
 import 'package:emmanuel_rhythms_app/repositories/local_storage_repository.dart';
 import 'package:emmanuel_rhythms_app/view_models/tags_view_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -109,6 +110,9 @@ class MyApp extends StatelessWidget {
         break;
       case ItemDetailsPage.route:
         page = ItemDetailsPage();
+        break;
+      case VideoItemDetailsPage.route:
+        page = VideoItemDetailsPage();
         break;
       case NotificationConsentPage.route:
         page = NotificationConsentPage();
