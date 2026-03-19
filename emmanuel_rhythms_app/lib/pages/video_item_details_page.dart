@@ -21,8 +21,17 @@ class VideoItemDetailsPage extends StatefulWidget {
 
 class _VideoItemDetailsPageState extends State<VideoItemDetailsPage> {
   YoutubePlayerController? _youtubeController;
-
   bool _initialized = false;
+  bool _isFullScreen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure the page starts in portrait mode
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
 
   @override
   void didChangeDependencies() {
@@ -42,17 +51,49 @@ class _VideoItemDetailsPageState extends State<VideoItemDetailsPage> {
           initialVideoId: youtubeVideoId,
           flags: const YoutubePlayerFlags(
             autoPlay: true,
+            useHybridComposition: false, // Disabling this often fixes orientation issues on Android
           ),
-        );
+        )..addListener(_onYoutubeControllerChange);
       }
     }
 
     _initialized = true;
   }
 
+  void _onYoutubeControllerChange() {
+    if (_youtubeController == null) return;
+
+    if (_youtubeController!.value.isFullScreen != _isFullScreen) {
+      setState(() {
+        _isFullScreen = _youtubeController!.value.isFullScreen;
+      });
+
+      if (_isFullScreen) {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ]);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      } else {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+        ]);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      }
+    }
+  }
+
   @override
   void dispose() {
+    _youtubeController?.removeListener(_onYoutubeControllerChange);
     _youtubeController?.dispose();
+
+    // Reset to portrait and show system UI when leaving the page
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     super.dispose();
   }
 
@@ -67,20 +108,11 @@ class _VideoItemDetailsPageState extends State<VideoItemDetailsPage> {
       args.item,
     );
 
-
     // YouTube: wrap the entire page in YoutubePlayerBuilder.
     if (viewModel.item.type == ItemType.youtubeVideo &&
         _youtubeController != null) {
       return YoutubePlayerBuilder(
         player: YoutubePlayer(controller: _youtubeController!),
-        onEnterFullScreen: () {
-          SystemChrome.setEnabledSystemUIMode(
-            SystemUiMode.immersiveSticky,
-          );
-        },
-        onExitFullScreen: () {
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        },
         builder: (context, player) {
           return _buildScaffold(
             context,
@@ -107,7 +139,6 @@ class _VideoItemDetailsPageState extends State<VideoItemDetailsPage> {
     }
 
     return _buildScaffold(context, viewModel);
-
   }
 
   Widget _buildScaffold(
@@ -116,40 +147,47 @@ class _VideoItemDetailsPageState extends State<VideoItemDetailsPage> {
     Widget? videoWidget,
   }) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-        ),
-        backgroundColor: Colors.white,
-        foregroundColor: AppColours.emmanuelBlue,
-        centerTitle: true,
-        title: Text(
-          viewModel.pageTitle.toUpperCase(),
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: _isFullScreen
+          ? null
+          : AppBar(
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.white,
+              ),
+              backgroundColor: Colors.white,
+              foregroundColor: AppColours.emmanuelBlue,
+              centerTitle: true,
+              title: Text(
+                viewModel.pageTitle.toUpperCase(),
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              automaticallyImplyLeading: true,
+            ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: _isFullScreen
+            ? EdgeInsets.zero
+            : const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: SingleChildScrollView(
+          physics: _isFullScreen
+              ? const NeverScrollableScrollPhysics()
+              : const ScrollPhysics(),
           child: Column(
             children: [
-              if (viewModel.title != null)
+              if (!_isFullScreen && viewModel.title != null)
                 Text(
                   viewModel.title!,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-              if (viewModel.item.description != null)
+              if (!_isFullScreen && viewModel.item.description != null)
                 Html(
                   data: viewModel.item.description,
                   onLinkTap: (link, map, element) {
                     viewModel.openLink(link);
                   },
                 ),
-              const SizedBox(height: 10),
+              if (!_isFullScreen) const SizedBox(height: 10),
               videoWidget ?? const SizedBox.shrink(),
-              const SizedBox(height: 10),
-              if (viewModel.item.tags.isNotEmpty)
+              if (!_isFullScreen) const SizedBox(height: 10),
+              if (!_isFullScreen && viewModel.item.tags.isNotEmpty)
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
@@ -197,4 +235,3 @@ class VideoItemDetailsArguments {
 
   VideoItemDetailsArguments(this.item);
 }
-
