@@ -2,6 +2,8 @@ import 'package:emmanuel_rhythms_app/common/app_colours.dart';
 import 'package:emmanuel_rhythms_app/common/app_text_style.dart';
 import 'package:emmanuel_rhythms_app/models/items/item.dart';
 import 'package:emmanuel_rhythms_app/pages/item_details_page.dart';
+import 'package:emmanuel_rhythms_app/pages/video_item_details_page.dart';
+import 'package:emmanuel_rhythms_app/models/items/item_type.dart';
 import 'package:emmanuel_rhythms_app/repositories/analytics_repository.dart';
 import 'package:emmanuel_rhythms_app/style/assets.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +38,15 @@ class ItemListWidget extends StatelessWidget {
                           'content_type':item.type.toString()
                         });
 
+                        final isVideo = item.type == ItemType.youtubeVideo ||
+                            item.type == ItemType.vimeoVideo;
+
                         Navigator.of(context).pushNamed(
-                          ItemDetailsPage.route,
-                          arguments: ItemDetailsArguments(item));
+                          isVideo ? VideoItemDetailsPage.route : ItemDetailsPage.route,
+                          arguments: isVideo
+                              ? VideoItemDetailsArguments(item)
+                              : ItemDetailsArguments(item),
+                        );
                       },
                       child: AspectRatio(
                         aspectRatio: 1.778,
